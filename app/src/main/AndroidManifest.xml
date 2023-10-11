@@ -13,6 +13,18 @@
         android:theme="@style/Theme.FinceMobile"
         tools:targetApi="31">
         <activity
+            android:name=".AjustesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_ajustes" />
+        <activity
+            android:name=".ui.AjustesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_ajustes" />
+        <activity
+            android:name=".InterfazActivity"
+            android:exported="false"
+            android:label="@string/title_activity_interfaz" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
