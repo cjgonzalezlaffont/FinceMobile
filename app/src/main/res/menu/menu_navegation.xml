@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">|
         <item
-            android:id="@+id/menu_item1"
-            android:title="Inicio" />
+                android:id="@+id/inicio"
+                android:icon="@drawable/home_icon"
+                android:title="Inicio" />
         <item
-            android:id="@+id/menu_item2"
-            android:title="Cartera" />
-        <!-- Agrega más elementos de menú si es necesario -->
+                android:id="@+id/cartera"
+                android:icon="@drawable/cartera_icon"
+                android:title="Cartera" />
         <item
-        android:id="@+id/menu_item3"
-        android:title="Presupuesto" />
+                android:id="@+id/presupuesto"
+                android:icon="@drawable/presupuesto_icon"
+                android:title="Presupuesto" />
         <item
-            android:id="@+id/menu_item4"
-            android:title="Perfil" />
-
-
+                android:id="@+id/perfil"
+                android:icon="@drawable/perfil_icon"
+                android:title="Perfil" />
 </menu>
