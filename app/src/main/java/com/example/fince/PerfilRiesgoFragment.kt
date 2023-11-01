@@ -1,10 +1,26 @@
 package com.example.fince
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+
+enum class PerfilRiesgo {
+    CONSERVADOR,MODERADO,AGRESIVO
+}
+
+fun definirPerfil(perfil:PerfilRiesgo): Boolean{
+    /*
+        ACA SE DEBE LLAMAR A LA API PARA COLOCAR EL PERFIL DE RIESGO QUE SELECCIONO EL USUARIO
+        Si salio bien: hace */ return true /*
+        si no: return false
+     */
+}
 
 class PerfilRiesgoFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +34,49 @@ class PerfilRiesgoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_perfil_riesgo, container, false)
+        val view: View = inflater!!.inflate(R.layout.fragment_perfil_riesgo, container, false)
+        val intent = Intent(context, InterfazActivity::class.java)
+        val btn_conservador: Button=view.findViewById(R.id.btn_conservador);
+        val btn_moderado: Button=view.findViewById(R.id.btn_moderado);
+        val btn_agresivo: Button=view.findViewById(R.id.btn_agresivo);
+
+        btn_conservador.setOnClickListener {
+            if(definirPerfil(PerfilRiesgo.CONSERVADOR)){
+                startActivity(intent)
+                requireActivity().finish();
+            }else {
+                Toast.makeText(
+                    requireContext(),
+                    "Error al seleccionar el perfil de riesgo",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        btn_moderado.setOnClickListener {
+            if(definirPerfil(PerfilRiesgo.MODERADO)){
+                startActivity(intent)
+                requireActivity().finish();
+            }else {
+                Toast.makeText(
+                    requireContext(),
+                    "Error al seleccionar el perfil de riesgo",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        btn_agresivo.setOnClickListener {
+            if(definirPerfil(PerfilRiesgo.AGRESIVO)){
+                startActivity(intent)
+                requireActivity().finish();
+            }else {
+                Toast.makeText(
+                    requireContext(),
+                    "Error al seleccionar el perfil de riesgo",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        return view
     }
 }

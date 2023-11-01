@@ -14,14 +14,14 @@
         android:gravity="center">
 
         <EditText
-            android:id="@+id/et_username"
+            android:id="@+id/txtUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Usuario"
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/et_password"
+            android:id="@+id/txtPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Contraseña"

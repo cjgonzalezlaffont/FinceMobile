@@ -27,7 +27,7 @@
             android:text="Nombre" />
 
         <EditText
-            android:id="@+id/et_nombre"
+            android:id="@+id/txtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
@@ -38,7 +38,7 @@
             android:text="Mail" />
 
         <EditText
-            android:id="@+id/et_mail"
+            android:id="@+id/txtMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
@@ -49,7 +49,7 @@
             android:text="Contraseña" />
 
         <EditText
-            android:id="@+id/et_password"
+            android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
@@ -60,7 +60,7 @@
             android:text="Repetir Contraseña" />
 
         <EditText
-            android:id="@+id/et_confirm_password"
+            android:id="@+id/txtConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
@@ -71,7 +71,7 @@
             android:text="Fecha de Nacimiento" />
 
         <EditText
-            android:id="@+id/et_fecha_nacimiento"
+            android:id="@+id/txtFecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date" />
@@ -82,7 +82,7 @@
             android:text="Dirección" />
 
         <EditText
-            android:id="@+id/et_direccion"
+            android:id="@+id/txtDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
@@ -93,7 +93,7 @@
             android:text="Teléfono" />
 
         <EditText
-            android:id="@+id/et_telefono"
+            android:id="@+id/txtTelefono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="phone" />

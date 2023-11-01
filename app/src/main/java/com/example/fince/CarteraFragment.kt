@@ -17,7 +17,6 @@ fun getElementoFondo(fondo: String, posicion:String): String {
 }
 
 class CarteraFragment : Fragment() {
-    @SuppressLint("StringFormatMatches")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,7 +39,6 @@ class CarteraFragment : Fragment() {
             fondos.add(getElementoFondo("FONDO A","2500"))
             /*
      */
-
 
         val adaptadorAcciones = ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, acciones)
         val adaptadorFondos = ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, fondos)

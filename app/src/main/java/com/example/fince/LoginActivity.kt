@@ -10,6 +10,17 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        supportFragmentManager.beginTransaction().add(R.id.container,LoginFragment()).commit();
+        var estaLogueado=false;
+        /*
+            Aca iria el codigo para verificar si esta logueado ya
+            si ese es el caso pone estaLogueado como true
+         */
+        if(estaLogueado){
+            val intent = Intent(this, InterfazActivity::class.java)
+            startActivity(intent)
+            this.finish();
+        } else {
+            supportFragmentManager.beginTransaction().add(R.id.container, LoginFragment()).commit();
+        }
     }
 }
