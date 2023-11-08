@@ -2,8 +2,12 @@ package com.example.fince
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import com.example.fince.ui.fragments.CarteraFragment
+import com.example.fince.ui.fragments.PerfilFragment
+import com.example.fince.ui.fragments.PresupuestoFragment
+import com.example.fince.ui.fragments.PrincipalFragment
+import com.example.fince.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class InterfazActivity : AppCompatActivity() {

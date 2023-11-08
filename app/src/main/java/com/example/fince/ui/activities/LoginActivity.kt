@@ -1,9 +1,11 @@
-package com.example.fince
+package com.example.fince.ui.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import com.example.fince.InterfazActivity
+import com.example.fince.R
+import com.example.fince.ui.fragments.LoginFragment
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

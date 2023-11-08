@@ -1,4 +1,4 @@
-package com.example.fince
+package com.example.fince.ui.fragments
 import androidx.fragment.app.Fragment
 
 

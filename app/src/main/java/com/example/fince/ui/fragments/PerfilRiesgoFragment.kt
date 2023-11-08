@@ -1,6 +1,5 @@
-package com.example.fince
+package com.example.fince.ui.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import com.example.fince.R
+import com.example.fince.InterfazActivity
 
 enum class PerfilRiesgo {
     CONSERVADOR,MODERADO,AGRESIVO
 }
 
-fun definirPerfil(perfil:PerfilRiesgo): Boolean{
+fun definirPerfil(perfil: PerfilRiesgo): Boolean{
     /*
         ACA SE DEBE LLAMAR A LA API PARA COLOCAR EL PERFIL DE RIESGO QUE SELECCIONO EL USUARIO
         Si salio bien: hace */ return true /*
