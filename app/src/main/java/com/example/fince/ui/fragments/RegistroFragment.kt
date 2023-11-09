@@ -54,10 +54,10 @@ class RegistroFragment : Fragment() {
                        y de fallar debe colocar en error registro el motivo del error al registrarse
                  */
                 if(registroExitoso) {
-                    val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.container, PerfilRiesgoFragment())
-                    transaction.addToBackStack(null)
-                    transaction.commit()
+                    //val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                    //transaction.replace(R.id.container, PerfilRiesgoFragment())
+                    //transaction.addToBackStack(null)
+                    //transaction.commit()
                 }else {
                     Toast.makeText(requireContext(), "Error al hacer el registro "+errorRegistro, Toast.LENGTH_SHORT).show()
                 }
@@ -66,10 +66,10 @@ class RegistroFragment : Fragment() {
             }
         };
         btn_cancelar.setOnClickListener {
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.container, LoginFragment())
-            transaction.addToBackStack(null)
-            transaction.commit()
+            //val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            //transaction.replace(R.id.container, LoginFragment())
+            //transaction.addToBackStack(null)
+            //transaction.commit()
         };
         return view
     }

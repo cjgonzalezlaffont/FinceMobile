@@ -24,9 +24,9 @@ data class ElementoLista(val opcion: String, val descripcion: String)
 class PerfilFragment : Fragment() {
     fun abrirConfigFragment(fragment: Fragment){
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        //transaction.replace(R.id.container, fragment)
+        //transaction.addToBackStack(null)
+        //transaction.commit()
     }
     override fun onCreateView(
         inflater: LayoutInflater,

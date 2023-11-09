@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import com.example.fince.R
-import com.example.fince.InterfazActivity
+import com.example.fince.ui.activities.InterfazActivity
 
 enum class PerfilRiesgo {
     CONSERVADOR,MODERADO,AGRESIVO
