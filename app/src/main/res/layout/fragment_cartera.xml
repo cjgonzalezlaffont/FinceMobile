@@ -12,7 +12,6 @@
         android:padding="16dp"
         tools:context=".MainActivity">
 
-        <!-- ListView de Acciones -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,12 +19,11 @@
             android:textSize="24sp"
             android:layout_marginBottom="8dp"/>
 
-        <ListView
-            android:id="@+id/listViewAcciones"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rctAcciones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <!-- ListView de Fondos comunes de inversión -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,10 +32,9 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"/>
 
-        <ListView
-            android:id="@+id/listViewFondos"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rctFondos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

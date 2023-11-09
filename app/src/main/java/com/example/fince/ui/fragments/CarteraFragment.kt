@@ -6,15 +6,13 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.fince.R
-
-fun getElementoAccion(empresa: String, cantidad:String,precio:String): String {
-    return "Empresa: "+empresa+" Cantidad: "+cantidad+"\nPrecio: $"+precio;
-}
-
-fun getElementoFondo(fondo: String, posicion:String): String {
-    return "Fondo: "+fondo+"\nPosicion: $"+posicion;
-}
+import com.example.fince.adapters.AccionesAdapter
+import com.example.fince.adapters.ElementoAccionnes
+import com.example.fince.adapters.ElementoFondo
+import com.example.fince.adapters.FondosAdapter
 
 class CarteraFragment : Fragment() {
     override fun onCreateView(
@@ -22,28 +20,31 @@ class CarteraFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_cartera, container, false)
-        var lstAcciones = rootView.findViewById<ListView>(R.id.listViewAcciones)
-        var lstFonndos = rootView.findViewById<ListView>(R.id.listViewFondos)
+        val view = inflater.inflate(R.layout.fragment_cartera, container, false)
 
-        val acciones = ArrayList<String>()
-        val fondos = ArrayList<String>()
+        val rctAcciones = view.findViewById<RecyclerView>(R.id.rctAcciones)
+        rctAcciones.layoutManager = LinearLayoutManager(requireContext())
+        val elementosAcciones = ArrayList<ElementoAccionnes>()
+
+        val rctFondos = view.findViewById<RecyclerView>(R.id.rctFondos)
+        rctFondos.layoutManager = LinearLayoutManager(requireContext())
+        val elementosFondo = ArrayList<ElementoFondo>()
         /*
-            ACA VA EL LLAMADO A LA API QUE TRAE LOS DATOS DE ACCIONES E INVERSION
-            Para agregar acciones
-            */
-            acciones.add(getElementoAccion("Walmart","10","2000"));
-            /*
-            Para agregar fondos de inversion
-            */
-            fondos.add(getElementoFondo("FONDO A","2500"))
-            /*
-     */
+        ACA VA EL LLAMADO A LA API QUE TRAE LOS DATOS DE ACCIONES E INVERSION
+        Para mostrar una accion:
+        */
+        elementosAcciones.add(ElementoAccionnes("Walmart","WMT","10","2000"))
+        /*
+        Para mostrar un fondo de inversion
+        */
+        elementosFondo.add(ElementoFondo("FONDO A","FND","1002"))
 
-        val adaptadorAcciones = ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, acciones)
-        val adaptadorFondos = ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, fondos)
-        lstAcciones.adapter=adaptadorAcciones;
-        lstFonndos.adapter=adaptadorFondos;
-        return rootView
+        val adapterAcciones = AccionesAdapter(elementosAcciones)
+        rctAcciones.adapter = adapterAcciones
+
+        val adapterFondos = FondosAdapter(elementosFondo)
+        rctFondos.adapter = adapterFondos
+
+        return view
     }
 }

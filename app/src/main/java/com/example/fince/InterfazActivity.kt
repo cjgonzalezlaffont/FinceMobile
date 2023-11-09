@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.fince.ui.fragments.CarteraFragment
-import com.example.fince.ui.fragments.PerfilFragment
+import com.example.fince.ui.fragmereturn.PerfilFragment
 import com.example.fince.ui.fragments.PresupuestoFragment
 import com.example.fince.ui.fragments.PrincipalFragment
 import com.example.fince.R
@@ -24,23 +24,20 @@ class InterfazActivity : AppCompatActivity() {
 
         // Agrega aquí el código del BottomNavigationView
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+        bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.inicio -> {
                     val fragment = PrincipalFragment()
                     abrirFargment(fragment);
                 }
-
                 R.id.cartera -> {
                     val fragment = CarteraFragment()
                     abrirFargment(fragment);
                 }
-
                 R.id.presupuesto -> {
                     val fragment = PresupuestoFragment()
                     abrirFargment(fragment);
                 }
-
                 R.id.perfil -> {
                     val fragment = PerfilFragment()
                     abrirFargment(fragment);
