@@ -64,6 +64,18 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
     implementation("androidx.navigation:navigation-compose:$nav_version")
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+
+    // Dagger
+    implementation ("com.google.dagger:dagger:2.46.1")
+    kapt ("com.google.dagger:dagger-compiler:2.46.1")
+
+    // Hilt
+    implementation ("com.google.dagger:hilt-android:2.46.1")
+    kapt ("com.google.dagger:hilt-compiler:2.46.1")
+
+    implementation ("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.google.code.gson:gson:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 }
