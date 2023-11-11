@@ -9,14 +9,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.viewbinding.ViewBinding
 import com.example.fince.R
 import com.example.fince.databinding.FragmentLoginBinding
 import com.example.fince.ui.activities.InterfazActivity
+import com.example.fince.ui.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
@@ -24,6 +27,7 @@ class LoginFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var view : View
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +36,7 @@ class LoginFragment : Fragment() {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         view = binding.root
+        loginViewModel.onCreate()
 
         binding.btnLogin.setOnClickListener {
 

@@ -2,6 +2,7 @@ package com.example.fince.di
 
 import com.example.fince.core.Config
 import com.example.fince.core.InterceptorCustom
+import com.example.fince.data.network.FinceApiClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,5 +42,11 @@ object NetworkModule {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideFinceApiClient(retrofit: Retrofit): FinceApiClient {
+        return retrofit.create(FinceApiClient::class.java)
     }
 }
