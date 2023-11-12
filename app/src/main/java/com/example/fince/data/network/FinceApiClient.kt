@@ -16,4 +16,17 @@ interface FinceApiClient {
     @POST("/api/users/login")
     suspend fun userLogin(@Body user : userLoginModel): Response<UserModel>
 
+    //Stocks
+    @POST("/api/instruments/TODOS")
+    suspend fun getAllInstruments()
+    @POST("api/instruments/cedears")
+    suspend fun  getCedears()
+    @POST("api/instruments/acciones")
+    suspend fun  getStocks()
+    @POST("api/instruments/titulosPublicos")
+    suspend fun  getGovernmentBonds()
+    @POST("api/instruments/obligacionesNegociables")
+    suspend fun  getCorporateBonds()
+    @POST("api/instruments/FCI")
+    suspend fun  getInvestmentFunds()
 }
