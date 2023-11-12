@@ -1,16 +1,19 @@
 package com.example.fince.data.network
 
+import android.util.Log
 import com.example.fince.data.model.UserModel
+import com.example.fince.data.model.UserRegisterModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class FinceService @Inject constructor(private val service:FinceApiClient) {
+class FinceService @Inject constructor(private val service: FinceApiClient) {
 
-    suspend fun userRegister() : UserModel {
+    suspend fun userRegister(user: UserRegisterModel): UserModel {
         return withContext(Dispatchers.IO) {
-            val response = service.userRegister()
-            response.body() ?: UserModel("","","") //ACA NO ME SUENA HACER ESTO, PREGUNTAR
+            val response = service.userRegister(user)
+
+            response.body() ?: UserModel("","", "", "", "", 0,0,0)
         }
     }
 }

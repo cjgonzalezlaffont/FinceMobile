@@ -7,7 +7,7 @@ import com.example.fince.R
 import com.example.fince.ui.fragments.LoginFragment
 import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

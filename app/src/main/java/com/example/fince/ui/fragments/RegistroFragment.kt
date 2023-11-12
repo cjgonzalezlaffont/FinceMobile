@@ -1,6 +1,8 @@
 package com.example.fince.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +10,24 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.fince.R
+import com.example.fince.data.model.UserModel
+import com.example.fince.data.model.UserRegisterModel
+import com.example.fince.databinding.FragmentLoginBinding
+import com.example.fince.databinding.FragmentRegistroBinding
+import com.example.fince.ui.viewmodel.LoginViewModel
+import com.example.fince.ui.viewmodel.RegisterViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class RegistroFragment : Fragment() {
+
+    private var _binding: FragmentRegistroBinding ? = null
+    private val binding get() = _binding!!
+    private lateinit var view : View
+    private val registerViewModel: RegisterViewModel by viewModels()
+    private var userResponse = UserModel("", "", "", "", "", 0,0,0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,54 +38,37 @@ class RegistroFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater!!.inflate(R.layout.fragment_registro, container, false)
-        val btn_registrarse: Button = view.findViewById(R.id.btn_registrarse)
-        val btn_cancelar: Button = view.findViewById(R.id.btn_cancelar)
+        _binding = FragmentRegistroBinding.inflate(inflater, container, false)
+        view = binding.root
 
-        val txtNombre : EditText = view.findViewById(R.id.txtNombre)
-        val txtMail : EditText = view.findViewById(R.id.txtMail)
-        val txtPassword : EditText = view.findViewById(R.id.txtPassword)
-        val txtConfirmPassword : EditText = view.findViewById(R.id.txtConfirmPassword)
-        val txtFecha : EditText = view.findViewById(R.id.txtFecha)
-        val txtDireccion : EditText = view.findViewById(R.id.txtDireccion)
-        val txtTelefono : EditText = view.findViewById(R.id.txtTelefono)
+        binding.btnRegistrarse.setOnClickListener {
 
+            val nombre = binding.txtNombre.text.toString()
+            val apellido = binding.txtApellido.text.toString()
+            val mail = binding.txtMail.text.toString()
+            val password = binding.txtPassword.text.toString()
+            val confirmPassword = binding.txtConfirmPassword.text.toString()
+            val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
 
+            if(!nombre.equals("") && !mail.equals("") && !password.equals("") && !confirmPassword.equals("")){
 
-        btn_registrarse.setOnClickListener {
-            val nombre= txtNombre.text.toString()
-            val mail= txtMail.text.toString()
-            val password= txtPassword.text.toString()
-            val confirmPassword= txtConfirmPassword.text.toString()
-            val fecha= txtFecha.text.toString()
-            val direccion= txtDireccion.text.toString()
-            val teleofno= txtTelefono.text.toString()
+                val user = UserRegisterModel(nombre, apellido, mail, password)
 
-            if(!nombre.equals("") && !mail.equals("") && !password.equals("") && !confirmPassword.equals("") && !fecha.equals("") && !direccion.equals("") && !teleofno.equals("")){
-                var registroExitoso =false;
-                var errorRegistro=""
-                /*
-                       ACA IRIA LA CONECCION A LA API QUE HACE EL REGISTRO:
-                       si el registro fue exitoso debe hacer: */registroExitoso=true/*
-                       y de fallar debe colocar en error registro el motivo del error al registrarse
-                 */
-                if(registroExitoso) {
-                    //val transaction = requireActivity().supportFragmentManager.beginTransaction()
-                    //transaction.replace(R.id.container, PerfilRiesgoFragment())
-                    //transaction.addToBackStack(null)
-                    //transaction.commit()
-                }else {
-                    Toast.makeText(requireContext(), "Error al hacer el registro "+errorRegistro, Toast.LENGTH_SHORT).show()
+                userResponse = registerViewModel.registrar(user)
+                if (!userResponse.token.isEmpty()) {
+                    editor.putString("token", userResponse.token)
+                    editor.putString("userId", userResponse.userId)
+                    //INTENT ACTIVITY
+                } else {
+                    Toast.makeText(requireContext(), "Error al crear usuario", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(requireContext(), "Complete todos los campos!", Toast.LENGTH_SHORT).show()
             }
         };
-        btn_cancelar.setOnClickListener {
-            //val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            //transaction.replace(R.id.container, LoginFragment())
-            //transaction.addToBackStack(null)
-            //transaction.commit()
+        binding.btnCancelar.setOnClickListener {
+
         };
         return view
     }
