@@ -9,30 +9,39 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.viewbinding.ViewBinding
 import com.example.fince.R
-import com.example.fince.InterfazActivity
+import com.example.fince.databinding.FragmentLoginBinding
+import com.example.fince.ui.activities.InterfazActivity
+import com.example.fince.ui.viewmodel.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
 
-        }
-    }
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var view : View
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater!!.inflate(R.layout.fragment_login, container, false)
-        val txtUser: EditText = view.findViewById(R.id.txtUser);
-        val txtPass: EditText = view.findViewById(R.id.txtPass);
-        val btnLogin: Button = view.findViewById(R.id.btnLogin)
-        val btnRegistro: Button = view.findViewById(R.id.btnRegistro)
-        btnLogin.setOnClickListener {
+
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        view = binding.root
+        loginViewModel.onCreate()
+
+        binding.btnLogin.setOnClickListener {
+
             var usuarioCorrecto: Boolean;
-            val usuario=txtUser.text.toString();
-            val pass=txtPass.text.toString();
+            val usuario = binding.txtUser.text
+            val pass = binding.txtPass.text
+
             if(!usuario.equals("") && !pass.equals("")) {
                 /*
                     ACA IRIA EL CODIGO QUE VERIFICA SI EL USUARIO ES CORRECTO
@@ -58,12 +67,15 @@ class LoginFragment : Fragment() {
                 ).show()
             }
         };
-        btnRegistro.setOnClickListener {
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.container, RegistroFragment())
-            transaction.addToBackStack(null)
-            transaction.commit()
+        binding.btnRegistro.setOnClickListener {
+            val accion = LoginFragmentDirections.actionLoginFragmentToRegistroFragment()
+            view.findNavController().navigate(accion)
         };
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -1,4 +1,4 @@
-package com.example.fince
+package com.example.fince.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
