@@ -14,8 +14,7 @@ import androidx.viewbinding.ViewBinding
 import com.example.fince.R
 import com.example.fince.databinding.FragmentLoginBinding
 import com.example.fince.ui.activities.InterfazActivity
-import dagger.hilt.android.AndroidEntryPoint
-
+import com.example.fince.ui.activities.MainActivity
 
 class LoginFragment : Fragment() {
 
@@ -46,7 +45,7 @@ class LoginFragment : Fragment() {
                     si no: usuarioCorrecto=false
              */
                 if (usuarioCorrecto) {
-                    val intent = Intent(requireActivity(), InterfazActivity::class.java)
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
                     startActivity(intent)
                     requireActivity().finish();
                 } else {
