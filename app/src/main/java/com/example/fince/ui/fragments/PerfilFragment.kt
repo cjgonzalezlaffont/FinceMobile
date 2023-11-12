@@ -17,7 +17,6 @@ import com.example.fince.ui.fragments.ContactenosFragment
 import com.example.fince.ui.fragments.DocumentosFragment
 import com.example.fince.ui.fragments.MovimientosFragment
 import com.example.fince.ui.fragments.OpcionesFragment
-import com.example.fince.ui.fragments.PrincipalFragment
 
 data class ElementoLista(val opcion: String, val descripcion: String)
 
