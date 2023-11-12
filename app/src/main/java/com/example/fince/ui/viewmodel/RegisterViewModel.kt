@@ -21,7 +21,6 @@ class RegisterViewModel @Inject constructor(
 
         viewModelScope.launch {
             response =  repository.userRegister(user)
-            Log.i("Error", response.toString())
         }
         return response
     }

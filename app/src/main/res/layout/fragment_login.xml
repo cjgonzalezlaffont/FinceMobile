@@ -14,10 +14,10 @@
         android:gravity="center">
 
         <EditText
-            android:id="@+id/txtUser"
+            android:id="@+id/txtCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Usuario"
+            android:hint="Correo"
             android:inputType="text" />
 
         <EditText
