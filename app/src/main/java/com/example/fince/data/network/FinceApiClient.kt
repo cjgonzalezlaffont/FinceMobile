@@ -1,5 +1,6 @@
 package com.example.fince.data.network
 
+import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
 import com.example.fince.data.model.userLoginModel
@@ -18,7 +19,7 @@ interface FinceApiClient {
 
     //Stocks
     @POST("/api/instruments/TODOS")
-    suspend fun getAllInstruments()
+    suspend fun getAllInstruments() : Response<List<StockModel>>
     @POST("api/instruments/cedears")
     suspend fun  getCedears()
     @POST("api/instruments/acciones")

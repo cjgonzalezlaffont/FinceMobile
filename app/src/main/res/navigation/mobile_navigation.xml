@@ -28,4 +28,9 @@
         android:name="com.example.fince.ui.fragmereturn.PerfilFragment"
         android:label="Perfil"
         tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/panelGeneral"
+        android:name="com.example.fince.ui.fragments.PanelGeneralFragment"
+        android:label="fragment_panel_general"
+        tools:layout="@layout/fragment_panel_general" />
 </navigation>
