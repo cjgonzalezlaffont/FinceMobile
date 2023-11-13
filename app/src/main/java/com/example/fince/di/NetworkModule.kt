@@ -1,5 +1,6 @@
 package com.example.fince.di
 
+import androidx.lifecycle.MutableLiveData
 import com.example.fince.core.Config
 import com.example.fince.core.InterceptorCustom
 import com.example.fince.data.network.FinceApiClient
@@ -17,25 +18,32 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+    val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
-    var client : OkHttpClient = OkHttpClient.Builder().apply {
-        addInterceptor(interceptor).addInterceptor(InterceptorCustom)
+
+    // Usar MutableLiveData para apiKey
+    val apiKey: MutableLiveData<String> = MutableLiveData(Config.apiKey)
+
+    var client: OkHttpClient = OkHttpClient.Builder().apply {
+        addInterceptor(interceptor)
+        addInterceptor(InterceptorCustom)
     }.build()
 
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit {
-        val apiKey = Config.apiKey
-        val baseUrl = Config.baseUrl
+        // Observar cambios en apiKey y actualizar el encabezado en consecuencia
+        apiKey.observeForever {
+            client.newBuilder().addNetworkInterceptor(Interceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .addHeader("Authorization", it)
+                    .build()
+                chain.proceed(request)
+            })
+        }
 
-        client.newBuilder().addNetworkInterceptor(Interceptor { chain ->
-            val request = chain.request().newBuilder()
-                .addHeader("Authorization", apiKey)
-                .build()
-            chain.proceed(request)
-        })
+        val baseUrl = Config.baseUrl
 
         return Retrofit.Builder()
             .baseUrl(baseUrl)
@@ -48,5 +56,5 @@ object NetworkModule {
     @Provides
     fun provideFinceApiClient(retrofit: Retrofit): FinceApiClient {
         return retrofit.create(FinceApiClient::class.java)
-    }
+        }
 }

@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import com.example.fince.R
+import com.example.fince.core.Config
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
 import com.example.fince.databinding.FragmentRegistroBinding
@@ -54,6 +56,7 @@ class RegistroFragment : Fragment() {
                 userResponse = registerViewModel.registrar(user)
                 if (!userResponse.token.isEmpty()) {
                     editor.putString("token", userResponse.token)
+                    Config.apiKey = userResponse.token
                     editor.putString("userId", userResponse.userId)
                     editor.apply()
                     val intent = Intent(activity, MainActivity::class.java)

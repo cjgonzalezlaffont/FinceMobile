@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import com.example.fince.core.Config
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.userLoginModel
 import com.example.fince.databinding.FragmentLoginBinding
@@ -54,6 +55,7 @@ class LoginFragment : Fragment() {
                         if (!userResponse.token.isEmpty()) {
                             Log.i("algo", "Entre")
                             editor.putString("token", userResponse.token)
+                            Config.apiKey = userResponse.token
                             editor.putString("userId", userResponse.userId)
                             editor.apply()
                             val intent = Intent(activity, MainActivity::class.java)
