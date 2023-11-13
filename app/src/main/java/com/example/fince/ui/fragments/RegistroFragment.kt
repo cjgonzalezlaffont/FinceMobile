@@ -3,23 +3,18 @@ package com.example.fince.ui.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.fince.R
 import com.example.fince.core.Config
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
-import com.example.fince.databinding.FragmentLoginBinding
 import com.example.fince.databinding.FragmentRegistroBinding
-import com.example.fince.ui.activities.InterfazActivity
-import com.example.fince.ui.viewmodel.LoginViewModel
+import com.example.fince.ui.activities.MainActivity
 import com.example.fince.ui.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -64,7 +59,7 @@ class RegistroFragment : Fragment() {
                     Config.apiKey = userResponse.token
                     editor.putString("userId", userResponse.userId)
                     editor.apply()
-                    val intent = Intent(activity, InterfazActivity::class.java)
+                    val intent = Intent(activity, MainActivity::class.java)
                     startActivity(intent)
                 } else {
                     Toast.makeText(requireContext(), "Error al crear usuario", Toast.LENGTH_SHORT).show()

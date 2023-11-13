@@ -10,22 +10,54 @@
         android:name="com.example.fince.ui.fragments.PrincipalFragment"
         android:label="Home"
         tools:layout="@layout/fragment_principal" />
-
     <fragment
         android:id="@+id/cartera"
         android:name="com.example.fince.ui.fragments.CarteraFragment"
         android:label="Cartera"
         tools:layout="@layout/fragment_cartera" />
-
     <fragment
         android:id="@+id/presupuesto"
         android:name="com.example.fince.ui.fragments.PresupuestoFragment"
         android:label="Presupuesto"
         tools:layout="@layout/fragment_presupuesto" />
-
     <fragment
-        android:id="@+id/perfil"
-        android:name="com.example.fince.ui.fragmereturn.PerfilFragment"
-        android:label="Perfil"
+        android:id="@+id/movimientos"
+        android:name="com.example.fince.ui.fragments.MovimientosFragment"
+        android:label="Movimientos"
         tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/documentos"
+        android:name="com.example.fince.ui.fragments.DocumentosFragment"
+        android:label="Documentos"
+        tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/notificaciones"
+        android:name="com.example.fince.ui.fragments.NotificacionesFragment"
+        android:label="Notificaciones"
+        tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/opciones"
+        android:name="com.example.fince.ui.fragments.OpcionesFragment"
+        android:label="Opciones"
+        tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/ayuda"
+        android:name="com.example.fince.ui.fragments.AyudaFragment"
+        android:label="Ayuda"
+        tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/contactenos"
+        android:name="com.example.fince.ui.fragments.ContactenosFragment"
+        android:label="Contactenos"
+        tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/lblUsuario"
+        android:name="com.example.fince.ui.fragmereturn.PerfilFragment"
+        android:label="Contactenos"
+        tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/panelGeneral"
+        android:name="com.example.fince.ui.fragments.PanelGeneralFragment"
+        android:label="fragment_panel_general"
+        tools:layout="@layout/fragment_panel_general" />
 </navigation>

@@ -36,6 +36,7 @@
                     android:layout_height="wrap_content"
                     android:text="Nombre de Usuario"
                     android:textSize="24sp"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
@@ -43,16 +44,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ID: 123456"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
             </LinearLayout>
 
         </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rstListaOpciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
