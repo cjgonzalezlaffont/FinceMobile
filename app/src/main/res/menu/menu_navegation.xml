@@ -35,5 +35,11 @@
         <item
                 android:id="@+id/contactenos"
                 android:icon="@drawable/perfil_icon"
-                android:title="Contactenos" />
+                android:title="Perfil" />
+  
+        <item
+            android:id="@+id/panelGeneral"
+            android:icon="@drawable/perfil_icon"
+            android:title="Panel General" />
+
 </menu>
