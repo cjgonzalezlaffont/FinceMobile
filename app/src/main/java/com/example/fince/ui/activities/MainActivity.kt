@@ -26,7 +26,11 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
         val sharedPreferences = getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
-        val user = sharedPreferences.getString("nombre", "")
+        var user = sharedPreferences.getString("nombre", "")
+
+        if(user.equals("null") || user.equals("")){
+            user="Usuario prueba"
+        }
 
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -49,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupWithNavController(navigationView, navController)
 
-        val headerUsernameTextView: TextView = navigationView.getHeaderView(0).findViewById(R.id.nav_header_user)
+        val headerUsernameTextView: TextView = navigationView.getHeaderView(0).findViewById(R.id.lblUsuario)
 
         headerUsernameTextView.text = user
     }

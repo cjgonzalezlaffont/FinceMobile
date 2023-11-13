@@ -15,11 +15,9 @@ import androidx.navigation.findNavController
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.userLoginModel
 import com.example.fince.databinding.FragmentLoginBinding
-import com.example.fince.ui.activities.InterfazActivity
 import com.example.fince.ui.activities.MainActivity
 import com.example.fince.ui.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
