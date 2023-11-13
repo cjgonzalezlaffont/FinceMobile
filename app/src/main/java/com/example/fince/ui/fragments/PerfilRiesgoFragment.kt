@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import com.example.fince.R
-import com.example.fince.ui.activities.InterfazActivity
+import com.example.fince.ui.activities.MainActivity
 
 enum class PerfilRiesgo {
     CONSERVADOR,MODERADO,AGRESIVO
@@ -36,7 +36,7 @@ class PerfilRiesgoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater!!.inflate(R.layout.fragment_perfil_riesgo, container, false)
-        val intent = Intent(context, InterfazActivity::class.java)
+        val intent = Intent(context, MainActivity::class.java)
         val btn_conservador: Button=view.findViewById(R.id.btn_conservador);
         val btn_moderado: Button=view.findViewById(R.id.btn_moderado);
         val btn_agresivo: Button=view.findViewById(R.id.btn_agresivo);

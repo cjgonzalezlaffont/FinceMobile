@@ -13,11 +13,33 @@
                 android:icon="@drawable/presupuesto_icon"
                 android:title="Presupuesto" />
         <item
-                android:id="@+id/perfil"
+                    android:id="@+id/movimientos"
+                    android:icon="@drawable/perfil_icon"
+                    android:title="Movimientos" />
+        <item
+            android:id="@+id/documentos"
+            android:icon="@drawable/perfil_icon"
+            android:title="Documentos" />
+        <item
+                android:id="@+id/notificaciones"
+                android:icon="@drawable/perfil_icon"
+                android:title="Notificaciones" />
+        <item
+                    android:id="@+id/opciones"
+                    android:icon="@drawable/perfil_icon"
+                    android:title="Opciones" />
+        <item
+                    android:id="@+id/ayuda"
+                    android:icon="@drawable/perfil_icon"
+                    android:title="Ayuda" />
+        <item
+                android:id="@+id/contactenos"
                 android:icon="@drawable/perfil_icon"
                 android:title="Perfil" />
+  
         <item
             android:id="@+id/panelGeneral"
             android:icon="@drawable/perfil_icon"
             android:title="Panel General" />
+
 </menu>

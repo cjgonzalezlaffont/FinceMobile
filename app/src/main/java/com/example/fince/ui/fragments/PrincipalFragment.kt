@@ -18,7 +18,6 @@ class PrincipalFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_principal, container, false)
-        Log.i("prueba","prueba");
         return rootView
     }
 
