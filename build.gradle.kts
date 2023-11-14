@@ -3,8 +3,9 @@ import org.jetbrains.kotlin.gradle.plugin.extraProperties
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript{
 
-    repositories{
+    repositories {
         google()
+        maven ("https://jitpack.io")// you have this line
     }
     dependencies {
         val nav_version = "2.5.3"
