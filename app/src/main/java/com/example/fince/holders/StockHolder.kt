@@ -8,10 +8,8 @@ import com.example.fince.databinding.FragmentPanelGeneralBinding
 import com.example.fince.databinding.ItemPanelGeneralBinding
 import org.w3c.dom.Text
 
-class StockHolder(v:View): RecyclerView.ViewHolder(v) {
+class StockHolder(private val binding: ItemPanelGeneralBinding): RecyclerView.ViewHolder(binding.root) {
 
-    private var _binding: ItemPanelGeneralBinding? = null
-    private val binding get() = _binding!!
     fun getCardLayout():CardView{
         return binding.itemCardPanelGeneral
     }

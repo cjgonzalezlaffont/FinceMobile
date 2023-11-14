@@ -7,34 +7,39 @@ import com.example.fince.data.model.StockModel
 import com.example.fince.holders.StockHolder
 import com.example.fince.listeners.OnViewItemClickedListener
 import com.example.fince.R
+import com.example.fince.data.model.Transaccion
+import com.example.fince.databinding.ItemPanelGeneralBinding
+import com.example.fince.databinding.ItemTransaccionBinding
 
 
 class StockListAdapter (
-    private val stockList: List<StockModel>?,
+    private val stockList: List<StockModel>,
     private val onItemClick: OnViewItemClickedListener,
     ): RecyclerView.Adapter<StockHolder>(){
 
     private var stockCount: Int = 0
     override fun getItemCount(): Int {
-        if(stockCount != null){
-            if (!stockList.isNullOrEmpty()) {
-                stockCount = stockList.size
-            }
-        }
+        stockCount = stockList.size
         return stockCount
+    }
+
+    fun setStockList(stockList: List<StockModel>) {
+        (this.stockList as ArrayList).clear()
+        this.stockList.addAll(stockList)
+        notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockHolder {
         //No olvidarse de hacer un import de R
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_panel_general, parent, false)
-        return (StockHolder(view))
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemPanelGeneralBinding.inflate(inflater, parent, false)
+        return (StockHolder(binding))
     }
 
     override fun onBindViewHolder(holder: StockHolder, position: Int) {
         //puntero de la stock
-        val stock = stockList?.get(position)
+        val stock = stockList.get(position)
         //seteo los datos de la stock en el holder
-        holder.setSimbol(stock?.simbolo.toString())
-
+        holder.setSimbol(stock.simbolo)
         //set on click para pasar al detalle de la accion
         holder.getCardLayout().setOnClickListener{
             if(stock != null){

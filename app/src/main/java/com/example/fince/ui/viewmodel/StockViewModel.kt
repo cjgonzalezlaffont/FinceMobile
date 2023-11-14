@@ -1,5 +1,6 @@
 package com.example.fince.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,5 +35,17 @@ class StockViewModel @Inject constructor(
                 emptyList()  // Devolver una lista vacía o manejar el error de otra manera
             }
         }.await()
+    }
+    fun onCreate(){
+        viewModelScope.launch {
+            try {
+                val response =  repository.getAllInstruments()
+                if (!response.isEmpty()) {
+                    setStockList(response)
+                }
+            } catch (e: Exception) {
+                Log.e("StockViewModel", "Error: ${e.message}")
+            }
+        }
     }
 }

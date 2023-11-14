@@ -32,11 +32,6 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
     //se llama a la api por medio del StockViewModel
     private val stockViewModel: StockViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {}
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,11 +47,14 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
         super.onStart()
         requireActivity()
         recStocks.setHasFixedSize(true)
-        viewLifecycleOwner
-        viewLifecycleOwner.lifecycleScope.launch {
-        stockList = stockViewModel.getAllInstruments()
-        }
+
+        stockViewModel.onCreate()
         linearLayoutManager = LinearLayoutManager(context)
+
+        stockViewModel.response.observe(viewLifecycleOwner){
+            stockListAdapter.setStockList(it)
+        }
+
         stockListAdapter = StockListAdapter(stockList, this)
 
         recStocks.layoutManager = linearLayoutManager
