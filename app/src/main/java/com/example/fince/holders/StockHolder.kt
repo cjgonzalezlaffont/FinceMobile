@@ -16,8 +16,7 @@ class StockHolder(v:View): RecyclerView.ViewHolder(v) {
         return binding.itemCardPanelGeneral
     }
     fun setSimbol(simbol: String?){
-        val text: TextView = binding.itemTextViewPanelGeneralSimbol
-        text.text = simbol
+        binding.itemTextViewPanelGeneralSimbol.text = simbol
     }
 
 }

@@ -10,7 +10,7 @@ import com.example.fince.R
 
 
 class StockListAdapter (
-    private val stockList: MutableList<StockModel>?,
+    private val stockList: List<StockModel>?,
     private val onItemClick: OnViewItemClickedListener,
     ): RecyclerView.Adapter<StockHolder>(){
 
