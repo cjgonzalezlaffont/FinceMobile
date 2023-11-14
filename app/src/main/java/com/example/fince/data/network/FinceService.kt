@@ -1,8 +1,8 @@
 package com.example.fince.data.network
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.example.fince.data.model.StockModel
+import com.example.fince.data.model.Transaccion
+import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
 import com.example.fince.data.model.userLoginModel
@@ -32,6 +32,13 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         return withContext(Dispatchers.IO){
             val response = service.getAllInstruments()
             response.body() ?: emptyList<StockModel>()
+        }
+    }
+
+    suspend fun getAllTransactions(userId : String): TransaccionModel {
+        return withContext(Dispatchers.IO){
+            val response = service.getAllTransactions(userId)
+            response.body() ?: TransaccionModel(emptyList<Transaccion>(), 0.toFloat(),0.toFloat())
         }
     }
 }

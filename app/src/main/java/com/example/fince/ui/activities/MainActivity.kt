@@ -11,7 +11,9 @@ import androidx.navigation.ui.NavigationUI
 import com.example.fince.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var drawerLayout: DrawerLayout
