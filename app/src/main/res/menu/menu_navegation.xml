@@ -5,6 +5,10 @@
                 android:icon="@drawable/home_icon"
                 android:title="Inicio" />
         <item
+            android:id="@+id/panelGeneral"
+            android:icon="@drawable/panel_icon"
+            android:title="Panel General" />
+        <item
                 android:id="@+id/cartera"
                 android:icon="@drawable/cartera_icon"
                 android:title="Cartera" />
@@ -13,33 +17,15 @@
                 android:icon="@drawable/presupuesto_icon"
                 android:title="Presupuesto" />
         <item
-                    android:id="@+id/movimientos"
-                    android:icon="@drawable/perfil_icon"
-                    android:title="Movimientos" />
+            android:id="@+id/reportes"
+            android:icon="@drawable/documentos_icon"
+            android:title="Reportes" />
         <item
-            android:id="@+id/documentos"
+            android:id="@+id/opciones"
+            android:icon="@drawable/opciones_icon"
+            android:title="Opciones" />
+        <item
+            android:id="@+id/perfil"
             android:icon="@drawable/perfil_icon"
-            android:title="Documentos" />
-        <item
-                android:id="@+id/notificaciones"
-                android:icon="@drawable/perfil_icon"
-                android:title="Notificaciones" />
-        <item
-                    android:id="@+id/opciones"
-                    android:icon="@drawable/perfil_icon"
-                    android:title="Opciones" />
-        <item
-                    android:id="@+id/ayuda"
-                    android:icon="@drawable/perfil_icon"
-                    android:title="Ayuda" />
-        <item
-                android:id="@+id/contactenos"
-                android:icon="@drawable/perfil_icon"
-                android:title="Perfil" />
-  
-        <item
-            android:id="@+id/panelGeneral"
-            android:icon="@drawable/perfil_icon"
-            android:title="Panel General" />
-
+            android:title="Perfil (pasar al header)" />
 </menu>
