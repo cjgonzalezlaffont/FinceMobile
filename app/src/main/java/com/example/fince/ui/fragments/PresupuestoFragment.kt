@@ -1,54 +1,81 @@
 package com.example.fince.ui.fragments
-import android.annotation.SuppressLint
+
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.fince.R
+import com.example.fince.adapters.TransaccionAdapter
+import com.example.fince.data.model.StockModel
+import com.example.fince.data.model.Transaccion
+import com.example.fince.data.model.TransaccionModel
+import com.example.fince.databinding.FragmentPresupuestoBinding
+import com.example.fince.listeners.OnViewItemClickedListener
+import com.example.fince.listeners.OnViewItemClickedListenerTran
+import com.example.fince.ui.viewmodel.TransaccionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class PresupuestoFragment : Fragment() {
+@AndroidEntryPoint
+class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
 
-    private var presupuesto = 0.0
+    private var _binding: FragmentPresupuestoBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var view : View
+    lateinit var recListTransacciones: RecyclerView
+    lateinit var linearLayoutManager: LinearLayoutManager
+    var listaTransacciones : MutableList<Transaccion> = ArrayList()
+    private val transaccionViewModel: TransaccionViewModel by viewModels()
+    private lateinit var transaccionAdapter: TransaccionAdapter
 
-    @SuppressLint("StringFormatMatches")
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_presupuesto, container, false)
 
+        _binding = FragmentPresupuestoBinding.inflate(inflater, container, false)
+        view = binding.root
+        recListTransacciones = binding.fragTranRecViewTransaccion
 
-        val textViewPresupuesto = rootView.findViewById<TextView>(R.id.textViewPresupuesto)
-        val presupuesto = 0.0
-
-        // Inicializar el valor del monto
-        textViewPresupuesto.text = "$$presupuesto"
-
-
-// Formatear la cadena usando getString con el valor del presupuesto
-        val presupuestoText = getString(R.string.presupuesto_text, presupuesto)
-        textViewPresupuesto.text = presupuestoText
-
-        return rootView
+        return view
 
     }
 
+    override fun onStart() {
+        super.onStart()
 
-   override fun onResume() {
-       super.onResume()
-       // Mostrar el TextView cuando el fragmento se reanuda
-        val textViewPresupuesto = view?.findViewById<TextView>(R.id.textViewPresupuesto)
-        textViewPresupuesto?.visibility = View.VISIBLE
+        val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
+        val usuarioId = sharedPreferences.getString("userId", "")!!
+
+        transaccionViewModel.onCreate(usuarioId)
+
+        requireActivity()
+        recListTransacciones.setHasFixedSize(true)
+
+        linearLayoutManager = LinearLayoutManager(context)
+        transaccionAdapter = TransaccionAdapter(listaTransacciones, this)
+
+        recListTransacciones.layoutManager = linearLayoutManager
+        recListTransacciones.adapter = transaccionAdapter
+
+        transaccionViewModel.transaccionList.observe(viewLifecycleOwner) {
+            transaccionAdapter.setTransactionList(it)
+        }
     }
 
-    override fun onPause() {
-        super.onPause()
-        // Ocultar el TextView cuando el fragmento se pausa
-        val textViewPresupuesto = view?.findViewById<TextView>(R.id.textViewPresupuesto)
-        textViewPresupuesto?.visibility = View.GONE
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onViewItemDetail(transaccion: TransaccionModel) {
+
     }
 
 

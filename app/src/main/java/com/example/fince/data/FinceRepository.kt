@@ -1,6 +1,7 @@
 package com.example.fince.data
 
 import com.example.fince.data.model.StockModel
+import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
 import com.example.fince.data.model.userLoginModel
@@ -22,6 +23,11 @@ class FinceRepository @Inject constructor(
 
     suspend fun getAllInstruments() : List<StockModel>{
         val response = remote.getAllInstruments()
+        return response
+    }
+
+    suspend fun getAllTransactions(userId : String) : TransaccionModel{
+        val response = remote.getAllTransactions(userId)
         return response
     }
 }
