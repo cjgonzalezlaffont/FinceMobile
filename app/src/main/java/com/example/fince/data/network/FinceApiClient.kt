@@ -22,15 +22,15 @@ interface FinceApiClient {
     //Stocks
     @POST("/api/instruments/TODOS")
     suspend fun getAllInstruments() : Response<List<StockModel>>
-    @POST("api/instruments/cedears")
+    @POST("/api/instruments/cedears")
     suspend fun  getCedears()
-    @POST("api/instruments/acciones")
+    @POST("/api/instruments/acciones")
     suspend fun  getStocks()
-    @POST("api/instruments/titulosPublicos")
+    @POST("/api/instruments/titulosPublicos")
     suspend fun  getGovernmentBonds()
-    @POST("api/instruments/obligacionesNegociables")
+    @POST("/api/instruments/obligacionesNegociables")
     suspend fun  getCorporateBonds()
-    @POST("api/instruments/FCI")
+    @POST("/api/instruments/FCI")
     suspend fun  getInvestmentFunds()
 
     @GET("/api/transactions/getTransactions/{userId}")

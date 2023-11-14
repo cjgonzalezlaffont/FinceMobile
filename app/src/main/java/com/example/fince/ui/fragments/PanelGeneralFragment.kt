@@ -5,14 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fince.adapters.StockListAdapter
 import com.example.fince.data.model.StockModel
+import com.example.fince.data.network.FinceApiClient
 import com.example.fince.databinding.FragmentPanelGeneralBinding
 import com.example.fince.listeners.OnViewItemClickedListener
+import com.example.fince.ui.viewmodel.StockViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
     private var _binding: FragmentPanelGeneralBinding? = null
     private val binding get() = _binding!!
@@ -20,7 +28,9 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
     lateinit var recStocks: RecyclerView
     private lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var stockListAdapter: StockListAdapter
-    var stockList: MutableList<StockModel> ? = ArrayList()
+    var stockList: List<StockModel> = ArrayList()
+    //se llama a la api por medio del StockViewModel
+    private val stockViewModel: StockViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +52,10 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
         super.onStart()
         requireActivity()
         recStocks.setHasFixedSize(true)
+        viewLifecycleOwner
+        viewLifecycleOwner.lifecycleScope.launch {
+        stockList = stockViewModel.getAllInstruments()
+        }
         linearLayoutManager = LinearLayoutManager(context)
         stockListAdapter = StockListAdapter(stockList, this)
 
