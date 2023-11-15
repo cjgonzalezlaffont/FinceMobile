@@ -24,6 +24,13 @@ class StockViewModel @Inject constructor(
         _response.value = stockList
     }
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    fun setIsLoading (isLoading: Boolean) {
+        _isLoading.value = isLoading
+    }
+
     suspend fun getAllInstruments(): List<StockModel> {
         return viewModelScope.async {
             try {
@@ -37,6 +44,7 @@ class StockViewModel @Inject constructor(
         }.await()
     }
     fun onCreate(){
+        setIsLoading(true)
         viewModelScope.launch {
             try {
                 val response =  repository.getAllInstruments()
@@ -46,6 +54,7 @@ class StockViewModel @Inject constructor(
             } catch (e: Exception) {
                 Log.e("StockViewModel", "Error: ${e.message}")
             }
+            setIsLoading(false)
         }
     }
 }
