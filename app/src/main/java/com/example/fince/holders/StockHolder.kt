@@ -15,13 +15,7 @@ class StockHolder(private val binding: ItemPanelGeneralBinding): RecyclerView.Vi
     }
 
     fun setDescription(description: String?){
-        if (!description.isNullOrEmpty()){
-            if (description.length > 10){
-                binding.itemTextViewPanelGeneralDescripcion.text = description.substring(startIndex, endIndex)
-            }else{
-                binding.itemTextViewPanelGeneralDescripcion.text = description
-            }
-        }
+        binding.itemTextViewPanelGeneralDescripcion.text = description
     }
 
     fun setPercentageChange(percentageChange: Float?){
