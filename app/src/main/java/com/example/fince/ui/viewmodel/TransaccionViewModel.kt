@@ -24,9 +24,17 @@ class TransaccionViewModel @Inject constructor(
         _transaccionList.value = transaccionList
     }
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    fun setIsLoading (isLoading: Boolean) {
+        _isLoading.value = isLoading
+    }
+
     fun onCreate(userId : String){
 
         viewModelScope.launch {
+            setIsLoading(true)
             try {
                 val transaccionList =  repository.getAllTransactions(userId).transacciones
 
@@ -36,6 +44,7 @@ class TransaccionViewModel @Inject constructor(
             } catch (e: Exception) {
                 Log.e("TransaccionViewModel", "Error: ${e.message}")
             }
+            setIsLoading(false)
         }
     }
 }
