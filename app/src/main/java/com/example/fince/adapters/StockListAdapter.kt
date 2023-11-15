@@ -6,10 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fince.data.model.StockModel
 import com.example.fince.holders.StockHolder
 import com.example.fince.listeners.OnViewItemClickedListener
-import com.example.fince.R
-import com.example.fince.data.model.Transaccion
 import com.example.fince.databinding.ItemPanelGeneralBinding
-import com.example.fince.databinding.ItemTransaccionBinding
 
 
 class StockListAdapter (
@@ -39,7 +36,11 @@ class StockListAdapter (
         //puntero de la stock
         val stock = stockList.get(position)
         //seteo los datos de la stock en el holder
-        holder.setSimbol(stock.simbolo)
+        holder.setSymbol(stock.simbolo)
+        holder.setDescription(stock.descripcion)
+        holder.setPercentageChange(stock.variacionPorcentual)
+        holder.setLastPrice(stock.ultimoPrecio)
+        holder.setInstrumentType(stock.tipo_instrumento)
         //set on click para pasar al detalle de la accion
         holder.getCardLayout().setOnClickListener{
             if(stock != null){
