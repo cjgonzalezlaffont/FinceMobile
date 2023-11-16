@@ -41,4 +41,11 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
             response.body() ?: TransaccionModel(emptyList<Transaccion>(), 0.toFloat(),0.toFloat())
         }
     }
+
+    suspend fun getUserById(userId: String):UserModel{
+        return withContext(Dispatchers.IO){
+            val response = service.getUserById(userId)
+            response.body() ?: UserModel("", "", "", "", "", 0,0,0)
+        }
+    }
 }
