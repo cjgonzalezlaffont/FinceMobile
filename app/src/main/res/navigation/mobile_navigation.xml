@@ -14,7 +14,11 @@
         android:id="@+id/panelGeneral"
         android:name="com.example.fince.ui.fragments.PanelGeneralFragment"
         android:label="fragment_panel_general"
-        tools:layout="@layout/fragment_panel_general" />
+        tools:layout="@layout/fragment_panel_general" >
+        <action
+            android:id="@+id/action_panelGeneral_to_simboloFragment"
+            app:destination="@id/simboloFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/presupuesto"

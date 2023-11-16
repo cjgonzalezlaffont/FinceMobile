@@ -6,7 +6,21 @@ data class StockModel(
     @SerializedName("variacionPorcentual") val variacionPorcentual: Float,
     @SerializedName("descripcion") val descripcion: String,
     @SerializedName("tipo_instrumento") val tipo_instrumento: String,
-    )
+    ){
+    fun transformStockToActivo(stock: StockModel): ActivoModel{
+        return ActivoModel(
+            stock.simbolo,
+            stock.descripcion,
+            0,
+            0.toFloat(),
+            "",
+            stock.tipo_instrumento,
+            "",
+            "",
+            stock.ultimoPrecio,
+            stock.variacionPorcentual)
+    }
+}
 
 /*
 Estructura response stocks

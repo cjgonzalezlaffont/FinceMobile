@@ -9,9 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fince.adapters.StockListAdapter
+import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.network.FinceApiClient
 import com.example.fince.databinding.FragmentPanelGeneralBinding
@@ -31,6 +33,7 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
     var stockList: List<StockModel> = ArrayList()
     //se llama a la api por medio del StockViewModel
     private val stockViewModel: StockViewModel by viewModels()
+    private val activoModel = ActivoModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,14 +64,14 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
         recStocks.adapter = stockListAdapter
 
         stockViewModel.isLoading.observe(viewLifecycleOwner) {
-
             //binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
         }
 
     }
 
     override fun onViewItemDetail(stock: StockModel) {
-        TODO("Not yet implemented")
+        val action = PanelGeneralFragmentDirections.actionPanelGeneralToSimboloFragment(stock.transformStockToActivo(stock))
+        this.findNavController().navigate(action)
     }
 
 }
