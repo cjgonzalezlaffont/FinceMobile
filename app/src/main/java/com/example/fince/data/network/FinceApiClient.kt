@@ -35,4 +35,7 @@ interface FinceApiClient {
 
     @GET("/api/transactions/getTransactions/{userId}")
     suspend fun getAllTransactions(@Path("userId") userId : String) : Response<TransaccionModel>
+
+    @GET("/api/users/{userId}")
+    suspend fun getUserById(@Path("userId") userId : String) : Response<UserModel>
 }

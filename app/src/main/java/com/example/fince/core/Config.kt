@@ -4,3 +4,5 @@ object Config {
     lateinit var apiKey : String
     lateinit var baseUrl : String
 }
+
+var dark_mode: Boolean = false
