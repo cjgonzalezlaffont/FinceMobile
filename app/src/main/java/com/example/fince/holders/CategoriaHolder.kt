@@ -9,12 +9,12 @@ class CategoriaHolder(private val binding: ItemCategoriaBinding): RecyclerView.V
         binding.fragCatTxtViewTitulo.text = nombre
     }
 
-    fun setMontoMax(montoMax: Int?){
+    fun setMontoMax(montoMax: Float?){
         binding.fragCatTxtViewMontoMax.text = montoMax.toString()
     }
 
-    fun setTipo(tipo: String?){
-        binding.fragCatTxtViewTipo.text = tipo
+    fun setTipo(tipo: Int?){
+        binding.fragCatTxtViewTipo.text = tipo.toString()
     }
 
 

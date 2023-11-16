@@ -24,7 +24,11 @@
         android:id="@+id/presupuesto"
         android:name="com.example.fince.ui.fragments.PresupuestoFragment"
         android:label="Presupuesto"
-        tools:layout="@layout/fragment_presupuesto" />
+        tools:layout="@layout/fragment_presupuesto" >
+        <action
+            android:id="@+id/action_presupuesto_to_categoriaFragment"
+            app:destination="@id/categoriaFragment" />
+    </fragment>
     <fragment
         android:id="@+id/reportes"
         android:name="com.example.fince.ui.fragments.ReportesFragment"
@@ -40,4 +44,8 @@
         android:name="com.example.fince.ui.fragmereturn.PerfilFragment"
         android:label="Contactenos"
         tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/categoriaFragment"
+        android:name="com.example.fince.ui.fragments.CategoriaFragment"
+        android:label="CategoriaFragment" />
 </navigation>

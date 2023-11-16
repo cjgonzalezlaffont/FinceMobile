@@ -1,5 +1,6 @@
 package com.example.fince.data.network
 
+import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.UserModel
@@ -38,4 +39,8 @@ interface FinceApiClient {
 
     @GET("/api/users/{userId}")
     suspend fun getUserById(@Path("userId") userId : String) : Response<UserModel>
+
+    @GET("/api/categories/{userId}")
+    suspend fun getAllCategories(@Path("userId") userId : String) : Response<List<CategoriaModel>>
+
 }

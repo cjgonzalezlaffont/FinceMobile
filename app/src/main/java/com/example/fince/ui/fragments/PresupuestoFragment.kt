@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.example.fince.adapters.TransaccionAdapter
 import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
@@ -67,6 +68,11 @@ class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
 
         transaccionViewModel.isLoading.observe(viewLifecycleOwner) {
             binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
+
+        }
+        binding.fragTranBtnCat.setOnClickListener{
+            val action = PresupuestoFragmentDirections.actionPresupuestoToCategoriaFragment()
+            view.findNavController().navigate(action)
         }
     }
 

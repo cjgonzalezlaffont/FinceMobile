@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName
 data class CategoriaModel(
 
     @SerializedName("nombre") val nombre:String,
-    @SerializedName("montoMax") val montoMax: Int,
-    @SerializedName("tipo") val tipo: String,
+    @SerializedName("montoMax") val montoMax: Float,
+    @SerializedName("tipo") val tipo: Int,
     @SerializedName("descripcion") val descripcion: String,
-    @SerializedName("montoConsumido") val montoConsumido: String,
+    @SerializedName("montoConsumido") val montoConsumido: Float,
 
 
     )
