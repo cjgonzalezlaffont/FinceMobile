@@ -43,6 +43,7 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
             response.body() ?: TransaccionModel(emptyList<Transaccion>(), 0.toFloat(),0.toFloat())
         }
     }
+
     suspend fun getPortfolio(userId : String): PortfolioModel {
         return withContext(Dispatchers.IO){
             val response = service.getPortfolio(userId)
@@ -68,5 +69,13 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
     const salePrice = req.body.precioDeVenta;
     const userId = req.params.userId;
     */
+
+
+    suspend fun getUserById(userId: String):UserModel{
+        return withContext(Dispatchers.IO){
+            val response = service.getUserById(userId)
+            response.body() ?: UserModel("", "", "", "", "", 0,0,0)
+        }
+    }
 
 }

@@ -9,14 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import com.example.fince.R
+import androidx.lifecycle.Observer
 import com.example.fince.adapters.TransaccionAdapter
-import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.databinding.FragmentPresupuestoBinding
-import com.example.fince.listeners.OnViewItemClickedListener
 import com.example.fince.listeners.OnViewItemClickedListenerTran
 import com.example.fince.ui.viewmodel.TransaccionViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,6 +63,10 @@ class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
 
         transaccionViewModel.transaccionList.observe(viewLifecycleOwner) {
             transaccionAdapter.setTransactionList(it)
+        }
+
+        transaccionViewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
 

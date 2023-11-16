@@ -60,6 +60,11 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
         recStocks.layoutManager = linearLayoutManager
         recStocks.adapter = stockListAdapter
 
+        stockViewModel.isLoading.observe(viewLifecycleOwner) {
+
+            //binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
+        }
+
     }
 
     override fun onViewItemDetail(stock: StockModel) {
