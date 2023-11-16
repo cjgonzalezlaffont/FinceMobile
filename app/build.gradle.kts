@@ -6,13 +6,15 @@ plugins {
     id("com.google.dagger.hilt.android")
 }
 
+
 android {
     namespace = "com.example.fince"
     compileSdk = 33
 
     defaultConfig {
         applicationId = "com.example.fince"
-        minSdk = 29
+        //minSdk = 29
+        minSdk = 28 // x Telefono Chino
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
