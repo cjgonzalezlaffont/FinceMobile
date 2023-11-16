@@ -1,6 +1,9 @@
 package com.example.fince.data.network
 
+
 import com.example.fince.data.model.CategoriaModel
+import com.example.fince.data.model.ActivoModel
+import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
@@ -43,6 +46,33 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         }
     }
 
+    suspend fun getPortfolio(userId : String): PortfolioModel {
+        return withContext(Dispatchers.IO){
+            val response = service.getPortfolio(userId)
+            response.body() ?: PortfolioModel(emptyList<ActivoModel>(),0.toFloat())
+        }
+    }
+    suspend fun buyAsset(userId: String, activo: ActivoModel): Int {
+        return withContext(Dispatchers.IO) {
+            val response = service.buyAsset(userId, activo)
+            response.code()
+        }
+    }
+
+    suspend fun sellAsset(userId: String, activo: ActivoModel): Int {
+        return withContext(Dispatchers.IO) {
+            val response = service.buyAsset(userId, activo)
+            response.code()
+        }
+    }
+    /*
+    const assetId = req.body.activoId;
+    const quantity = req.body.cantidad;
+    const salePrice = req.body.precioDeVenta;
+    const userId = req.params.userId;
+    */
+
+
     suspend fun getUserById(userId: String):UserModel{
         return withContext(Dispatchers.IO){
             val response = service.getUserById(userId)
@@ -50,10 +80,12 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         }
     }
 
+
     suspend fun getAllCategories(userId: String): List<CategoriaModel> {
         return withContext(Dispatchers.IO){
             val response = service.getAllCategories(userId)
             response.body() ?: emptyList<CategoriaModel>()
         }
     }
+
 }

@@ -1,6 +1,9 @@
 package com.example.fince.data
 
+
 import com.example.fince.data.model.CategoriaModel
+import com.example.fince.data.model.ActivoModel
+import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.User
@@ -31,6 +34,18 @@ class FinceRepository @Inject constructor(
     suspend fun getAllTransactions(userId : String) : TransaccionModel{
         val response = remote.getAllTransactions(userId)
         return response
+    }
+
+    suspend fun getPortfolio(userId: String) : PortfolioModel {
+        return remote.getPortfolio(userId)
+    }
+
+    suspend fun buyAsset(userId: String, activo: ActivoModel): Int {
+        return remote.buyAsset(userId, activo)
+    }
+
+    suspend fun sellAsset(userId: String, activo: ActivoModel): Int {
+        return remote.buyAsset(userId, activo)
     }
 
     suspend fun getUserById(userId: String): UserModel{

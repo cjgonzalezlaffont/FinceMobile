@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/inicio">
+    app:startDestination="@id/cartera">
 
     <fragment
         android:id="@+id/inicio"
@@ -15,11 +15,7 @@
         android:name="com.example.fince.ui.fragments.PanelGeneralFragment"
         android:label="fragment_panel_general"
         tools:layout="@layout/fragment_panel_general" />
-    <fragment
-        android:id="@+id/cartera"
-        android:name="com.example.fince.ui.fragments.CarteraFragment"
-        android:label="Cartera"
-        tools:layout="@layout/fragment_cartera" />
+
     <fragment
         android:id="@+id/presupuesto"
         android:name="com.example.fince.ui.fragments.PresupuestoFragment"
@@ -28,6 +24,10 @@
         <action
             android:id="@+id/action_presupuesto_to_categoriaFragment"
             app:destination="@id/categoriaFragment" />
+        <action
+            android:id="@+id/action_presupuesto_to_agregarTranFragment"
+            app:destination="@id/agregarTranFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/reportes"
@@ -45,7 +45,33 @@
         android:label="Contactenos"
         tools:layout="@layout/fragment_perfil" />
     <fragment
+
         android:id="@+id/categoriaFragment"
         android:name="com.example.fince.ui.fragments.CategoriaFragment"
         android:label="CategoriaFragment" />
+
+    <fragment
+        android:id="@+id/agregarTranFragment"
+        android:name="com.example.fince.ui.fragments.AgregarTranFragment"
+        android:label="fragment_agregar_tran"
+        tools:layout="@layout/fragment_agregar_tran" />
+
+    <fragment
+        android:id="@+id/cartera"
+        android:name="com.example.fince.ui.fragments.CarteraFragment"
+        android:label="Cartera"
+        tools:layout="@layout/fragment_cartera" >
+       <action
+            android:id="@+id/actionCarteraToSimboloFragment"
+            app:destination="@id/simboloFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/simboloFragment"
+        android:name="com.example.fince.ui.fragments.SimboloFragment"
+        android:label="SimboloFragment" >
+        <argument
+            android:name="activo"
+            app:argType="com.example.fince.data.model.ActivoModel" />
+    </fragment>
+
 </navigation>

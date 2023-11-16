@@ -1,50 +1,68 @@
 package com.example.fince.ui.fragments
+import CarteraListAdapter
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fince.R
-import com.example.fince.adapters.AccionesAdapter
-import com.example.fince.adapters.ElementoAccionnes
-import com.example.fince.adapters.ElementoFondo
-import com.example.fince.adapters.FondosAdapter
+import com.example.fince.data.model.ActivoModel
+import com.example.fince.databinding.FragmentCarteraBinding
+import com.example.fince.listeners.OnViewItemClickedListenerCartera
+import com.example.fince.ui.viewmodel.CarteraViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class CarteraFragment : Fragment() {
+@AndroidEntryPoint
+class CarteraFragment : Fragment(), OnViewItemClickedListenerCartera {
+    private var _binding: FragmentCarteraBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var view: View
+    private lateinit var recyclerViewCartera: RecyclerView
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var carteraListAdapter: CarteraListAdapter
+    private var carteraList: List<ActivoModel> = ArrayList()
+    private val carteraViewModel: CarteraViewModel by viewModels()
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_cartera, container, false)
-
-        val rctAcciones = view.findViewById<RecyclerView>(R.id.rctAcciones)
-        rctAcciones.layoutManager = LinearLayoutManager(requireContext())
-        val elementosAcciones = ArrayList<ElementoAccionnes>()
-
-        val rctFondos = view.findViewById<RecyclerView>(R.id.rctFondos)
-        rctFondos.layoutManager = LinearLayoutManager(requireContext())
-        val elementosFondo = ArrayList<ElementoFondo>()
-        /*
-        ACA VA EL LLAMADO A LA API QUE TRAE LOS DATOS DE ACCIONES E INVERSION
-        Para mostrar una accion:
-        */
-        elementosAcciones.add(ElementoAccionnes("Walmart","WMT","10","2000"))
-        /*
-        Para mostrar un fondo de inversion
-        */
-        elementosFondo.add(ElementoFondo("FONDO A","FND","1002"))
-
-        val adapterAcciones = AccionesAdapter(elementosAcciones)
-        rctAcciones.adapter = adapterAcciones
-
-        val adapterFondos = FondosAdapter(elementosFondo)
-        rctFondos.adapter = adapterFondos
-
+        _binding = FragmentCarteraBinding.inflate(inflater, container, false)
+        view = binding.root
+        recyclerViewCartera = binding.CarteraRecycleView
         return view
     }
-}
+
+    override fun onStart() {
+        super.onStart()
+        requireActivity()
+        recyclerViewCartera.setHasFixedSize(true)
+
+        val sharedPreferences =
+            requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
+        val usuarioId = sharedPreferences.getString("userId", "")!!
+
+        carteraViewModel.onCreate(usuarioId)
+
+        linearLayoutManager = LinearLayoutManager(context)
+
+        carteraListAdapter = CarteraListAdapter(carteraList, this)
+        recyclerViewCartera.layoutManager = linearLayoutManager
+        recyclerViewCartera.adapter = carteraListAdapter
+
+        carteraViewModel.carteraList.observe(viewLifecycleOwner) {
+            carteraListAdapter.setCarteraList(it)
+        }
+
+    }
+        override fun onViewItemDetail(activo : ActivoModel){
+            val action = CarteraFragmentDirections.actionCarteraToSimboloFragment(activo) //activo
+            this.findNavController().navigate(action)
+        }
+    }
+
+

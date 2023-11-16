@@ -9,11 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.fince.adapters.TransaccionAdapter
 import com.example.fince.data.model.Transaccion
-import com.example.fince.data.model.TransaccionModel
 import com.example.fince.databinding.FragmentPresupuestoBinding
 import com.example.fince.listeners.OnViewItemClickedListenerTran
 import com.example.fince.ui.viewmodel.TransaccionViewModel
@@ -74,6 +72,11 @@ class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
             val action = PresupuestoFragmentDirections.actionPresupuestoToCategoriaFragment()
             view.findNavController().navigate(action)
         }
+
+        binding.fragTranBtnAddTran.setOnClickListener{
+            val accion = PresupuestoFragmentDirections.actionPresupuestoToAgregarTranFragment()
+            view.findNavController().navigate(accion)
+        }
     }
 
     override fun onDestroyView() {
@@ -81,9 +84,12 @@ class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
         _binding = null
     }
 
-    override fun onViewItemDetail(transaccion: TransaccionModel) {
+    override fun onViewItemDetail(transaccion: Transaccion) {
+        val dialogFragment = TransaccionDialogFragment.newInstance(transaccion)
+        dialogFragment.show(childFragmentManager, "detalle_dialog")
 
     }
+
 
 
 }
