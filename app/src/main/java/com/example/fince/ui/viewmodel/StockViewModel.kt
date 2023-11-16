@@ -1,5 +1,6 @@
 package com.example.fince.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,37 +8,53 @@ import androidx.lifecycle.viewModelScope
 import com.example.fince.data.FinceRepository
 import com.example.fince.data.model.StockModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class StockViewModel @Inject constructor(
     private val repository: FinceRepository
-): ViewModel(){
-    private var _response = MutableLiveData<List<StockModel>>()
-    val response: LiveData<List<StockModel>> get() = _response
-    suspend fun getAllInstruments() {
-        viewModelScope.launch {
-            _response.value = repository.getAllInstruments()
-        }
+) : ViewModel() {
 
+    private var _response = MutableLiveData<List<StockModel>>()
+    val response: LiveData<List<StockModel>> = _response
+
+    fun setStockList(stockList: List<StockModel>) {
+        _response.value = stockList
+    }
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    fun setIsLoading (isLoading: Boolean) {
+        _isLoading.value = isLoading
+    }
+
+    suspend fun getAllInstruments(): List<StockModel> {
+        return viewModelScope.async {
+            try {
+                val result = repository.getAllInstruments()
+                _response.postValue(result)  // Actualizar LiveData en el hilo principal
+                result
+            } catch (e: Exception) {
+                // Manejar errores según tus necesidades
+                emptyList()  // Devolver una lista vacía o manejar el error de otra manera
+            }
+        }.await()
+    }
+    fun onCreate(){
+        setIsLoading(true)
+        viewModelScope.launch {
+            try {
+                val response =  repository.getAllInstruments()
+                if (!response.isEmpty()) {
+                    setStockList(response)
+                }
+            } catch (e: Exception) {
+                Log.e("StockViewModel", "Error: ${e.message}")
+            }
+            setIsLoading(false)
+        }
     }
 }
-
-/*fun onCreate() {
-        //Aca creo ese objecto
-        viewModelScope.launch {
-            isLoading.postValue(true)
-            val result = getQuotesUseCase()
-
-            if (!result.isNullOrEmpty()) {
-                quoteModel.postValue(result[0])
-                isLoading.postValue(false)
-
-
-            }
-        }
-    }*/

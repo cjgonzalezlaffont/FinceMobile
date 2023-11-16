@@ -22,25 +22,29 @@ object NetworkModule {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-    // Usar MutableLiveData para apiKey
+    // Utilizar MutableLiveData para apiKey
     val apiKey: MutableLiveData<String> = MutableLiveData(Config.apiKey)
 
-    var client: OkHttpClient = OkHttpClient.Builder().apply {
+    // Crear una instancia de OkHttpClient.Builder una sola vez
+    val clientBuilder: OkHttpClient.Builder = OkHttpClient.Builder().apply {
         addInterceptor(interceptor)
         addInterceptor(InterceptorCustom)
-    }.build()
+    }
+
+    // Utilizar una única instancia de OkHttpClient
+    var client: OkHttpClient = clientBuilder.build()
 
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit {
         // Observar cambios en apiKey y actualizar el encabezado en consecuencia
         apiKey.observeForever {
-            client.newBuilder().addNetworkInterceptor(Interceptor { chain ->
+            client = clientBuilder.addNetworkInterceptor(Interceptor { chain ->
                 val request = chain.request().newBuilder()
                     .addHeader("Authorization", it)
                     .build()
                 chain.proceed(request)
-            })
+            }).build()
         }
 
         val baseUrl = Config.baseUrl

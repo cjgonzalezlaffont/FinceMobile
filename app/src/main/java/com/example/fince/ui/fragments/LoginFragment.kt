@@ -53,9 +53,10 @@ class LoginFragment : Fragment() {
                     try {
                         val userResponse = loginViewModel.login(user)
                         if (!userResponse.token.isEmpty()) {
-                            Log.i("algo", "Entre")
+                            Log.i("Log", "Antes de modificar apikey" + Config.apiKey)
                             editor.putString("token", userResponse.token)
-                            Config.apiKey = userResponse.token
+                            Config.apiKey = "Bearer " + userResponse.token
+                            Log.i("Log", "Despues de modificar apikey" + Config.apiKey)
                             editor.putString("userId", userResponse.userId)
                             editor.apply()
                             val intent = Intent(activity, MainActivity::class.java)
