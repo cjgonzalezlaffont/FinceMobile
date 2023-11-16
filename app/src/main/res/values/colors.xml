@@ -4,8 +4,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="deepBlue">#0F4C75</color>
     <color name="sky">#BBE1FA</color>
-    <color name="blue">#3282B8</color>
-
+    <color name="blue">#FF3282B8</color>
+    <color name="red">#F30B0B</color>
+    <color name="green">#2EFA00</color>
 
 
 </resources>
