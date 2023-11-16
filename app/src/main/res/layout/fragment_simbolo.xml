@@ -1,0 +1,220 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="30dp"
+    android:padding="10dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Símbolo:"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_gravity="start"
+            />
+        <TextView
+            android:id="@+id/simboloFragmentTxtViewSimbolo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_gravity="start"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre:"
+            android:layout_gravity="start"
+            />
+        <TextView
+            android:id="@+id/simboloFragmentTxtViewNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cantidad:"
+            android:layout_gravity="start"
+            />
+        <TextView
+            android:id="@+id/simboloFragmentTxtViewCantidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Valor de Compra:"
+            android:layout_gravity="start"
+            />
+        <TextView
+            android:id="@+id/simboloFragmentTxtViewValorDeCompra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha de Compra:"
+            android:layout_gravity="start"
+            />
+        <TextView
+            android:id="@+id/simboloFragmentTxtViewFechaDeCompra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo:"
+            android:layout_gravity="start"
+            />
+        <TextView
+            android:id="@+id/simboloFragmentTxtViewTipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Valor Actual:"
+            android:layout_gravity="start"
+            />
+        <TextView
+            android:id="@+id/simboloFragmentTxtViewValorActual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Variación:"
+            android:layout_gravity="start"
+            />
+        <TextView
+            android:id="@+id/simboloFragmentTxtViewVariacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:layout_gravity="start"
+            />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/simboloFragmentBtnDecrementarCantidadCompra"
+            android:layout_width="61dp"
+            android:layout_height="65dp"
+            android:layout_columnSpan="1"
+            android:layout_gravity="start"
+            android:text="-"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/simboloFragmentTextViewCantidadCompra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_gravity="center"
+            android:hint="  Cantidad a comprar "
+            android:layout_columnSpan="1"
+            android:textSize="20sp"
+            />
+
+        <Button
+            android:id="@+id/simboloFragmentBtnIncrementarCantidadCompra"
+            android:layout_width="65dp"
+            android:layout_height="71dp"
+            android:layout_columnSpan="1"
+            android:layout_gravity="start"
+            android:text="+"
+            android:textSize="25sp" />
+    </LinearLayout>
+        <Button
+            android:id="@+id/simboloFragmentBtnComprar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_columnSpan="3"
+            android:textSize="25sp"
+            android:text="Comprar"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <Button
+            android:id="@+id/simboloFragmentBtnDecrementarCantidadVenta"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="start"
+            android:text="-"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/simboloFragmentTextViewCantidadVenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_gravity="center"
+            android:hint="  Cantidad a vender  "
+            android:textSize="20sp"
+            android:layout_columnSpan="1"
+            />
+
+        <Button
+            android:id="@+id/simboloFragmentBtnIncrementarCantidadVenta"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_columnSpan="1"
+            android:layout_gravity="start"
+            android:text="+"
+            android:textSize="25sp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/simboloFragmentEditTextPrecioVenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:layout_gravity="center"
+            android:layout_columnSpan="3"
+            android:textSize="25sp"
+            android:hint="Ingrese precio de venta"
+            />
+        <Button
+            android:id="@+id/simboloFragmentBtnVender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vender"
+            android:layout_gravity="center"
+            android:layout_columnSpan="3"
+            android:textSize="25sp"
+            />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
