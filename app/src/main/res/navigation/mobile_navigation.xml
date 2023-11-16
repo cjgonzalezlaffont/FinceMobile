@@ -26,8 +26,12 @@
         android:label="Presupuesto"
         tools:layout="@layout/fragment_presupuesto" >
         <action
+            android:id="@+id/action_presupuesto_to_categoriaFragment"
+            app:destination="@id/categoriaFragment" />
+        <action
             android:id="@+id/action_presupuesto_to_agregarTranFragment"
             app:destination="@id/agregarTranFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/reportes"
@@ -44,6 +48,12 @@
         android:name="com.example.fince.ui.fragmereturn.PerfilFragment"
         android:label="Contactenos"
         tools:layout="@layout/fragment_perfil" />
+    <fragment
+
+        android:id="@+id/categoriaFragment"
+        android:name="com.example.fince.ui.fragments.CategoriaFragment"
+        android:label="CategoriaFragment" />
+
     <fragment
         android:id="@+id/agregarTranFragment"
         android:name="com.example.fince.ui.fragments.AgregarTranFragment"
@@ -67,4 +77,5 @@
             android:name="activo"
             app:argType="com.example.fince.data.model.ActivoModel" />
     </fragment>
+
 </navigation>

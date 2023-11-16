@@ -25,7 +25,7 @@ class FondosAdapter (private val elementos: ArrayList<ElementoFondo>) : Recycler
         return elementos.size
     }
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titulo: TextView = itemView.findViewById(R.id.titulo)
+        val titulo: TextView = itemView.findViewById(R.id.fragCatTxtViewTitulo)
         val subtitulo: TextView = itemView.findViewById(R.id.subtitulo)
         val precio: TextView = itemView.findViewById(R.id.precio)
     }
