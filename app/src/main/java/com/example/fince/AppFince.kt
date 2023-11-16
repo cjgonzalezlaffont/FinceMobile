@@ -14,6 +14,5 @@ class AppFince: Application() {
         //Config.baseUrl="http://192.168.0.24:8080" //Martin
         //Config.baseUrl="http://192.168.1.4:8080" //Fede
         Config.baseUrl="http://192.168.0.14:8080" //Javier
-
     }
 }
