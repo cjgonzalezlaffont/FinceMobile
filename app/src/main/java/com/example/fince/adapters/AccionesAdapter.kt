@@ -28,7 +28,7 @@ class AccionesAdapter (private val elementos: ArrayList<ElementoAccionnes>) : Re
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titulo: TextView = itemView.findViewById(R.id.titulo)
+        val titulo: TextView = itemView.findViewById(R.id.fragCatTxtViewTitulo)
         val subtitulo: TextView = itemView.findViewById(R.id.subtitulo)
         val numero: TextView = itemView.findViewById(R.id.numero)
         val precio: TextView = itemView.findViewById(R.id.precio)

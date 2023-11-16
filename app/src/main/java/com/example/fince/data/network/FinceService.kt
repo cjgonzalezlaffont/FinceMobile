@@ -1,5 +1,7 @@
 package com.example.fince.data.network
 
+
+import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
@@ -75,6 +77,14 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         return withContext(Dispatchers.IO){
             val response = service.getUserById(userId)
             response.body() ?: UserModel("", "", "", "", "", 0,0,0)
+        }
+    }
+
+
+    suspend fun getAllCategories(userId: String): List<CategoriaModel> {
+        return withContext(Dispatchers.IO){
+            val response = service.getAllCategories(userId)
+            response.body() ?: emptyList<CategoriaModel>()
         }
     }
 
