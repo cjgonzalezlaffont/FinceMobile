@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import com.example.fince.databinding.FragmentCarteraBinding
 import com.example.fince.listeners.OnViewItemClickedListenerCartera
 import com.example.fince.ui.viewmodel.CarteraViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CarteraFragment : Fragment(), OnViewItemClickedListenerCartera {
@@ -26,6 +28,7 @@ class CarteraFragment : Fragment(), OnViewItemClickedListenerCartera {
     private lateinit var carteraListAdapter: CarteraListAdapter
     private var carteraList: List<ActivoModel> = ArrayList()
     private val carteraViewModel: CarteraViewModel by viewModels()
+    private var usuarioId = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +45,8 @@ class CarteraFragment : Fragment(), OnViewItemClickedListenerCartera {
         requireActivity()
         recyclerViewCartera.setHasFixedSize(true)
 
-        val sharedPreferences =
-            requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
-        val usuarioId = sharedPreferences.getString("userId", "")!!
+        val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
+        usuarioId = sharedPreferences.getString("userId", "")!!
 
         carteraViewModel.onCreate(usuarioId)
 
@@ -64,15 +66,19 @@ class CarteraFragment : Fragment(), OnViewItemClickedListenerCartera {
             this.findNavController().navigate(action)
         }
 
-        override fun onResume() {
-            super.onResume()
-            val sharedPreferences =
-                requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
-            val usuarioId = sharedPreferences.getString("userId", "")!!
-            carteraViewModel.onCreate(usuarioId)
+    override fun onResume() {
+        super.onResume()
 
+        lifecycleScope.launch {
+            try {
 
+                val updatedList = carteraViewModel.getUpdatedCarteraList(usuarioId)
+                carteraViewModel.setTransaccionList(updatedList)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
+    }
     }
 
 

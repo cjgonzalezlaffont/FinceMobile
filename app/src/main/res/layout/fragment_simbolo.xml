@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:padding="10dp"
-    app:cardCornerRadius="8dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="10dp"
     app:cardElevation="4dp">
 
     <LinearLayout
@@ -15,73 +16,117 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Símbolo:"
                 android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_gravity="start"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 />
             <TextView
                 android:id="@+id/simboloFragmentTxtViewSimbolo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_gravity="start"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre:"
-            android:layout_gravity="start"
-            />
-        <TextView
-            android:id="@+id/simboloFragmentTxtViewNombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cantidad:"
-                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:layout_gravity="center"
                 />
             <TextView
                 android:id="@+id/simboloFragmentTxtViewCantidad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Valor de Compra:"
-                android:layout_gravity="start"
-                />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre:  "
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:id="@+id/simboloFragmentTxtViewNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Valor de Compra:"
+                    android:layout_weight="2"
+                    android:layout_gravity="start"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Valor Actual:"
+                    android:layout_weight="2"
+                    android:layout_gravity="start"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Variación:"
+                    android:layout_weight="1"
+                    android:layout_gravity="start"
+                    />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/simboloFragmentTxtViewValorDeCompra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                />
+                android:layout_weight="2" />
+
+            <TextView
+                android:id="@+id/simboloFragmentTxtViewValorActual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="2" />
+
+            <TextView
+                android:id="@+id/simboloFragmentTxtViewVariacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginBottom="25dp"
+                android:layout_weight="1" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,82 +136,58 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Fecha de Compra:"
+                android:layout_weight="1"
                 android:layout_gravity="start"
                 />
             <TextView
                 android:id="@+id/simboloFragmentTxtViewFechaDeCompra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="start"
                 />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tipo:"
+                android:layout_weight="1"
                 android:layout_gravity="start"
                 />
             <TextView
                 android:id="@+id/simboloFragmentTxtViewTipo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="start"
                 />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Valor Actual:"
-                android:layout_gravity="start"
-                />
-            <TextView
-                android:id="@+id/simboloFragmentTxtViewValorActual"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Variación:"
-                android:layout_gravity="start"
-                />
-            <TextView
-                android:id="@+id/simboloFragmentTxtViewVariacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
-                android:layout_gravity="start"
-                />
-        </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_margin="25dp"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:text="   OPERACIONES   "
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="5dp"
             >
-
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/simboloFragmentBtnDecrementarCantidadCompra"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:text="-"
-                android:textSize="30sp" />
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:backgroundTint="@color/black"
+                android:layout_margin="0dp"
+                app:icon="@drawable/ic_frag_simbolo_decremento"
+                />
 
             <TextView
                 android:id="@+id/simboloFragmentTextViewCantidadCompra"
@@ -175,19 +196,20 @@
                 android:layout_weight="3"
                 android:layout_gravity="center"
                 android:inputType="number"
+                android:layout_margin="10dp"
                 android:hint="  Cantidad a comprar "
                 android:textSize="20sp"
                 android:textAlignment="center"
                 />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/simboloFragmentBtnIncrementarCantidadCompra"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:text="+"
-                android:textSize="25sp" />
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:backgroundTint="@color/black"
+                android:layout_margin="0dp"
+                app:icon="@drawable/ic_frag_simbolo_incremento"
+                />
         </LinearLayout>
 
         <Button
@@ -196,6 +218,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_columnSpan="3"
+            android:backgroundTint="@color/black"
             android:textSize="25sp"
             android:text="Comprar"
             />
@@ -207,14 +230,14 @@
             android:layout_margin="5dp"
             >
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/simboloFragmentBtnDecrementarCantidadVenta"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:text="-"
-                android:textSize="30sp" />
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:backgroundTint="@color/black"
+                android:layout_margin="0dp"
+                app:icon="@drawable/ic_frag_simbolo_decremento"
+                />
 
             <TextView
                 android:id="@+id/simboloFragmentTextViewCantidadVenta"
@@ -223,19 +246,20 @@
                 android:layout_weight="3"
                 android:inputType="number"
                 android:layout_gravity="center"
+                android:layout_margin="10dp"
                 android:hint="  Cantidad a vender  "
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textAlignment="center"
                 />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/simboloFragmentBtnIncrementarCantidadVenta"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:text="+"
-                android:textSize="25sp" />
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:backgroundTint="@color/black"
+                app:icon="@drawable/ic_frag_simbolo_incremento"
+                />
+
         </LinearLayout>
 
 
@@ -243,18 +267,19 @@
             android:id="@+id/simboloFragmentEditTextPrecioVenta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:layout_gravity="center"
             android:layout_columnSpan="3"
-            android:textSize="25sp"
+            android:layout_gravity="center"
             android:hint="Ingrese precio de venta"
-            />
+            android:inputType="numberDecimal"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/simboloFragmentBtnVender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Vender"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/black"
             android:layout_gravity="center"
             android:layout_columnSpan="3"
             android:textSize="25sp"
