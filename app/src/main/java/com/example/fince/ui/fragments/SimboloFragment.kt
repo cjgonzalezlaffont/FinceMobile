@@ -3,7 +3,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +21,7 @@ class SimboloFragment : Fragment() {
     private var _binding: FragmentSimboloBinding? = null
     private val tradingviewModel: TradingViewModel by viewModels()
     private lateinit var view: View
+    private var precioVentaFlag = false
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -73,8 +73,11 @@ class SimboloFragment : Fragment() {
         }
 
         binding.simboloFragmentBtnDecrementarCantidadCompra.setOnClickListener {
-            tradingviewModel.cantidadDeCompra.value = tradingviewModel.cantidadDeCompra.value?.minus(1)
-            binding.simboloFragmentTextViewCantidadCompra.text = tradingviewModel.cantidadDeCompra.value.toString()
+            val currentCantidadCompra = tradingviewModel.cantidadDeCompra.value ?: 0
+            if (currentCantidadCompra > 0) {
+                tradingviewModel.cantidadDeCompra.value = currentCantidadCompra.minus(1)
+                binding.simboloFragmentTextViewCantidadCompra.text = tradingviewModel.cantidadDeCompra.value.toString()
+            }
         }
 
         binding.simboloFragmentBtnIncrementarCantidadVenta.setOnClickListener {
@@ -83,15 +86,17 @@ class SimboloFragment : Fragment() {
         }
 
         binding.simboloFragmentBtnDecrementarCantidadVenta.setOnClickListener {
-            tradingviewModel.cantidadDeVenta.value = tradingviewModel.cantidadDeVenta.value?.minus(1)
-            binding.simboloFragmentTextViewCantidadVenta.text = tradingviewModel.cantidadDeVenta.value.toString()
+            val cantVentaIngresada = tradingviewModel.cantidadDeVenta.value ?: 0
+            if (cantVentaIngresada > 0) {
+                tradingviewModel.cantidadDeVenta.value = cantVentaIngresada.minus(1)
+                binding.simboloFragmentTextViewCantidadVenta.text = tradingviewModel.cantidadDeVenta.value.toString()
+            }
         }
 
         binding.simboloFragmentTextViewCantidadCompra.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val cantidadCompra = s.toString().toIntOrNull() ?: 0
                 tradingviewModel.cantidadDeCompra.value = cantidadCompra
-
                 binding.simboloFragmentBtnComprar.isEnabled = cantidadCompra > 0
             }
 
@@ -108,9 +113,7 @@ class SimboloFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 val cantidadVenta = s.toString().toIntOrNull() ?: 0
                 tradingviewModel.cantidadDeVenta.value = cantidadVenta
-
-
-                binding.simboloFragmentBtnVender.isEnabled = cantidadVenta > 0
+                binding.simboloFragmentBtnVender.isEnabled = cantidadVenta > 0 && precioVentaFlag
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -123,10 +126,11 @@ class SimboloFragment : Fragment() {
         })
         binding.simboloFragmentEditTextPrecioVenta.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                val precioVenta = s.toString().toFloatOrNull() ?: 0.0f
-                tradingviewModel.precioDeVenta.value = precioVenta.toDouble()
-
-                binding.simboloFragmentBtnVender.isEnabled = precioVenta > 0
+                val precioDeVenta = s.toString().toDoubleOrNull() ?: 0.0
+                tradingviewModel.precioDeVenta.value = precioDeVenta
+                val cantidadVenta = tradingviewModel.cantidadDeVenta.value ?: 0
+                binding.simboloFragmentBtnVender.isEnabled = cantidadVenta > 0 && precioDeVenta > 0
+                precioVentaFlag = precioDeVenta > 0.0
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -139,9 +143,9 @@ class SimboloFragment : Fragment() {
 
                 if (esNumero && precioVenta > 0) {
                     tradingviewModel.precioDeVenta.value = precioVenta.toDouble()
-                    binding.simboloFragmentBtnVender.isEnabled = true
+                    precioVentaFlag = precioVenta > 0
                 } else {
-                    binding.simboloFragmentBtnVender.isEnabled = false
+                    precioVentaFlag = precioVenta < 0
                 }
             }
         })

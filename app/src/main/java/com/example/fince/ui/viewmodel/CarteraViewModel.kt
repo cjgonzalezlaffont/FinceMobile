@@ -36,4 +36,9 @@ class CarteraViewModel @Inject constructor(
             }
         }
     }
+    suspend fun getUpdatedCarteraList(userId: String): List<ActivoModel> {
+        return repository.getPortfolio(userId).portfolio
+    }
+
+
 }
