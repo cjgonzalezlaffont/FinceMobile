@@ -53,6 +53,9 @@
         <argument
             android:name="activo"
             app:argType="com.example.fince.data.model.ActivoModel" />
+        <action
+            android:id="@+id/actionSimboloFragmentToCartera"
+            app:destination="@id/cartera" />
     </fragment>
 
 </navigation>

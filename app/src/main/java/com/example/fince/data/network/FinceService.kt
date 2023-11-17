@@ -7,6 +7,7 @@ import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
+import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -57,9 +58,9 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         }
     }
 
-    suspend fun sellAsset(userId: String, activo: ActivoModel): Int {
+    suspend fun sellAsset(userId: String, venta : Venta): Int {
         return withContext(Dispatchers.IO) {
-            val response = service.buyAsset(userId, activo)
+            val response = service.buyAsset(userId, venta)
             response.code()
         }
     }

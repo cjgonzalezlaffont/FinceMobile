@@ -63,6 +63,16 @@ class CarteraFragment : Fragment(), OnViewItemClickedListenerCartera {
             val action = CarteraFragmentDirections.actionCarteraToSimboloFragment(activo) //activo
             this.findNavController().navigate(action)
         }
+
+        override fun onResume() {
+            super.onResume()
+            val sharedPreferences =
+                requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
+            val usuarioId = sharedPreferences.getString("userId", "")!!
+            carteraViewModel.onCreate(usuarioId)
+
+
+        }
     }
 
 
