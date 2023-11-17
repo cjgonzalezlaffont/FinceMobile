@@ -7,13 +7,13 @@ import com.google.gson.annotations.SerializedName
 data class ActivoModel(
     @SerializedName("simbolo") val simbolo: String,
     @SerializedName("nombre") val nombre: String,
-    @SerializedName("cantidad") val cantidad: Int,
-    @SerializedName("valorDeCompra") val valorDeCompra: Float,
-    @SerializedName("fechaDeCompra") val fechaDeCompra: String,
+    @SerializedName("cantidad") var cantidad: Int,
+    @SerializedName("valorDeCompra") var valorDeCompra: Float,
+    @SerializedName("fechaDeCompra") var fechaDeCompra: String,
     @SerializedName("tipo") val tipo: String,
     @SerializedName("categoriaId") val categoriaId: String,
     @SerializedName("activoId") val activoId: String,
-    @SerializedName("valorActual") val valorActual: Float,
+    @SerializedName("valorActual") var valorActual: Float,
     @SerializedName("variacion") val variacion: Float,
 ) : Parcelable {
 
