@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fince.R
 import com.example.fince.adapters.CategoriaAdapter
 import com.example.fince.adapters.TransaccionAdapter
+import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.CategoriaModel
 import com.example.fince.databinding.FragmentCategoriasBinding
 import com.example.fince.databinding.FragmentPresupuestoBinding
@@ -44,7 +46,7 @@ class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat {
         v = binding.root
         recCategoria = binding.fragCatRecViewCategoria
 
-        return view
+        return v
     }
     override fun onStart() {
         super.onStart()
@@ -80,7 +82,8 @@ class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat {
 
 
     override fun onViewItemDetail(categoria: CategoriaModel) {
+            val action = CategoriaFragmentDirections.actionCategoriaFragmentToFragmentCategoriaDetail(categoria) //activo
+            this.findNavController().navigate(action)
+        }
 
     }
-
-}
