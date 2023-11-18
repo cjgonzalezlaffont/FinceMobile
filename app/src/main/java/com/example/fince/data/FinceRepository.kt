@@ -1,5 +1,7 @@
 package com.example.fince.data
 
+
+import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
@@ -8,6 +10,7 @@ import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.User
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
+import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
 import com.example.fince.data.network.FinceService
 import javax.inject.Inject
@@ -43,8 +46,8 @@ class FinceRepository @Inject constructor(
         return remote.buyAsset(userId, activo)
     }
 
-    suspend fun sellAsset(userId: String, activo: ActivoModel): Int {
-        return remote.buyAsset(userId, activo)
+    suspend fun sellAsset(userId: String, venta : Venta) : Int {
+        return remote.sellAsset(userId, venta)
     }
 
     suspend fun getUserById(userId: String): UserModel{
@@ -54,6 +57,11 @@ class FinceRepository @Inject constructor(
 
     suspend fun createTransaction(userId : String) : Transaccion {
         val response = remote.createTrtansaction(userId)
+        return response
+    }
+    
+    suspend fun getAllCategories(userId: String): List<CategoriaModel> {
+        val response = remote.getAllCategories(userId)
         return response
     }
 }
