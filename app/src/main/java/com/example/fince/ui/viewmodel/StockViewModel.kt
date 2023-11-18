@@ -57,4 +57,5 @@ class StockViewModel @Inject constructor(
             setIsLoading(false)
         }
     }
+
 }
