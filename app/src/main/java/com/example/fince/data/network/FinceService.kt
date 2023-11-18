@@ -81,6 +81,12 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         }
     }
 
+    suspend fun createTrtansaction(userId: String): Transaccion {
+        return withContext(Dispatchers.IO){
+            val response = service.createTransaction(userId)
+            response.body() ?: Transaccion("","",0.toFloat(),0,"","",false,"")
+            }
+    }
 
     suspend fun getAllCategories(userId: String): List<CategoriaModel> {
         return withContext(Dispatchers.IO){
