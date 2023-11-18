@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="Name" />
+            android:hint="Ingrese un nombre" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
-            android:hint="Monto" />
+            android:hint="Ingrese un monto" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -74,16 +74,52 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Fecha"
+            android:textAlignment="viewStart"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/fragAddTranEditTextFecha"
+            style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="datetime"
+            android:hint="Ingrese una fecha" />
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Categoria"
             android:textAlignment="viewStart"
             android:textSize="20dp"
             android:textStyle="bold" />
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
         <Spinner
             android:id="@+id/fragAddTranEditTextCategoria"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Seleccione la categoria..." />
+            android:layout_height="48dp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <Button
+            android:id="@+id/fragAddTranBtnConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirmar"
+            android:backgroundTint="@color/blueFince"/>
+
+
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
