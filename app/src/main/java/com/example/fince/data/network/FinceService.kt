@@ -1,8 +1,10 @@
 package com.example.fince.data.network
 
 
+import android.util.Log
 import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
+import com.example.fince.data.model.ErrorResponse
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.Transaccion
@@ -11,8 +13,11 @@ import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
 import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Response
+import java.io.IOException
 import javax.inject.Inject
 
 class FinceService @Inject constructor(private val service: FinceApiClient) {
@@ -81,17 +86,39 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         }
     }
 
-    suspend fun createTrtansaction(userId: String): Transaccion {
-        return withContext(Dispatchers.IO){
-            val response = service.createTransaction(userId)
-            response.body() ?: Transaccion("","",0.toFloat(),0,"","",false,"")
-            }
+    suspend fun createTransaction(userId: String, transaccion: Transaccion): Transaccion {
+        return handleAPICall { service.createTransaction(userId, transaccion) }
     }
 
     suspend fun getAllCategories(userId: String): List<CategoriaModel> {
         return withContext(Dispatchers.IO){
             val response = service.getAllCategories(userId)
             response.body() ?: emptyList<CategoriaModel>()
+        }
+    }
+
+    suspend fun createCategorie(userId: String, categoria : CategoriaModel): Int {
+        return handleAPICall { service.createCategorie(userId, categoria) }
+    }
+
+    suspend fun <T> handleAPICall(call: suspend () -> Response<T>): T {
+        return try {
+            val response = call.invoke()
+
+            if (response.isSuccessful) {
+                response.body() ?: throw IOException("Empty response body")
+            } else {
+                val errorBody = response.errorBody()?.string()
+
+                val gson = Gson()
+                val errorResponse = gson.fromJson(errorBody, ErrorResponse::class.java)
+
+                Log.e("API Error", "Error code: ${response.code()}, Message: ${errorResponse.error}")
+
+                throw IOException("${errorResponse.error ?: "Unknown error"}")
+            }
+        } catch (e: Exception) {
+            throw IOException("${e.message}")
         }
     }
 
