@@ -20,4 +20,14 @@
         android:name="com.example.fince.ui.fragments.BondsFragment"
         android:label="fragment_bonds"
         tools:layout="@layout/fragment_bonds" />
+    <fragment
+        android:id="@+id/CorporateBondsFragment"
+        android:name="com.example.fince.ui.fragments.CorporateBondsFragment"
+        android:label="fragment_corporate_bonds"
+        tools:layout="@layout/fragment_corporate_bonds" />
+    <fragment
+        android:id="@+id/InvestmentFundsFragment"
+        android:name="com.example.fince.ui.fragments.InvestmentFundFragment"
+        android:label="fragment_investment_fund"
+        tools:layout="@layout/fragment_investment_fund" />
 </navigation>
