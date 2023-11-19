@@ -14,6 +14,7 @@ import com.example.fince.data.model.UserRegisterModel
 import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
 import com.example.fince.data.network.FinceService
+import retrofit2.Response
 import javax.inject.Inject
 
 class FinceRepository @Inject constructor(
@@ -79,18 +80,23 @@ class FinceRepository @Inject constructor(
         return response
     }
 
+    suspend fun createTransaction(userId : String, transaccion : Transaccion) : Transaccion {
+        val response = remote.createTransaction(userId, transaccion)
+        return response
+    }
+
     suspend fun getDataGraph(userId: String): List<DataEntry>{
         val response = remote.getDataGraph(userId)
         return response
     }
 
-    suspend fun createTransaction(userId : String) : Transaccion {
-        val response = remote.createTrtansaction(userId)
-        return response
-    }
-    
     suspend fun getAllCategories(userId: String): List<CategoriaModel> {
         val response = remote.getAllCategories(userId)
+        return response
+    }
+
+    suspend fun createCategorie(userId: String, categoria : CategoriaModel): Int {
+        val response = remote.createCategorie(userId, categoria)
         return response
     }
 

@@ -2,11 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
+    android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.AgregarTranFragment" >
-
+    tools:context=".ui.fragments.AgregarCategoriaFragment">
 
     <LinearLayout
         android:layout_width="331dp"
@@ -22,9 +21,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Alta de Movimiento"
+            android:text="Alta de Categoria"
             android:textAlignment="center"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -34,13 +33,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Titulo"
+            android:text="Nombre"
             android:textAlignment="viewStart"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/fragAddTranEditTextTitulo"
+            android:id="@+id/fragAddCatEditTextTitulo"
             style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,45 +53,29 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Monto"
+            android:text="Monto Maximo"
             android:textAlignment="viewStart"
             android:textSize="20dp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/fragAddTranEditTextMonto"
+            android:id="@+id/fragAddCatEditTextMonto"
             style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
-            android:hint="Ingrese un monto" />
+            android:hint="Ingrese un monto maximo"
+            android:text="0"/>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="15dp"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fecha"
-            android:textAlignment="viewStart"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/fragAddTranEditTextFecha"
-            style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="datetime"
-            android:hint="Ingrese una fecha" />
-
-
-        <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Categoria"
+            android:text="Tipo"
             android:textAlignment="viewStart"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -103,9 +86,29 @@
             android:layout_height="15dp" />
 
         <Spinner
-            android:id="@+id/fragAddTranSpCategoria"
+            android:id="@+id/fragAddCatSpTipo"
             android:layout_width="match_parent"
             android:layout_height="48dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="15dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripcion"
+            android:textAlignment="viewStart"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/fragAddCatEditTextDesc"
+            style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Ingrese una breve descripcion" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -113,7 +116,7 @@
             android:layout_height="15dp" />
 
         <Button
-            android:id="@+id/fragAddTranBtnConfirm"
+            android:id="@+id/fragAddCatBtnConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Confirmar"
@@ -149,5 +152,4 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.95" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

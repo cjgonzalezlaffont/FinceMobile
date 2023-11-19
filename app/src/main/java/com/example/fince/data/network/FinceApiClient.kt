@@ -61,10 +61,13 @@ interface FinceApiClient {
     suspend fun getDataGraph(@Path("userId") userId : String) : Response<List<DataEntry>>
 
     @POST("/api/transactions/createTransaction/{userId}")
-    suspend fun createTransaction(@Path("userId") userId: String): Response<Transaccion>
+    suspend fun createTransaction(@Path("userId") userId: String, @Body transaccion : Transaccion): Response<Transaccion>
 
     @GET("/api/categories/{userId}")
     suspend fun getAllCategories(@Path("userId") userId : String) : Response<List<CategoriaModel>>
+
+    @POST("/api/categories/{userId}")
+    suspend fun createCategorie(@Path("userId") userId: String, @Body categoria : CategoriaModel): Response<Int>
 
 
 }
