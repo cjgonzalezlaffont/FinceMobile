@@ -34,6 +34,20 @@ class FinceRepository @Inject constructor(
         return response
     }
 
+    suspend fun getCedears(): List<StockModel>{
+        val response = remote.getCedears()
+        return response
+    }
+    suspend fun getStocks(): List<StockModel>{
+        val response = remote.getStocks()
+        return response
+    }
+    suspend fun getGovernmentBonds():List<StockModel>{
+        val response = remote.getGovernmentBonds()
+        return response
+    }
+
+
     suspend fun getAllTransactions(userId : String) : TransaccionModel{
         val response = remote.getAllTransactions(userId)
         return response

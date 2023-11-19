@@ -31,4 +31,11 @@
     <string name="menu_fragment_last_price">Ult. Precio</string>
     <string name="menu_fragment_instrument_type">Tipo</string>
 
+    <!--bottom nav bar panel general-->
+    <string name="bottom_nav_bar_stocks">Acciones</string>
+    <string name="bottom_nav_bar_cedears">Cedears</string>
+    <string name="bottom_nav_bar_bonds">Bonos</string>
+    <string name="bottom_nav_bar_corporate_bonds">ON</string>
+    <string name="bottom_nav_bar_fci">FCI</string>
+
 </resources>
