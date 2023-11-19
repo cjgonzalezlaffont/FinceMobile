@@ -1,9 +1,12 @@
 package com.example.fince.data
 
+
+import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.DataEntry
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
+import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.User
 import com.example.fince.data.model.UserModel
@@ -55,6 +58,16 @@ class FinceRepository @Inject constructor(
 
     suspend fun getDataGraph(userId: String): List<DataEntry>{
         val response = remote.getDataGraph(userId)
+        return response
+    }
+
+    suspend fun createTransaction(userId : String) : Transaccion {
+        val response = remote.createTrtansaction(userId)
+        return response
+    }
+    
+    suspend fun getAllCategories(userId: String): List<CategoriaModel> {
+        val response = remote.getAllCategories(userId)
         return response
     }
 

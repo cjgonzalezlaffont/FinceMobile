@@ -25,7 +25,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewPresupuesto">
 
         <Button
-            android:id="@+id/btnIngresos"
+            android:id="@+id/fragTranBtnAddTran"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
@@ -33,7 +33,7 @@
             android:text="Agregar movimiento" />
 
         <Button
-            android:id="@+id/btnEditar"
+            android:id="@+id/fragTranBtnCat"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="0dp"

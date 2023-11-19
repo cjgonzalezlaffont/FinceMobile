@@ -1,9 +1,12 @@
 package com.example.fince.data.network
 
+
+import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.DataEntry
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
+import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
@@ -53,7 +56,15 @@ interface FinceApiClient {
     @GET("/api/users/{userId}")
     suspend fun getUserById(@Path("userId") userId : String) : Response<UserModel>
 
+
     @GET("/api/transactions/getDataGraph/{userId}")
     suspend fun getDataGraph(@Path("userId") userId : String) : Response<List<DataEntry>>
+
+    @POST("/api/transactions/createTransaction/{userId}")
+    suspend fun createTransaction(@Path("userId") userId: String): Response<Transaccion>
+
+    @GET("/api/categories/{userId}")
+    suspend fun getAllCategories(@Path("userId") userId : String) : Response<List<CategoriaModel>>
+
 
 }

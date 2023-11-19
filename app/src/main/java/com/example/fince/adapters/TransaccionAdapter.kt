@@ -41,6 +41,11 @@ class TransaccionAdapter(
         holder.setCategoria(transaccion.categoriaNombre)
         holder.setFecha(transaccion.fecha)
         holder.setMonto(transaccion.montoConsumido)
+        holder.getFrameLayout().setOnClickListener{
+            if (transaccion != null) {
+                onItemClick.onViewItemDetail(transaccion)
+            }
+        }
     }
 
 }
