@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.fragment.app.viewModels
 import com.example.fince.databinding.FragmentAgregarTranBinding
+import com.example.fince.ui.viewmodel.AgregarTranViewModel
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -21,6 +23,7 @@ class AgregarTranFragment : Fragment() {
     private lateinit var view : View
     lateinit var spMeses : Spinner
     var listaCategorias = listOf("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre")
+    private val agregarTranViewModel : AgregarTranViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +41,8 @@ class AgregarTranFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
+        val usuarioId = sharedPreferences.getString("userId", "")!!
         populateSpinner(spMeses,listaCategorias,requireContext())
 
         spMeses.setSelection(0, false) // evita la primer falsa entrada si existe validación
@@ -52,15 +57,18 @@ class AgregarTranFragment : Fragment() {
                 Snackbar.make(view, "No hay nada seleccionado", Snackbar.LENGTH_SHORT).show()
             }
         })
+
+        binding.fragAddTranBtnConfirm.setOnClickListener {
+            agregarTranViewModel.nuevaTransaccion(usuarioId)
+        }
     }
 
     fun populateSpinner (spinner: Spinner, list : List<String>, context : Context)
     {
-        //   val aa = ArrayAdapter( context!!, android.R.layout.simple_spinner_item, list)
         val aa = ArrayAdapter(context, R.layout.simple_spinner_item, list)
 
         // Set layout to use when the list of choices appear
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        aa.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         // Set Adapter to Spinner
         spinner.setAdapter(aa)
     }

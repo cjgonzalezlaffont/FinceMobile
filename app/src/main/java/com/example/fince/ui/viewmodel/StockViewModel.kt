@@ -91,6 +91,7 @@ class StockViewModel @Inject constructor(
             setIsLoading(false)
         }
     }
+
     fun onCreateCedears(){
         setIsLoading(true)
         viewModelScope.launch {
@@ -134,4 +135,5 @@ class StockViewModel @Inject constructor(
             setIsLoading(false)
         }
     }
+    
 }

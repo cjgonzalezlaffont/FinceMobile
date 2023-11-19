@@ -3,16 +3,20 @@ package com.example.fince.data.network
 
 import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
+import com.example.fince.data.model.DataEntry
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
+import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
+import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface FinceApiClient {
@@ -46,10 +50,21 @@ interface FinceApiClient {
     @POST("api/portfolio/buyAsset/{userId}")
     suspend fun buyAsset(@Path("userId") userId : String, @Body activo : ActivoModel) : Response<Void>
 
+    @PUT("api/portfolio/sellAsset/{userId}")
+    suspend fun buyAsset(@Path("userId") userId : String, @Body venta : Venta) : Response<Void>
+
     @GET("/api/users/{userId}")
     suspend fun getUserById(@Path("userId") userId : String) : Response<UserModel>
 
+
+    @GET("/api/transactions/getDataGraph/{userId}")
+    suspend fun getDataGraph(@Path("userId") userId : String) : Response<List<DataEntry>>
+
+    @POST("/api/transactions/createTransaction/{userId}")
+    suspend fun createTransaction(@Path("userId") userId: String): Response<Transaccion>
+
     @GET("/api/categories/{userId}")
     suspend fun getAllCategories(@Path("userId") userId : String) : Response<List<CategoriaModel>>
+
 
 }

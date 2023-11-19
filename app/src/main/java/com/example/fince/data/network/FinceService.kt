@@ -3,12 +3,14 @@ package com.example.fince.data.network
 
 import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
+import com.example.fince.data.model.DataEntry
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
+import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -78,9 +80,9 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         }
     }
 
-    suspend fun sellAsset(userId: String, activo: ActivoModel): Int {
+    suspend fun sellAsset(userId: String, venta : Venta): Int {
         return withContext(Dispatchers.IO) {
-            val response = service.buyAsset(userId, activo)
+            val response = service.buyAsset(userId, venta)
             response.code()
         }
     }
@@ -99,6 +101,19 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         }
     }
 
+    suspend fun getDataGraph(userId: String): List<DataEntry>{
+        return withContext(Dispatchers.IO){
+            val response = service.getDataGraph(userId)
+            response.body() ?: emptyList<DataEntry>()
+        }
+    }
+
+    suspend fun createTrtansaction(userId: String): Transaccion {
+        return withContext(Dispatchers.IO){
+            val response = service.createTransaction(userId)
+            response.body() ?: Transaccion("","",0.toFloat(),0,"","",false,"")
+            }
+    }
 
     suspend fun getAllCategories(userId: String): List<CategoriaModel> {
         return withContext(Dispatchers.IO){
@@ -106,5 +121,6 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
             response.body() ?: emptyList<CategoriaModel>()
         }
     }
+
 
 }
