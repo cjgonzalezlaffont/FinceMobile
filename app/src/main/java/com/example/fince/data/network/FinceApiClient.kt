@@ -3,6 +3,7 @@ package com.example.fince.data.network
 
 import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
+import com.example.fince.data.model.DataEntry
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.Transaccion
@@ -30,15 +31,15 @@ interface FinceApiClient {
     @POST("/api/instruments/TODOS")
     suspend fun getAllInstruments() : Response<List<StockModel>>
     @POST("/api/instruments/cedears")
-    suspend fun  getCedears()
+    suspend fun  getCedears(): Response<List<StockModel>>
     @POST("/api/instruments/acciones")
-    suspend fun  getStocks()
+    suspend fun  getStocks(): Response<List<StockModel>>
     @POST("/api/instruments/titulosPublicos")
-    suspend fun  getGovernmentBonds()
+    suspend fun  getGovernmentBonds(): Response<List<StockModel>>
     @POST("/api/instruments/obligacionesNegociables")
-    suspend fun  getCorporateBonds()
+    suspend fun  getCorporateBonds(): Response<List<StockModel>>
     @POST("/api/instruments/FCI")
-    suspend fun  getInvestmentFunds()
+    suspend fun  getInvestmentFunds(): Response<List<StockModel>>
 
     @GET("/api/transactions/getTransactions/{userId}")
     suspend fun getAllTransactions(@Path("userId") userId : String) : Response<TransaccionModel>
@@ -55,6 +56,10 @@ interface FinceApiClient {
     @GET("/api/users/{userId}")
     suspend fun getUserById(@Path("userId") userId : String) : Response<UserModel>
 
+
+    @GET("/api/transactions/getDataGraph/{userId}")
+    suspend fun getDataGraph(@Path("userId") userId : String) : Response<List<DataEntry>>
+
     @POST("/api/transactions/createTransaction/{userId}")
     suspend fun createTransaction(@Path("userId") userId: String, @Body transaccion : Transaccion): Response<Transaccion>
 
@@ -63,5 +68,6 @@ interface FinceApiClient {
 
     @POST("/api/categories/{userId}")
     suspend fun createCategorie(@Path("userId") userId: String, @Body categoria : CategoriaModel): Response<Int>
+
 
 }

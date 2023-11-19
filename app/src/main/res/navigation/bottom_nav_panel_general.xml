@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav_panel_general"
+    app:startDestination="@id/stocksFragment"
+    >
+    <fragment
+        android:id="@+id/stocksFragment"
+        android:name="com.example.fince.ui.fragments.StocksFragment"
+        android:label="fragment_stocks"
+        tools:layout="@layout/fragment_stocks" />
+    <fragment
+        android:id="@+id/cedearsFragment"
+        android:name="com.example.fince.ui.fragments.CedearsFragment"
+        android:label="fragment_cedears"
+        tools:layout="@layout/fragment_cedears"/>
+    <fragment
+        android:id="@+id/bondsFragment"
+        android:name="com.example.fince.ui.fragments.BondsFragment"
+        android:label="fragment_bonds"
+        tools:layout="@layout/fragment_bonds" />
+</navigation>
