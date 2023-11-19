@@ -43,11 +43,62 @@ class StockViewModel @Inject constructor(
             }
         }.await()
     }
+
+    suspend fun getCedears(): List<StockModel>{
+        return viewModelScope.async {
+            try{
+                val result = repository.getCedears()
+                _response.postValue(result)
+                result
+            }catch (e: Exception){
+                emptyList()
+            }
+        } .await()
+    }
+    suspend fun getStocks(): List<StockModel>{
+        return viewModelScope.async {
+            try{
+                val result = repository.getCedears()
+                _response.postValue(result)
+                result
+            }catch (e: Exception){
+                emptyList()
+            }
+        } .await()
+    }
     fun onCreate(){
         setIsLoading(true)
         viewModelScope.launch {
             try {
                 val response =  repository.getAllInstruments()
+                if (!response.isEmpty()) {
+                    setStockList(response)
+                }
+            } catch (e: Exception) {
+                Log.e("StockViewModel", "Error: ${e.message}")
+            }
+            setIsLoading(false)
+        }
+    }
+    fun onCreateCedears(){
+        setIsLoading(true)
+        viewModelScope.launch {
+            try {
+                val response =  repository.getCedears()
+                if (!response.isEmpty()) {
+                    setStockList(response)
+                }
+            } catch (e: Exception) {
+                Log.e("StockViewModel", "Error: ${e.message}")
+            }
+            setIsLoading(false)
+        }
+    }
+    fun onCreateStocks(){
+        setIsLoading(true)
+        viewModelScope.launch {
+            try {
+                val response =  repository.getStocks()
                 if (!response.isEmpty()) {
                     setStockList(response)
                 }

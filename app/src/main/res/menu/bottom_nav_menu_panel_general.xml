@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/stocksFragment"
+        android:title="@string/bottom_nav_bar_stocks"
+        />
+    <item
+        android:id="@+id/cedearsFragment"
+        android:title="@string/bottom_nav_bar_cedears"
+        />
+    <item
+        android:id="@+id/fragment_bonds"
+        android:title="@string/bottom_nav_bar_bonds"
+        />
+    <!--
+    <item
+        android:id="@+id/bottom_nav_corporate_bonds"
+        android:title="@string/bottom_nav_bar_corporate_bonds"
+        />
+    <item
+        android:id="@+id/bottom_nav_fci"
+        android:title="@string/bottom_nav_bar_fci"
+        />
+-->
+</menu>
