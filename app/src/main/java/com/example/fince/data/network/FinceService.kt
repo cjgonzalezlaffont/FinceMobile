@@ -1,6 +1,7 @@
 package com.example.fince.data.network
 
 import com.example.fince.data.model.ActivoModel
+import com.example.fince.data.model.DataEntry
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.Transaccion
@@ -78,5 +79,13 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
             response.body() ?: UserModel("", "", "", "", "", 0,0,0)
         }
     }
+
+    suspend fun getDataGraph(userId: String): List<DataEntry>{
+        return withContext(Dispatchers.IO){
+            val response = service.getDataGraph(userId)
+            response.body() ?: emptyList<DataEntry>()
+        }
+    }
+
 
 }
