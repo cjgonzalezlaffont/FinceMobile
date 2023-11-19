@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,11 +33,6 @@ class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat {
     private var _binding: FragmentCategoriasBinding? = null
     private val binding get() = _binding!!
     private  val categoriaViewModel: CategoriaViewModel by viewModels()
-
-
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +68,11 @@ class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat {
         categoriaViewModel.isLoading.observe(viewLifecycleOwner) {
             binding.isLoadingFragCat.visibility = if (it) View.VISIBLE else View.GONE
         }
+
+        binding.fragCatBtnAddCate.setOnClickListener{
+            val action = CategoriaFragmentDirections.actionCategoriaFragmentToAgregarCategoriaFragment()
+            v.findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {
@@ -79,10 +80,8 @@ class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat {
         _binding = null
     }
 
-
-
     override fun onViewItemDetail(categoria: CategoriaModel) {
-            val action = CategoriaFragmentDirections.actionCategoriaFragmentToFragmentCategoriaDetail(categoria) //activo
+            val action = CategoriaFragmentDirections.actionCategoriaFragmentToFragmentCategoriaDetail(categoria)
             this.findNavController().navigate(action)
         }
 
