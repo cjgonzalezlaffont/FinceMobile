@@ -57,7 +57,7 @@ class PanelGeneralFragment : Fragment(){
         navHostFragment = childFragmentManager.findFragmentById(binding.fragmentContainerViewPanelGeneral.id) as NavHostFragment
         navController = navHostFragment.navController
 
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.stocksFragment,R.id.cedearsFragment, R.id.bondsFragment))
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.stocksFragment,R.id.cedearsFragment, R.id.bondsFragment, R.id.CorporateBondsFragment, R.id.InvestmentFundsFragment))
         bottomNavView.setupWithNavController(navController)
 
         return view
