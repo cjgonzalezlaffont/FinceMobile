@@ -100,7 +100,7 @@
                 android:id="@+id/fragmentContainerViewPanelGeneral"
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
-                android:layout_height="713dp"
+                android:layout_height="712dp"
                 app:navGraph="@navigation/bottom_nav_panel_general" />
 
         </LinearLayout>

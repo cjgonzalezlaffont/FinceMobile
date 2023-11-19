@@ -15,4 +15,9 @@
         android:name="com.example.fince.ui.fragments.CedearsFragment"
         android:label="fragment_cedears"
         tools:layout="@layout/fragment_cedears"/>
+    <fragment
+        android:id="@+id/bondsFragment"
+        android:name="com.example.fince.ui.fragments.BondsFragment"
+        android:label="fragment_bonds"
+        tools:layout="@layout/fragment_bonds" />
 </navigation>

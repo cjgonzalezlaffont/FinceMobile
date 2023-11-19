@@ -66,6 +66,17 @@ class StockViewModel @Inject constructor(
             }
         } .await()
     }
+    suspend fun getGovernmentBonds(): List<StockModel>{
+        return viewModelScope.async {
+            try{
+                val result = repository.getGovernmentBonds()
+                _response.postValue(result)
+                result
+            }catch (e: Exception){
+                emptyList()
+            }
+        } .await()
+    }
     fun onCreate(){
         setIsLoading(true)
         viewModelScope.launch {
@@ -99,6 +110,21 @@ class StockViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response =  repository.getStocks()
+                if (!response.isEmpty()) {
+                    setStockList(response)
+                }
+            } catch (e: Exception) {
+                Log.e("StockViewModel", "Error: ${e.message}")
+            }
+            setIsLoading(false)
+        }
+    }
+
+    fun onCreateGovernmentBonds(){
+        setIsLoading(true)
+        viewModelScope.launch {
+            try {
+                val response =  repository.getGovernmentBonds()
                 if (!response.isEmpty()) {
                     setStockList(response)
                 }

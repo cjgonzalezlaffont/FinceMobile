@@ -57,10 +57,8 @@ class PanelGeneralFragment : Fragment(){
         navHostFragment = childFragmentManager.findFragmentById(binding.fragmentContainerViewPanelGeneral.id) as NavHostFragment
         navController = navHostFragment.navController
 
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.stocksFragment,R.id.cedearsFragment))
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.stocksFragment,R.id.cedearsFragment, R.id.bondsFragment))
         bottomNavView.setupWithNavController(navController)
-
-
 
         return view
     }
@@ -75,12 +73,6 @@ class PanelGeneralFragment : Fragment(){
         requireActivity()
         linearLayoutManager = LinearLayoutManager(context)
 
-    }
-
-    private fun setCurrentFragment(fragment: Fragment) = activity?.supportFragmentManager?.beginTransaction()?.apply {
-        replace(binding.fragmentContainerViewPanelGeneral.id, fragment)
-        addToBackStack(null)
-        commit()
     }
 
 

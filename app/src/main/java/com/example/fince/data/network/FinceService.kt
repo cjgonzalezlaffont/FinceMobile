@@ -51,6 +51,12 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
             response.body() ?: emptyList<StockModel>()
         }
     }
+    suspend fun getGovernmentBonds(): List<StockModel>{
+        return withContext(Dispatchers.IO){
+            val response = service.getGovernmentBonds()
+            response.body() ?: emptyList<StockModel>()
+        }
+    }
 
     suspend fun getAllTransactions(userId : String): TransaccionModel {
         return withContext(Dispatchers.IO){

@@ -10,10 +10,9 @@
         android:title="@string/bottom_nav_bar_cedears"
         />
     <item
-        android:id="@+id/fragment_bonds"
+        android:id="@+id/bondsFragment"
         android:title="@string/bottom_nav_bar_bonds"
         />
-    <!--
     <item
         android:id="@+id/bottom_nav_corporate_bonds"
         android:title="@string/bottom_nav_bar_corporate_bonds"
@@ -22,5 +21,4 @@
         android:id="@+id/bottom_nav_fci"
         android:title="@string/bottom_nav_bar_fci"
         />
--->
 </menu>
