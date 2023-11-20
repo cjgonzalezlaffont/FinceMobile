@@ -27,18 +27,14 @@ import java.util.ArrayList
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.example.fince.listeners.OnViewItemClickedListener
 
 @AndroidEntryPoint
-class PanelGeneralFragment : Fragment(){
+class PanelGeneralFragment : Fragment() {
     private var _binding: FragmentPanelGeneralBinding? = null
     private val binding get() = _binding!!
     private lateinit var view: View
-    lateinit var recStocks: RecyclerView
     private lateinit var linearLayoutManager: LinearLayoutManager
-    lateinit var stockListAdapter: StockListAdapter
-    var stockList: List<StockModel> = ArrayList()
-    //se llama a la api por medio del StockViewModel
-    private val stockViewModel: StockViewModel by viewModels()
     private lateinit var bottomNavView: BottomNavigationView
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
@@ -74,11 +70,4 @@ class PanelGeneralFragment : Fragment(){
         linearLayoutManager = LinearLayoutManager(context)
 
     }
-
-
-    /*override fun onViewItemDetail(stock: StockModel) {
-        val action = PanelGeneralFragmentDirections.actionPanelGeneralToSimboloFragment(stock.transformStockToActivo(stock))
-        this.findNavController().navigate(action)
-    }*/
-
 }

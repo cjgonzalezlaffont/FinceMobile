@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fince.R
@@ -64,7 +65,8 @@ class InvestmentFundFragment : Fragment(), OnViewItemClickedListener {
         }
     }
     override fun onViewItemDetail(stock: StockModel) {
-        TODO("Not yet implemented")
+        val action = InvestmentFundFragmentDirections.actionInvestmentFundsFragmentToSimboloFragment2(stock.transformStockToActivo(stock))
+        this.findNavController().navigate(action)
     }
 
 
