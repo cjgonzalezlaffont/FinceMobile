@@ -66,8 +66,8 @@ class PrincipalFragment : Fragment() {
         viewModel.egresosListLiveData.observe(viewLifecycleOwner) { _ ->
             updateBarChart(viewModel.ingresosList.toList(), viewModel.egresosList.toList())
         }
-        viewModel.pieEntriesLiveData.observe(viewLifecycleOwner) { pieEntries ->
-            updatePieChart(pieEntries)
+        viewModel.pieListLiveData.observe(viewLifecycleOwner) { _ ->
+            updatePieChart(viewModel.pieList.toList())
         }
     }
 
@@ -79,31 +79,40 @@ class PrincipalFragment : Fragment() {
         val ingresosDataSet = BarDataSet(ingresosList, "Ingresos")
         ingresosDataSet.color = ColorTemplate.COLORFUL_COLORS[0]
         ingresosDataSet.setDrawValues(true)
-
+        ingresosDataSet.valueTextSize = 12f
         val egresosDataSet = BarDataSet(egresosList, "Egresos")
         egresosDataSet.color = ColorTemplate.COLORFUL_COLORS[1]
         egresosDataSet.setDrawValues(true)
-
+        egresosDataSet.valueTextSize = 12f
         val barData = BarData(ingresosDataSet, egresosDataSet)
 
         barchart.data = barData
-        barchart.groupBars(0f, 0.5f, 0.1f)
+        barchart.xAxis.isEnabled = false
+        barchart.axisLeft.isEnabled = false
+        barchart.axisRight.isEnabled = false
+
+
+        barchart.groupBars(0f, 0.9f, 0.9f)
         barchart.animateY(5000)
-        barchart.description.text = "Descripción para ingresos y egresos"
-        barchart.description.textColor = Color.Companion.White.toArgb()
+        barchart.description.text = "Ingresos y Egresos"
+        barchart.description.textColor = Color.Companion.Black.toArgb()
+        barchart.setBackgroundColor(Color.Companion.Gray.toArgb())
+
+
     }
 
     private fun updatePieChart(pieEntries: List<PieEntry>) {
-        val pieDataSet = PieDataSet(pieEntries, "Gastos por Categorías")
+        val pieDataSet = PieDataSet(pieEntries, "")
         pieDataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
         pieDataSet.setDrawValues(true)
-
+        pieDataSet.valueTextSize = 14f
         val pieData = PieData(pieDataSet)
 
         pieChart.data = pieData
         pieChart.animateXY(5000, 5000)
-        pieChart.description.text = "Descripción para gastos"
-        pieChart.description.textColor = Color.Companion.White.toArgb()
+        pieChart.description.text = "Gastos por Categorías"
+        pieChart.description.textColor = Color.Companion.Black.toArgb()
+        pieChart.setBackgroundColor(Color.Companion.Gray.toArgb())
     }
 
     override fun onDestroyView() {
