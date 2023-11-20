@@ -57,12 +57,12 @@ class StocksFragment : Fragment(), OnViewItemClickedListener {
         recStocks.adapter = stockListAdapter
 
         stockViewModel.isLoading.observe(viewLifecycleOwner) {
-            //binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
+            binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
 
     override fun onViewItemDetail(stock: StockModel) {
-        val action = InvestmentFundFragmentDirections.actionInvestmentFundsFragmentToSimboloFragment2(stock.transformStockToActivo(stock))
+        val action = StocksFragmentDirections.actionStocksFragmentToSimboloFragment2(stock.transformStockToActivo(stock))
         this.findNavController().navigate(action)
     }
 }
