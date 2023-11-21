@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import com.example.fince.adapters.CategoriaAdapter
 import com.example.fince.adapters.TransaccionAdapter
 import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.CategoriaModel
+import com.example.fince.data.model.Transaccion
 import com.example.fince.databinding.FragmentCategoriasBinding
 import com.example.fince.databinding.FragmentPresupuestoBinding
 import com.example.fince.listeners.OnViewItemClickedListenerCat
@@ -72,6 +74,8 @@ class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat {
         categoriaViewModel.isLoading.observe(viewLifecycleOwner) {
             binding.isLoadingFragCat.visibility = if (it) View.VISIBLE else View.GONE
         }
+
+
     }
 
     override fun onDestroyView() {
@@ -82,8 +86,9 @@ class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat {
 
 
     override fun onViewItemDetail(categoria: CategoriaModel) {
-            val action = CategoriaFragmentDirections.actionCategoriaFragmentToFragmentCategoriaDetail(categoria) //activo
-            this.findNavController().navigate(action)
+        val dialogFragment = CategoriaDialogFragment.newInstance(categoria)
+        dialogFragment.show(childFragmentManager, "detalle_dialog")
+
         }
 
     }
