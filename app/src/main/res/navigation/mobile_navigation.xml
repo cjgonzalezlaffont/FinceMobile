@@ -78,10 +78,8 @@
     <fragment
         android:id="@+id/categoriaFragment"
         android:name="com.example.fince.ui.fragments.CategoriaFragment"
+       
         android:label="CategoriaFragment" >
-        <action
-            android:id="@+id/action_categoriaFragment_to_fragmentCategoriaDetail"
-            app:destination="@id/fragmentCategoriaDetail" />
         <action
             android:id="@+id/action_categoriaFragment_to_agregarCategoriaFragment"
             app:destination="@id/agregarCategoriaFragment" />
