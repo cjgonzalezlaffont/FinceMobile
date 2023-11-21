@@ -14,96 +14,22 @@
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/bottom_nav_menu_panel_general"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_nav_menu_panel_general" />
 
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerViewPanelGeneral"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="-16dp"
-            tools:layout_editor_absoluteY="-128dp">
-
-            <LinearLayout
-                android:id="@+id/fragmentPanelGeneralHorizontalLayoutHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/deepBlue"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/editTextText3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/deepBlue"
-                    android:clickable="false"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="@string/menu_fragment_symbol"
-                    android:textColor="@color/sky"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/editTextText4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/deepBlue"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="@string/menu_fragment_description"
-                    android:textColor="@color/sky"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/editTextText5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/deepBlue"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="@string/menu_fragment_percentage_change_daily"
-                    android:textColor="@color/sky"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/editTextText6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/deepBlue"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="@string/menu_fragment_last_price"
-                    android:textColor="@color/sky"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/editTextText7"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/deepBlue"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="@string/menu_fragment_instrument_type"
-                    android:textColor="@color/sky"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerViewPanelGeneral"
-                android:name="androidx.navigation.fragment.NavHostFragment"
-                android:layout_width="match_parent"
-                android:layout_height="712dp"
-                app:navGraph="@navigation/bottom_nav_panel_general" />
-
-        </LinearLayout>
+            android:layout_height="712dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/bottom_nav_panel_general" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

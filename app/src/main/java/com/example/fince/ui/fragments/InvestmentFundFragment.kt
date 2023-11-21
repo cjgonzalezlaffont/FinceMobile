@@ -61,7 +61,7 @@ class InvestmentFundFragment : Fragment(), OnViewItemClickedListener {
         recInvestmentFund.adapter = stockListAdapter
 
         stockViewModel.isLoading.observe(viewLifecycleOwner) {
-            //binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
+            binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
     override fun onViewItemDetail(stock: StockModel) {
