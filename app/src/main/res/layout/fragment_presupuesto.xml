@@ -30,7 +30,8 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:text="Agregar movimiento" />
+            android:text="Agregar movimiento"
+            android:backgroundTint="@color/blueFince"/>
 
         <Button
             android:id="@+id/fragTranBtnCat"
@@ -38,7 +39,8 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="0dp"
             android:layout_weight="1"
-            android:text="Ver categorias" />
+            android:text="Ver categorias"
+            android:backgroundTint="@color/blueFince"/>
 
     </LinearLayout>
 

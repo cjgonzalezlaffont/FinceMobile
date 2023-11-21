@@ -35,11 +35,6 @@ class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat {
     private val binding get() = _binding!!
     private  val categoriaViewModel: CategoriaViewModel by viewModels()
 
-
-
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -75,7 +70,10 @@ class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat {
             binding.isLoadingFragCat.visibility = if (it) View.VISIBLE else View.GONE
         }
 
-
+        binding.fragCatBtnAddCate.setOnClickListener{
+            val action = CategoriaFragmentDirections.actionCategoriaFragmentToAgregarCategoriaFragment()
+            v.findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {
@@ -83,12 +81,10 @@ class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat {
         _binding = null
     }
 
-
-
     override fun onViewItemDetail(categoria: CategoriaModel) {
+
         val dialogFragment = CategoriaDialogFragment.newInstance(categoria)
         dialogFragment.show(childFragmentManager, "detalle_dialog")
-
         }
 
     }

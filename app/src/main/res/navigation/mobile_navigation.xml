@@ -78,6 +78,25 @@
     <fragment
         android:id="@+id/categoriaFragment"
         android:name="com.example.fince.ui.fragments.CategoriaFragment"
-        android:label="CategoriaFragment" />
+       
+        android:label="CategoriaFragment" >
+        <action
+            android:id="@+id/action_categoriaFragment_to_agregarCategoriaFragment"
+            app:destination="@id/agregarCategoriaFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentCategoriaDetail"
+        android:name="com.example.fince.ui.fragments.CategoriaDetailFragment"
+        android:label="CategoriaFragment" >
+        <argument
+            android:name="categoria"
+            app:argType="com.example.fince.data.model.CategoriaModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/agregarCategoriaFragment"
+        android:name="com.example.fince.ui.fragments.AgregarCategoriaFragment"
+        android:label="fragment_agregar_categoria"
+        tools:layout="@layout/fragment_agregar_categoria" />
 
 </navigation>

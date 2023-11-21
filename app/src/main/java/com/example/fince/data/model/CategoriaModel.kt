@@ -1,6 +1,8 @@
 package com.example.fince.data.model
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.RequiresApi
 import com.google.gson.annotations.SerializedName
 
 
@@ -12,8 +14,7 @@ data class CategoriaModel(
     @SerializedName("tipo") val tipo: Int,
     @SerializedName("descripcion") val descripcion: String,
     @SerializedName("montoConsumido") val montoConsumido: Float,
-    @SerializedName("financiera")  val financiera:Boolean,
-
+    @SerializedName("financiera")  val financiera : Boolean,
 
     ): Parcelable {
     constructor(parcel: Parcel) : this(
@@ -25,7 +26,6 @@ data class CategoriaModel(
         parcel.readFloat(),
         parcel.readBoolean(),
 
-
     ) {
     }
 
@@ -35,6 +35,7 @@ data class CategoriaModel(
         parcel.writeInt(tipo)
         parcel.writeString(descripcion)
         parcel.writeFloat(montoConsumido)
+        parcel.writeBoolean(financiera)
     }
 
     override fun describeContents(): Int {
@@ -50,5 +51,10 @@ data class CategoriaModel(
             return arrayOfNulls(size)
         }
     }
+
+    override fun toString() : String{
+        return nombre
+    }
+
 
 }

@@ -44,14 +44,10 @@ class CarteraFragment : Fragment(), OnViewItemClickedListenerCartera {
         super.onStart()
         requireActivity()
         recyclerViewCartera.setHasFixedSize(true)
-
         val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
         usuarioId = sharedPreferences.getString("userId", "")!!
-
         carteraViewModel.onCreate(usuarioId)
-
         linearLayoutManager = LinearLayoutManager(context)
-
         carteraListAdapter = CarteraListAdapter(carteraList, this)
         recyclerViewCartera.layoutManager = linearLayoutManager
         recyclerViewCartera.adapter = carteraListAdapter
@@ -71,7 +67,6 @@ class CarteraFragment : Fragment(), OnViewItemClickedListenerCartera {
 
         lifecycleScope.launch {
             try {
-
                 val updatedList = carteraViewModel.getUpdatedCarteraList(usuarioId)
                 carteraViewModel.setTransaccionList(updatedList)
             } catch (e: Exception) {
