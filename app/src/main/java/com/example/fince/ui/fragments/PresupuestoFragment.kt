@@ -13,12 +13,14 @@ import androidx.navigation.findNavController
 import com.example.fince.adapters.TransaccionAdapter
 import com.example.fince.data.model.Transaccion
 import com.example.fince.databinding.FragmentPresupuestoBinding
+import com.example.fince.listeners.OnTransactionDeletedListener
 import com.example.fince.listeners.OnViewItemClickedListenerTran
 import com.example.fince.ui.viewmodel.TransaccionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
+class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran,
+    OnTransactionDeletedListener {
 
     private var _binding: FragmentPresupuestoBinding? = null
     private val binding get() = _binding!!
@@ -66,8 +68,8 @@ class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
 
         transaccionViewModel.isLoading.observe(viewLifecycleOwner) {
             binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
-
         }
+
         binding.fragTranBtnCat.setOnClickListener{
             val action = PresupuestoFragmentDirections.actionPresupuestoToCategoriaFragment()
             view.findNavController().navigate(action)
@@ -86,10 +88,16 @@ class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
 
     override fun onViewItemDetail(transaccion: Transaccion) {
         val dialogFragment = TransaccionDialogFragment.newInstance(transaccion)
+        dialogFragment.setListener(this)
         dialogFragment.show(childFragmentManager, "detalle_dialog")
 
     }
 
+    override fun onTransactionDeleted() {
+        val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
+        val usuarioId = sharedPreferences.getString("userId", "")!!
+        transaccionViewModel.onCreate(usuarioId)
+    }
 
 
 }

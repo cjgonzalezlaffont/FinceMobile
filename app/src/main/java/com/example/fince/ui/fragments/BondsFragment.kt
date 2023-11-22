@@ -62,7 +62,7 @@ class BondsFragment  : Fragment(), OnViewItemClickedListener {
 
 
     override fun onViewItemDetail(stock: StockModel) {
-        val action = BondsFragmentDirections.actionBondsFragmentToSimboloFragment2(stock.transformStockToActivo(stock))
+        val action = BondsFragmentDirections.actionBondsFragmentToSimboloFragment(stock.transformStockToActivo(stock))
         this.findNavController().navigate(action)
     }
 }

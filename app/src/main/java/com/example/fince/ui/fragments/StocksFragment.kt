@@ -62,7 +62,7 @@ class StocksFragment : Fragment(), OnViewItemClickedListener {
     }
 
     override fun onViewItemDetail(stock: StockModel) {
-        val action = InvestmentFundFragmentDirections.actionInvestmentFundsFragmentToSimboloFragment2(stock.transformStockToActivo(stock))
+        val action = StocksFragmentDirections.actionStocksFragmentToSimboloFragment(stock.transformStockToActivo(stock))
         this.findNavController().navigate(action)
     }
 }

@@ -18,10 +18,11 @@ class TransaccionViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _transaccionList = MutableLiveData<List<Transaccion>>()
-    val transaccionList: LiveData<List<Transaccion>> = _transaccionList
+    var transaccionList: LiveData<List<Transaccion>> = _transaccionList
 
     fun setTransaccionList (transaccionList: List<Transaccion>) {
         _transaccionList.value = transaccionList
+        this.transaccionList = _transaccionList
     }
 
     private val _isLoading = MutableLiveData<Boolean>()

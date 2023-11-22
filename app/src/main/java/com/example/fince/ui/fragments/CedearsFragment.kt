@@ -63,7 +63,7 @@ class CedearsFragment : Fragment(), OnViewItemClickedListener {
         }
     }
     override fun onViewItemDetail(stock: StockModel) {
-        val action = CedearsFragmentDirections.actionCedearsFragmentToSimboloFragment2(stock.transformStockToActivo(stock))
+        val action = CedearsFragmentDirections.actionCedearsFragmentToSimboloFragment(stock.transformStockToActivo(stock))
         this.findNavController().navigate(action)
     }
 }

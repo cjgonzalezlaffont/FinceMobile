@@ -28,6 +28,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.fince.listeners.OnViewItemClickedListener
+import hilt_aggregated_deps._com_example_fince_ui_fragments_StocksFragment_GeneratedInjector
 
 @AndroidEntryPoint
 class PanelGeneralFragment : Fragment() {
@@ -51,7 +52,12 @@ class PanelGeneralFragment : Fragment() {
         //Bottom Nav
         bottomNavView = binding.bottomNavigationView
         navHostFragment = childFragmentManager.findFragmentById(binding.fragmentContainerViewPanelGeneral.id) as NavHostFragment
+
+        //navHostFragment.childFragmentManager.beginTransaction().replace(navHostFragment.id, stocksFragment()).commit()
+
         navController = navHostFragment.navController
+
+        navController.navigate(R.id.stocksFragment)
 
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.stocksFragment,R.id.cedearsFragment, R.id.bondsFragment, R.id.CorporateBondsFragment, R.id.InvestmentFundsFragment))
         bottomNavView.setupWithNavController(navController)

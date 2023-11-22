@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.fince.data.model.ActivoModel
 import com.example.fince.databinding.FragmentSimboloBinding
 import androidx.navigation.fragment.navArgs
+import com.example.fince.R
 import com.example.fince.ui.viewmodel.TradingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -57,7 +59,12 @@ class SimboloFragment : Fragment() {
             tradingviewModel.cantidadDeCompra.value = binding.simboloFragmentTextViewCantidadCompra.text.toString().toIntOrNull() ?: 0
             tradingviewModel.comprarActivo()
             val action = SimboloFragmentDirections.actionSimboloFragmentToCartera()
-            this.findNavController().navigate(action)
+            //val transaccion = requireActivity().supportFragmentManager.beginTransaction()
+            //transaccion.replace(R.id.nav_host, CarteraFragment())
+            //transaccion.commit()
+            requireActivity().findNavController(R.id.nav_host).popBackStack()
+
+            //this.findNavController().navigate(action)
         }
 
         binding.simboloFragmentBtnVender.setOnClickListener {

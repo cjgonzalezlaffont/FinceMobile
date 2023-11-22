@@ -100,4 +100,9 @@ class FinceRepository @Inject constructor(
         return response
     }
 
+    suspend fun deleteTransaction(userId: String, tranId: Transaccion): String {
+        val response = remote.deleteTransaction(userId, tranId)
+        return response
+    }
+
 }

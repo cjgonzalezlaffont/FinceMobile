@@ -140,6 +140,10 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         return handleAPICall { service.createCategorie(userId, categoria) }
     }
 
+    suspend fun deleteTransaction(userId: String, tranId: Transaccion): String {
+        return handleAPICall { service.deleteTransaction(userId, tranId) }
+    }
+
     suspend fun <T> handleAPICall(call: suspend () -> Response<T>): T {
         return try {
             val response = call.invoke()
@@ -160,5 +164,6 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
             throw IOException("${e.message}")
         }
     }
+
 
 }

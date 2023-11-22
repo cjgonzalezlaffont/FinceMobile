@@ -14,6 +14,7 @@ import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -69,5 +70,7 @@ interface FinceApiClient {
     @POST("/api/categories/{userId}")
     suspend fun createCategorie(@Path("userId") userId: String, @Body categoria : CategoriaModel): Response<Int>
 
+    @POST("/api/transactions/deleteTransaction/{userId}")
+    suspend fun deleteTransaction( @Path("userId") userId: String, @Body transaccion: Transaccion) : Response<String>
 
 }
