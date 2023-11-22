@@ -57,7 +57,7 @@ class StocksFragment : Fragment(), OnViewItemClickedListener {
         recStocks.adapter = stockListAdapter
 
         stockViewModel.isLoading.observe(viewLifecycleOwner) {
-            //binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
+            binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
 

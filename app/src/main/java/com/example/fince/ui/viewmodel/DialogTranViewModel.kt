@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fince.data.FinceRepository
 import com.example.fince.data.model.Transaccion
+import com.example.fince.listeners.OnTransactionDeletedListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,6 +15,9 @@ import javax.inject.Inject
 class DialogTranViewModel @Inject constructor(
 private val repository: FinceRepository
 ) : ViewModel() {
+
+    var listener: OnTransactionDeletedListener? = null
+
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> = _errorLiveData
 
@@ -24,6 +28,7 @@ private val repository: FinceRepository
         viewModelScope.launch {
             try {
                 _responseLiveData.value = repository.deleteTransaction(userId, tranId)
+                listener?.onTransactionDeleted()
             } catch (e: Exception) {
                 _errorLiveData.value = "Error: ${e.message}"
             }

@@ -16,6 +16,7 @@ import com.example.fince.databinding.FragmentPresupuestoBinding
 import com.example.fince.databinding.FragmentTransaccionDialogBinding
 import com.example.fince.listeners.OnTransactionDeletedListener
 import com.example.fince.ui.viewmodel.DialogTranViewModel
+import com.example.fince.ui.viewmodel.TransaccionViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,30 +26,15 @@ class TransaccionDialogFragment : DialogFragment() {
     private var _binding: FragmentTransaccionDialogBinding? = null
     private val binding get() = _binding!!
     private lateinit var view : View
-    private val dialogTranViewModel : DialogTranViewModel by viewModels()
-    private var listener : OnTransactionDeletedListener? = null
+    private val transaccionViewModel: TransaccionViewModel by viewModels({ requireParentFragment() })
 
     companion object {
         private lateinit var tran : Transaccion
-        const val NOMBRE = "titulo"
-        const val MONTO = "detalle"
-        const val CATEGORIA = "categoria"
-        const val FECHA = "fecha"
-        const val TIPO : Int = 0
-        const val ID = "idTran"
 
         // Método para crear una nueva instancia del fragmento con los detalles
         fun newInstance(transaccion : Transaccion): TransaccionDialogFragment {
             val fragment = TransaccionDialogFragment()
-            val args = Bundle()
-            args.putString(NOMBRE, transaccion.titulo)
-            args.putString(MONTO, transaccion.montoConsumido.toString())
-            args.putString(CATEGORIA, transaccion.categoriaNombre)
-            args.putString(FECHA, transaccion.fecha)
-            args.putInt(TIPO.toString(), transaccion.tipo)
-            args.putString(ID, transaccion.transaccionId)
             tran = transaccion
-            fragment.arguments = args
             return fragment
         }
     }
@@ -61,14 +47,17 @@ class TransaccionDialogFragment : DialogFragment() {
         val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
         val usuarioId = sharedPreferences.getString("userId", "")!!
 
-        val tipo = arguments?.getInt(TIPO.toString())
-        val idTran = arguments?.getString(ID)
         val transaccion = tran
+        val tipo = transaccion.tipo
 
-        binding.textViewTitulo.text = arguments?.getString(NOMBRE)
-        binding.textViewMonto.text = arguments?.getString(MONTO)
-        binding.textViewCategoria.text = arguments?.getString(CATEGORIA)
-        binding.textViewFecha.text = arguments?.getString(FECHA)
+        binding.textViewTitulo.text = transaccion.titulo
+        binding.textViewMonto.text = transaccion.montoConsumido.toString()
+        binding.textViewCategoria.text = transaccion.categoriaNombre
+        binding.textViewFecha.text = transaccion.fecha
+
+        if (transaccion.financiera) {
+            binding.fragDiagTranBtnDelete.isEnabled = false
+        }
 
         if (tipo == 1) {
             binding.textViewMonto.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
@@ -80,16 +69,15 @@ class TransaccionDialogFragment : DialogFragment() {
         }
 
         binding.fragDiagTranBtnDelete.setOnClickListener {
-            dialogTranViewModel.borrarTransaccion(usuarioId, transaccion)
-            listener?.onTransactionDeleted()
+            transaccionViewModel.deleteTransaction(usuarioId, transaccion)
         }
 
-        dialogTranViewModel.errorLiveData.observe(viewLifecycleOwner) { error ->
+        transaccionViewModel.errorLiveData.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         }
 
-        dialogTranViewModel.responseLiveData.observe(viewLifecycleOwner) { response ->
-            Snackbar.make(view, dialogTranViewModel.responseLiveData.toString(), Snackbar.LENGTH_SHORT).show()
+        transaccionViewModel.responseLiveData.observe(viewLifecycleOwner) { response ->
+            Snackbar.make(view, transaccionViewModel.responseLiveData.toString(), Snackbar.LENGTH_SHORT).show()
             dismiss()
         }
 
@@ -99,10 +87,6 @@ class TransaccionDialogFragment : DialogFragment() {
         super.onResume()
         // Definir el ancho y alto fijo del diálogo
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT) // Ajusta el alto como desees
-    }
-
-    fun setListener(listener: OnTransactionDeletedListener) {
-        this.listener = listener
     }
 
 }

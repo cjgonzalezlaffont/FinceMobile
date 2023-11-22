@@ -9,6 +9,94 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextText3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/deepBlue"
+                    android:clickable="false"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="@string/menu_fragment_symbol"
+                    android:textColor="@color/sky"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/editTextText4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/deepBlue"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="@string/menu_fragment_description"
+                    android:textColor="@color/sky"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/editTextText5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/deepBlue"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="@string/menu_fragment_percentage_change_daily"
+                    android:textColor="@color/sky"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/editTextText6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/deepBlue"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="@string/menu_fragment_last_price"
+                    android:textColor="@color/sky"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/editTextText7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/deepBlue"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="@string/menu_fragment_instrument_type"
+                    android:textColor="@color/sky"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/panelGeneralRecycleViewStocks"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/isLoading"
@@ -20,12 +108,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/panelGeneralRecycleViewStocks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

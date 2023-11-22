@@ -15,12 +15,12 @@ import com.example.fince.data.model.Transaccion
 import com.example.fince.databinding.FragmentPresupuestoBinding
 import com.example.fince.listeners.OnTransactionDeletedListener
 import com.example.fince.listeners.OnViewItemClickedListenerTran
+import com.example.fince.ui.viewmodel.DialogTranViewModel
 import com.example.fince.ui.viewmodel.TransaccionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran,
-    OnTransactionDeletedListener {
+class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
 
     private var _binding: FragmentPresupuestoBinding? = null
     private val binding get() = _binding!!
@@ -88,20 +88,7 @@ class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran,
 
     override fun onViewItemDetail(transaccion: Transaccion) {
         val dialogFragment = TransaccionDialogFragment.newInstance(transaccion)
-        dialogFragment.setListener(this)
         dialogFragment.show(childFragmentManager, "detalle_dialog")
-
     }
-
-    override fun onTransactionDeleted() {
-        val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
-        val usuarioId = sharedPreferences.getString("userId", "")!!
-        transaccionViewModel.onCreate(usuarioId)
-    }
-
 
 }
-
-
-
-
