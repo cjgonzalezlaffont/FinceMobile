@@ -10,7 +10,7 @@ import com.example.fince.databinding.ItemPanelGeneralBinding
 
 
 class StockListAdapter (
-    private val stockList: List<StockModel>,
+    private var stockList: MutableList<StockModel> = mutableListOf(),
     private val onItemClick: OnViewItemClickedListener,
     ): RecyclerView.Adapter<StockHolder>(){
 
@@ -21,10 +21,10 @@ class StockListAdapter (
     }
 
     fun setStockList(stockList: List<StockModel>) {
-        (this.stockList as ArrayList).clear()
-        this.stockList.addAll(stockList)
+        this.stockList = stockList.toMutableList()
         notifyDataSetChanged()
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockHolder {
         //No olvidarse de hacer un import de R
         val inflater = LayoutInflater.from(parent.context)
@@ -47,5 +47,11 @@ class StockListAdapter (
                 onItemClick.onViewItemDetail(stock)
             }
         }
+    }
+
+    fun updateStockList(stockList: List<StockModel>) {
+        this.stockList.clear()
+        this.stockList.addAll(stockList)
+        notifyDataSetChanged()
     }
 }

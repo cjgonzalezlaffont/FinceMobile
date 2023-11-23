@@ -56,7 +56,7 @@ class InvestmentFundFragment : Fragment(), OnViewItemClickedListener {
         stockViewModel.response.observe(viewLifecycleOwner){
             stockListAdapter.setStockList(it)
         }
-        stockListAdapter = StockListAdapter(stockList, this)
+        //stockListAdapter = StockListAdapter(stockList, this)
         recInvestmentFund.layoutManager = linearLayoutManager
         recInvestmentFund.adapter = stockListAdapter
 
@@ -65,8 +65,8 @@ class InvestmentFundFragment : Fragment(), OnViewItemClickedListener {
         }
     }
     override fun onViewItemDetail(stock: StockModel) {
-        val action = InvestmentFundFragmentDirections.actionInvestmentFundFragmentToSimboloFragment(stock.transformStockToActivo(stock))
-        this.findNavController().navigate(action)
+        //val action = InvestmentFundFragmentDirections.actionInvestmentFundFragmentToSimboloFragment(stock.transformStockToActivo(stock))
+        //this.findNavController().navigate(action)
     }
 
 

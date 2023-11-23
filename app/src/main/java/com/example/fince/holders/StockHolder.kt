@@ -1,7 +1,10 @@
 package com.example.fince.holders
 
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fince.R
 import com.example.fince.databinding.ItemPanelGeneralBinding
 
 class StockHolder(private val binding: ItemPanelGeneralBinding): RecyclerView.ViewHolder(binding.root) {
@@ -19,7 +22,18 @@ class StockHolder(private val binding: ItemPanelGeneralBinding): RecyclerView.Vi
     }
 
     fun setPercentageChange(percentageChange: Float?){
-        binding.itemTextViewPanelGeneralVarPorcentual.text = percentageChange.toString() + "%"
+        percentageChange?.let {
+            binding.itemTextViewPanelGeneralVarPorcentual.text = "$percentageChange%"
+
+            val colorRes = when {
+                percentageChange > 0 -> R.color.green
+                percentageChange < 0 -> R.color.red
+                else -> android.R.color.black
+            }
+
+            val textColor = ContextCompat.getColor(binding.root.context, colorRes)
+            binding.itemTextViewPanelGeneralVarPorcentual.setTextColor(textColor)
+        }
     }
 
     fun setLastPrice (lastPrice: Float?){

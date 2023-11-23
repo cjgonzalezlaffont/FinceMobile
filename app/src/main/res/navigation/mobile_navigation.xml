@@ -14,7 +14,11 @@
         android:id="@+id/panelGeneral"
         android:name="com.example.fince.ui.fragments.PanelGeneralFragment"
         android:label="fragment_panel_general"
-        tools:layout="@layout/fragment_panel_general" />
+        tools:layout="@layout/fragment_panel_general" >
+        <action
+            android:id="@+id/action_panelGeneral_to_simboloFragment"
+            app:destination="@id/simboloFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/presupuesto"
@@ -90,47 +94,6 @@
             android:name="categoria"
             app:argType="com.example.fince.data.model.CategoriaModel"
             app:nullable="true" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/bondsFragment"
-        android:name="com.example.fince.ui.fragments.BondsFragment"
-        android:label="BondsFragment" >
-        <action
-            android:id="@+id/action_bondsFragment_to_simboloFragment"
-            app:destination="@id/simboloFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/cedearsFragment"
-        android:name="com.example.fince.ui.fragments.CedearsFragment"
-        android:label="CedearsFragment" >
-        <action
-            android:id="@+id/action_cedearsFragment_to_simboloFragment"
-            app:destination="@id/simboloFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/CorporateBondsFragment"
-        android:name="com.example.fince.ui.fragments.CorporateBondsFragment"
-        android:label="CorporateBondsFragment" >
-        <action
-            android:id="@+id/action_corporateBondsFragment_to_simboloFragment"
-            app:destination="@id/simboloFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/InvestmentFundsFragment"
-        android:name="com.example.fince.ui.fragments.InvestmentFundFragment"
-        android:label="InvestmentFundFragment" >
-        <action
-            android:id="@+id/action_investmentFundFragment_to_simboloFragment"
-            app:destination="@id/simboloFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/stocksFragment"
-        android:name="com.example.fince.ui.fragments.StocksFragment"
-        android:label="StocksFragment" >
-        <action
-            android:id="@+id/action_stocksFragment_to_simboloFragment"
-            app:destination="@id/simboloFragment" />
     </fragment>
 
 </navigation>

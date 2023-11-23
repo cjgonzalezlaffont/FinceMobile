@@ -51,7 +51,7 @@ class CorporateBondsFragment : Fragment(), OnViewItemClickedListener {
         stockViewModel.response.observe(viewLifecycleOwner){
             stockListAdapter.setStockList(it)
         }
-        stockListAdapter = StockListAdapter(stockList, this)
+        //stockListAdapter = StockListAdapter(stockList, this)
         recCorporateBonds.layoutManager = linearLayoutManager
         recCorporateBonds.adapter = stockListAdapter
 
@@ -61,8 +61,8 @@ class CorporateBondsFragment : Fragment(), OnViewItemClickedListener {
     }
 
     override fun onViewItemDetail(stock: StockModel) {
-        val action = CorporateBondsFragmentDirections.actionCorporateBondsFragmentToSimboloFragment(stock.transformStockToActivo(stock))
-        this.findNavController().navigate(action)
+        //val action = CorporateBondsFragmentDirections.actionCorporateBondsFragmentToSimboloFragment(stock.transformStockToActivo(stock))
+        //this.findNavController().navigate(action)
     }
 
 }

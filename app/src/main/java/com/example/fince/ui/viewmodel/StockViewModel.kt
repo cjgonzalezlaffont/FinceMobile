@@ -89,18 +89,12 @@ class StockViewModel @Inject constructor(
         } .await()
     }
     fun onCreate(){
-        setIsLoading(true)
-        viewModelScope.launch {
-            try {
-                val response =  repository.getAllInstruments()
-                if (!response.isEmpty()) {
-                    setStockList(response)
-                }
-            } catch (e: Exception) {
-                Log.e("StockViewModel", "Error: ${e.message}")
-            }
-            setIsLoading(false)
-        }
+        _response.value = emptyList()
+        onCreateCedears()
+        onCreateStocks()
+        onCreateGovernmentBonds()
+        onCreateCorporateBonds()
+        onCreateInvestmentFunds()
     }
 
     fun onCreateCedears(){
@@ -108,8 +102,10 @@ class StockViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response =  repository.getCedears()
+                val currentList = _response.value?.toMutableList() ?: mutableListOf()
+                currentList.addAll(response)
                 if (!response.isEmpty()) {
-                    setStockList(response)
+                    setStockList(currentList)
                 }
             } catch (e: Exception) {
                 Log.e("StockViewModel", "Error: ${e.message}")
@@ -122,8 +118,10 @@ class StockViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response =  repository.getStocks()
+                val currentList = _response.value?.toMutableList() ?: mutableListOf()
+                currentList.addAll(response)
                 if (!response.isEmpty()) {
-                    setStockList(response)
+                    setStockList(currentList)
                 }
             } catch (e: Exception) {
                 Log.e("StockViewModel", "Error: ${e.message}")
@@ -137,8 +135,10 @@ class StockViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response =  repository.getGovernmentBonds()
+                val currentList = _response.value?.toMutableList() ?: mutableListOf()
+                currentList.addAll(response)
                 if (!response.isEmpty()) {
-                    setStockList(response)
+                    setStockList(currentList)
                 }
             } catch (e: Exception) {
                 Log.e("StockViewModel", "Error: ${e.message}")
@@ -151,8 +151,10 @@ class StockViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response =  repository.getCorporateBonds()
+                val currentList = _response.value?.toMutableList() ?: mutableListOf()
+                currentList.addAll(response)
                 if (!response.isEmpty()) {
-                    setStockList(response)
+                    setStockList(currentList)
                 }
             } catch (e: Exception) {
                 Log.e("StockViewModel", "Error: ${e.message}")
@@ -165,8 +167,10 @@ class StockViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response =  repository.getInvestmentFund()
+                val currentList = _response.value?.toMutableList() ?: mutableListOf()
+                currentList.addAll(response)
                 if (!response.isEmpty()) {
-                    setStockList(response)
+                    setStockList(currentList)
                 }
             } catch (e: Exception) {
                 Log.e("StockViewModel", "Error: ${e.message}")

@@ -62,7 +62,10 @@ class SimboloFragment : Fragment() {
             //val transaccion = requireActivity().supportFragmentManager.beginTransaction()
             //transaccion.replace(R.id.nav_host, CarteraFragment())
             //transaccion.commit()
-            requireActivity().findNavController(R.id.nav_host).popBackStack()
+            findNavController().popBackStack(R.id.panelGeneral, false)
+            val navController = requireActivity().findNavController(R.id.nav_host)
+            navController.navigate(R.id.cartera)
+            //popBackStack(R.id.destinoEspecifico, false)
 
             //this.findNavController().navigate(action)
         }

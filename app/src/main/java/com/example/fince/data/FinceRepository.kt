@@ -12,6 +12,7 @@ import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.User
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
+import com.example.fince.data.model.UserResponse
 import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
 import com.example.fince.data.network.FinceService
@@ -76,7 +77,7 @@ class FinceRepository @Inject constructor(
         return remote.sellAsset(userId, venta)
     }
 
-    suspend fun getUserById(userId: String): UserModel{
+    suspend fun getUserById(userId: String): UserResponse {
         val response = remote.getUserById(userId)
         return response
     }

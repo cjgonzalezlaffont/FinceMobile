@@ -26,7 +26,7 @@
 
     <!--fragment panel general-->
     <string name="menu_fragment_symbol">Simbolo</string>
-    <string name="menu_fragment_description">Descripción</string>
+    <string name="menu_fragment_description">Descr.</string>
     <string name="menu_fragment_percentage_change_daily">Var. %</string>
     <string name="menu_fragment_last_price">Ult. Precio</string>
     <string name="menu_fragment_instrument_type">Tipo</string>
