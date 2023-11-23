@@ -1,6 +1,7 @@
 package com.example.fince.data.network
 
 
+import android.net.wifi.rtt.ResponderConfig
 import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.DataEntry
@@ -10,6 +11,7 @@ import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
+import com.example.fince.data.model.UserResponse
 import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
 import retrofit2.Response
@@ -54,8 +56,10 @@ interface FinceApiClient {
     suspend fun buyAsset(@Path("userId") userId : String, @Body venta : Venta) : Response<Void>
 
     @GET("/api/users/{userId}")
-    suspend fun getUserById(@Path("userId") userId : String) : Response<UserModel>
+    suspend fun getUserById(@Path("userId") userId : String) : Response<UserResponse>
 
+    @PUT("")
+    suspend fun modifUser(): Response<Void>
 
     @GET("/api/transactions/getDataGraph/{userId}")
     suspend fun getDataGraph(@Path("userId") userId : String) : Response<List<DataEntry>>

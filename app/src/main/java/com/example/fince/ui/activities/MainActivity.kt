@@ -16,7 +16,6 @@ import com.example.fince.R
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.fince.*
-import com.example.fince.core.dark_mode
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

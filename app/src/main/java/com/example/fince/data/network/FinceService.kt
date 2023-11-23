@@ -12,6 +12,7 @@ import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
+import com.example.fince.data.model.UserResponse
 import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
 import com.google.gson.Gson
@@ -111,11 +112,12 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
     */
 
 
-    suspend fun getUserById(userId: String):UserModel{
-        return withContext(Dispatchers.IO){
+    suspend fun getUserById(userId: String): UserResponse {
+        /*return withContext(Dispatchers.IO){
             val response = service.getUserById(userId)
-            response.body() ?: UserModel("", "", "", "", "", 0,0,0)
-        }
+            response.body() ?: UserModel("", "", "", "", "", 0,0,0)        return handleAPICall { service.createTransaction(userId, transaccion) }
+        }*/
+        return handleAPICall { service.getUserById(userId) }
     }
 
     suspend fun createTransaction(userId: String, transaccion: Transaccion): Transaccion {

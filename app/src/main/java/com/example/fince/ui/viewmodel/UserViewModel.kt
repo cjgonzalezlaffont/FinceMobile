@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fince.data.FinceRepository
+import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.UserModel
+import com.example.fince.data.model.UserResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,17 +17,17 @@ import javax.inject.Inject
 class UserViewModel @Inject constructor(
     private val repository: FinceRepository
 ) : ViewModel() {
-    val response = MutableLiveData<UserModel>()
+    private val _response = MutableLiveData<UserResponse>()
+    val response: LiveData<UserResponse> = _response
 
-    fun setUser(user:UserModel){
-        response.value=user
+    fun setUser(user:UserResponse){
+        _response.value=user
     }
 
-    fun onCreate(userId:String): UserModel{
-        var response =UserModel("","","","","",0,0,1)
+    fun onCreate(userId:String){
         viewModelScope.launch {
             try {
-                response=repository.getUserById(userId)
+                val response=repository.getUserById(userId)
                 if(!(response==null)){
                     setUser(response);
                 }
@@ -33,6 +35,5 @@ class UserViewModel @Inject constructor(
                 Log.e("UserViewModel",e.message.toString())
             }
         }
-        return response
     }
 }
