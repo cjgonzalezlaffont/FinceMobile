@@ -9,16 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fince.R
 import com.example.fince.adapters.StockListAdapter
-import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.databinding.FragmentCedearsBinding
-import com.example.fince.databinding.FragmentPanelGeneralBinding
 import com.example.fince.listeners.OnViewItemClickedListener
 import com.example.fince.ui.viewmodel.StockViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.ViewModelLifecycle
 import java.util.ArrayList
 
 @AndroidEntryPoint
@@ -54,7 +50,7 @@ class CedearsFragment : Fragment(), OnViewItemClickedListener {
         stockViewModel.response.observe(viewLifecycleOwner){
             stockListAdapter.setStockList(it)
         }
-        stockListAdapter = StockListAdapter(stockList, this)
+        //stockListAdapter = StockListAdapter(stockList, this)
         recCedears.layoutManager = linearLayoutManager
         recCedears.adapter = stockListAdapter
 
@@ -62,8 +58,9 @@ class CedearsFragment : Fragment(), OnViewItemClickedListener {
             binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
+
     override fun onViewItemDetail(stock: StockModel) {
-        val action = CedearsFragmentDirections.actionCedearsFragmentToSimboloFragment2(stock.transformStockToActivo(stock))
-        this.findNavController().navigate(action)
+        //val action = CedearsFragmentDirections.actionCedearsFragmentToSimboloFragment(stock.transformStockToActivo(stock))
+        //findNavController().navigate(action)
     }
 }

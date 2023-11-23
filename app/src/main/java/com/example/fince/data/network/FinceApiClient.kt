@@ -7,6 +7,7 @@ import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.DataEntry
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
+import com.example.fince.data.model.SuccessfulModel
 import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.UserModel
@@ -16,6 +17,7 @@ import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -71,7 +73,14 @@ interface FinceApiClient {
     suspend fun getAllCategories(@Path("userId") userId : String) : Response<List<CategoriaModel>>
 
     @POST("/api/categories/{userId}")
-    suspend fun createCategorie(@Path("userId") userId: String, @Body categoria : CategoriaModel): Response<Int>
+    suspend fun createCategorie(@Path("userId") userId: String, @Body categoria : CategoriaModel): Response<SuccessfulModel>
 
+    @POST("/api/transactions/deleteTransaction/{userId}")
+    suspend fun deleteTransaction( @Path("userId") userId: String, @Body transaccion: Transaccion) : Response<String>
 
+    @DELETE("/api/categories/delete/{userId}/{categoryId}")
+    suspend fun deleteCategorie(@Path("userId") userId : String, @Path("categoryId") categoryId : String): Response<SuccessfulModel>
+
+    @PUT("/api/categories/update/{userId}/{categoryId}")
+    suspend fun editCategorie(@Path("userId") userId : String, @Path("categoryId") categoryId : String, @Body categoria : CategoriaModel) : Response<SuccessfulModel>
 }

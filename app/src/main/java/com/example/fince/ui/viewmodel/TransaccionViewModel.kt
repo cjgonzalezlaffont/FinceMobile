@@ -31,12 +31,12 @@ class TransaccionViewModel @Inject constructor(
         _isLoading.value = isLoading
     }
 
-    fun onCreate(userId : String){
+    fun onCreate(userId : String) {
 
         viewModelScope.launch {
             setIsLoading(true)
             try {
-                val transaccionList =  repository.getAllTransactions(userId).transacciones
+                val transaccionList = repository.getAllTransactions(userId).transacciones
 
                 if (!transaccionList.isEmpty()) {
                     setTransaccionList(transaccionList)
@@ -45,6 +45,29 @@ class TransaccionViewModel @Inject constructor(
                 Log.e("TransaccionViewModel", "Error: ${e.message}")
             }
             setIsLoading(false)
+        }
+    }
+
+    private val _isTransactionDeleted = MutableLiveData<Boolean>()
+    val isTransactionDeleted: LiveData<Boolean> = _isTransactionDeleted
+
+    private val _errorLiveData = MutableLiveData<String>()
+    val errorLiveData: LiveData<String> = _errorLiveData
+
+    private val _responseLiveData = MutableLiveData<String>()
+    val responseLiveData: LiveData<String> = _responseLiveData
+
+    fun deleteTransaction(userId : String, tran : Transaccion) {
+        viewModelScope.launch {
+            try {
+                _responseLiveData.value = repository.deleteTransaction(userId, tran)
+                onCreate(userId)
+                val currentList = _transaccionList.value.orEmpty().toMutableList()
+                currentList.remove(tran)
+                setTransaccionList(currentList)
+            } catch (e: Exception) {
+                _errorLiveData.value = "Error: ${e.message}"
+            }
         }
     }
 }

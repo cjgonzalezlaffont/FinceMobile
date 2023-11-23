@@ -16,7 +16,6 @@ import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.Transaccion
 import com.example.fince.databinding.FragmentAgregarTranBinding
 import com.example.fince.ui.viewmodel.AgregarTranViewModel
-import com.example.fince.ui.viewmodel.TransaccionViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Response

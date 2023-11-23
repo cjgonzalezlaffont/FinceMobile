@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/cartera">
+    app:startDestination="@id/inicio">
 
     <fragment
         android:id="@+id/inicio"
@@ -73,12 +73,12 @@
             app:argType="com.example.fince.data.model.ActivoModel" />
         <action
             android:id="@+id/actionSimboloFragmentToCartera"
-            app:destination="@id/cartera" />
+            app:destination="@id/cartera"
+            app:popUpTo="@id/cartera" />
     </fragment>
     <fragment
         android:id="@+id/categoriaFragment"
         android:name="com.example.fince.ui.fragments.CategoriaFragment"
-       
         android:label="CategoriaFragment" >
         <action
             android:id="@+id/action_categoriaFragment_to_agregarCategoriaFragment"
@@ -86,17 +86,14 @@
     </fragment>
 
     <fragment
-        android:id="@+id/fragmentCategoriaDetail"
-        android:name="com.example.fince.ui.fragments.CategoriaDetailFragment"
-        android:label="CategoriaFragment" >
-        <argument
-            android:name="categoria"
-            app:argType="com.example.fince.data.model.CategoriaModel" />
-    </fragment>
-    <fragment
         android:id="@+id/agregarCategoriaFragment"
         android:name="com.example.fince.ui.fragments.AgregarCategoriaFragment"
         android:label="fragment_agregar_categoria"
-        tools:layout="@layout/fragment_agregar_categoria" />
+        tools:layout="@layout/fragment_agregar_categoria" >
+        <argument
+            android:name="categoria"
+            app:argType="com.example.fince.data.model.CategoriaModel"
+            app:nullable="true" />
+    </fragment>
 
 </navigation>

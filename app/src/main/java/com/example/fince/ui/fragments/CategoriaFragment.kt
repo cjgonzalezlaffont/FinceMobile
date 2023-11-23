@@ -19,12 +19,14 @@ import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.Transaccion
 import com.example.fince.databinding.FragmentCategoriasBinding
 import com.example.fince.databinding.FragmentPresupuestoBinding
+import com.example.fince.listeners.OnEditCategorieListener
 import com.example.fince.listeners.OnViewItemClickedListenerCat
 import com.example.fince.ui.viewmodel.CategoriaViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat {
+class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat, OnEditCategorieListener {
 
     lateinit var v : View
     lateinit var recCategoria : RecyclerView
@@ -71,9 +73,10 @@ class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat {
         }
 
         binding.fragCatBtnAddCate.setOnClickListener{
-            val action = CategoriaFragmentDirections.actionCategoriaFragmentToAgregarCategoriaFragment()
+            val action = CategoriaFragmentDirections.actionCategoriaFragmentToAgregarCategoriaFragment(null)
             v.findNavController().navigate(action)
         }
+
     }
 
     override fun onDestroyView() {
@@ -82,9 +85,14 @@ class CategoriaFragment : Fragment(), OnViewItemClickedListenerCat {
     }
 
     override fun onViewItemDetail(categoria: CategoriaModel) {
-
         val dialogFragment = CategoriaDialogFragment.newInstance(categoria)
+        dialogFragment.setListener(this)
         dialogFragment.show(childFragmentManager, "detalle_dialog")
-        }
-
     }
+
+    override fun onEditCategorie(categoria: CategoriaModel) {
+        val action = CategoriaFragmentDirections.actionCategoriaFragmentToAgregarCategoriaFragment(categoria)
+        v.findNavController().navigate(action)
+    }
+
+}

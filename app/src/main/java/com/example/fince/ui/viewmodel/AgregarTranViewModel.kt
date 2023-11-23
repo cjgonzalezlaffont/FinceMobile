@@ -21,6 +21,8 @@ class AgregarTranViewModel @Inject constructor(
     private val repository: FinceRepository
 ) : ViewModel() {
 
+    var listNoFinanciera: MutableList<CategoriaModel> = mutableListOf()
+
     private val _categoriaList = MutableLiveData<List<CategoriaModel>>()
     val categoriaList: LiveData<List<CategoriaModel>> = _categoriaList
 
@@ -41,7 +43,12 @@ class AgregarTranViewModel @Inject constructor(
                 val categoriaList =  repository.getAllCategories(userId)
 
                 if (!categoriaList.isEmpty()) {
-                    setCategoriaList(categoriaList)
+                    for (item in categoriaList){
+                        if (!item.financiera) {
+                            listNoFinanciera.add(item)
+                        }
+                    }
+                    setCategoriaList(listNoFinanciera)
                 }
             } catch (e: Exception) {
                 Log.e("AgregarTranViewModel", "Error: ${e.message}")

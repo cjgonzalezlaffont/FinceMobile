@@ -5,40 +5,39 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fince.R
 import com.example.fince.adapters.StockListAdapter
+import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.StockModel
+import com.example.fince.data.network.FinceApiClient
 import com.example.fince.databinding.FragmentPanelGeneralBinding
-import com.example.fince.databinding.FragmentStocksBinding
-import com.example.fince.ui.viewmodel.StockViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
-import dagger.hilt.android.AndroidEntryPoint
-import java.util.ArrayList
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.fince.listeners.OnViewItemClickedListener
+import com.example.fince.ui.viewmodel.StockViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class PanelGeneralFragment : Fragment() {
+class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
     private var _binding: FragmentPanelGeneralBinding? = null
     private val binding get() = _binding!!
     private lateinit var view: View
+    lateinit var recStocks: RecyclerView
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var bottomNavView: BottomNavigationView
-    private lateinit var navHostFragment: NavHostFragment
-    private lateinit var navController: NavController
-
+    lateinit var stockListAdapter: StockListAdapter
+    var stockList: MutableList<StockModel> = ArrayList()
+    //se llama a la api por medio del StockViewModel
+    private val stockViewModel: StockViewModel by viewModels()
+    private val activoModel = ActivoModel
+    private var tipoFiltroActual: String? = null
+    private var textoFiltroActual: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,27 +46,95 @@ class PanelGeneralFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentPanelGeneralBinding.inflate(inflater, container, false)
         view = binding.root
-
-        //Bottom Nav
-        bottomNavView = binding.bottomNavigationView
-        navHostFragment = childFragmentManager.findFragmentById(binding.fragmentContainerViewPanelGeneral.id) as NavHostFragment
-        navController = navHostFragment.navController
-
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.stocksFragment,R.id.cedearsFragment, R.id.bondsFragment, R.id.CorporateBondsFragment, R.id.InvestmentFundsFragment))
-        bottomNavView.setupWithNavController(navController)
-
+        recStocks = binding.panelGeneralRecycleViewStocks
         return view
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
     }
 
     override fun onStart() {
         super.onStart()
         requireActivity()
+        recStocks.setHasFixedSize(true)
+
+        stockViewModel.onCreate()
         linearLayoutManager = LinearLayoutManager(context)
 
+        binding.fragPanGralFiltAccion.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                tipoFiltroActual = "acciones"
+            } else {
+                tipoFiltroActual = null
+            }
+            aplicarFiltros()
+        }
+
+        binding.fragPanGralFiltCedear.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                tipoFiltroActual = "cedears"
+            } else {
+                tipoFiltroActual = null
+            }
+            aplicarFiltros()
+        }
+
+        binding.fragPanGralFiltTp.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                tipoFiltroActual = "titulosPublicos"
+            } else {
+                tipoFiltroActual = null
+            }
+            aplicarFiltros()
+        }
+
+        binding.fragPanGralFiltFci.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                tipoFiltroActual = "FCI"
+            } else {
+                tipoFiltroActual = null
+            }
+            aplicarFiltros()
+        }
+
+        binding.fragPanGralFiltOn.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                tipoFiltroActual = "obligacionesNegociables"
+            } else {
+                tipoFiltroActual = null
+            }
+            aplicarFiltros()
+        }
+
+        binding.fragPanGralFilterSimbolo.addTextChangedListener { textFilter ->
+            textoFiltroActual = textFilter.toString()
+            aplicarFiltros()
+        }
+
+        stockViewModel.response.observe(viewLifecycleOwner){
+            stockListAdapter.setStockList(it)
+            stockList.addAll(it)
+        }
+
+        stockListAdapter = StockListAdapter(stockList, this)
+
+        recStocks.layoutManager = linearLayoutManager
+        recStocks.adapter = stockListAdapter
+
+        stockViewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
+        }
+
     }
+
+    private fun aplicarFiltros() {
+        val filterByText = stockList.filter { stockModel ->
+            stockModel.simbolo.contains(textoFiltroActual, ignoreCase = true) &&
+                    (tipoFiltroActual == null || stockModel.tipo_instrumento.uppercase() == tipoFiltroActual!!.uppercase())
+        }
+        stockListAdapter.updateStockList(filterByText)
+    }
+
+    override fun onViewItemDetail(stock: StockModel) {
+        val action = PanelGeneralFragmentDirections.actionPanelGeneralToSimboloFragment(stock.transformStockToActivo(stock))
+        this.findNavController().navigate(action)
+    }
+
 }

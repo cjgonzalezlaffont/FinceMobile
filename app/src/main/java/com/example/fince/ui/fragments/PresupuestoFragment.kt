@@ -66,8 +66,8 @@ class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
 
         transaccionViewModel.isLoading.observe(viewLifecycleOwner) {
             binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
-
         }
+
         binding.fragTranBtnCat.setOnClickListener{
             val action = PresupuestoFragmentDirections.actionPresupuestoToCategoriaFragment()
             view.findNavController().navigate(action)
@@ -87,13 +87,6 @@ class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
     override fun onViewItemDetail(transaccion: Transaccion) {
         val dialogFragment = TransaccionDialogFragment.newInstance(transaccion)
         dialogFragment.show(childFragmentManager, "detalle_dialog")
-
     }
 
-
-
 }
-
-
-
-
