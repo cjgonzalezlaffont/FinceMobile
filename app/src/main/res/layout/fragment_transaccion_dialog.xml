@@ -98,7 +98,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Eliminar"
-                android:backgroundTint="@color/blueFince"/>
+                android:textColor="@color/black"
+                android:backgroundTint="@color/red"/>
 
             <ImageView
                 android:layout_width="5dp"
@@ -110,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Cerrar"
+                android:textColor="@color/white"
                 android:backgroundTint="@color/blueFince"/>
 
         </LinearLayout>

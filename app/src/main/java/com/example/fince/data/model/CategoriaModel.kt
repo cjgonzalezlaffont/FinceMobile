@@ -30,6 +30,7 @@ data class CategoriaModel(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
         parcel.writeString(nombre)
         parcel.writeFloat(montoMax)
         parcel.writeInt(tipo)

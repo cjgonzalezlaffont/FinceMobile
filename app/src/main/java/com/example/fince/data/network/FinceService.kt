@@ -8,6 +8,7 @@ import com.example.fince.data.model.ErrorResponse
 import com.example.fince.data.model.DataEntry
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
+import com.example.fince.data.model.SuccessfulModel
 import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.UserModel
@@ -136,12 +137,20 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         }
     }
 
-    suspend fun createCategorie(userId: String, categoria : CategoriaModel): Int {
+    suspend fun createCategorie(userId: String, categoria : CategoriaModel): SuccessfulModel? {
         return handleAPICall { service.createCategorie(userId, categoria) }
     }
 
     suspend fun deleteTransaction(userId: String, tranId: Transaccion): String {
         return handleAPICall { service.deleteTransaction(userId, tranId) }
+    }
+
+    suspend fun deleteCategorie(userId: String, catId: String): SuccessfulModel? {
+        return handleAPICall { service.deleteCategorie(userId, catId) }
+    }
+
+    suspend fun editCategorie(userId : String, categoriaReq: CategoriaModel): SuccessfulModel? {
+        return handleAPICall { service.editCategorie(userId, categoriaReq.id, categoriaReq) }
     }
 
     suspend fun <T> handleAPICall(call: suspend () -> Response<T>): T {
@@ -164,6 +173,5 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
             throw IOException("${e.message}")
         }
     }
-
 
 }

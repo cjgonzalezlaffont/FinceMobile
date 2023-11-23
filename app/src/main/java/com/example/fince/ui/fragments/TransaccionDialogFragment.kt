@@ -1,8 +1,8 @@
 package com.example.fince.ui.fragments
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +12,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.fince.R
 import com.example.fince.data.model.Transaccion
-import com.example.fince.databinding.FragmentPresupuestoBinding
 import com.example.fince.databinding.FragmentTransaccionDialogBinding
-import com.example.fince.listeners.OnTransactionDeletedListener
-import com.example.fince.ui.viewmodel.DialogTranViewModel
 import com.example.fince.ui.viewmodel.TransaccionViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,6 +61,11 @@ class TransaccionDialogFragment : DialogFragment() {
         } else {
             binding.textViewMonto.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
         }
+
+        if (!binding.fragDiagTranBtnDelete.isEnabled) {
+            binding.fragDiagTranBtnDelete.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.grey))
+        }
+
         binding.fragDiagTranBtnCerrar.setOnClickListener{
             dismiss()
         }

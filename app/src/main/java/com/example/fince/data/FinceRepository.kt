@@ -6,6 +6,7 @@ import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.DataEntry
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
+import com.example.fince.data.model.SuccessfulModel
 import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.User
@@ -95,13 +96,23 @@ class FinceRepository @Inject constructor(
         return response
     }
 
-    suspend fun createCategorie(userId: String, categoria : CategoriaModel): Int {
+    suspend fun createCategorie(userId: String, categoria : CategoriaModel): SuccessfulModel? {
         val response = remote.createCategorie(userId, categoria)
         return response
     }
 
     suspend fun deleteTransaction(userId: String, tranId: Transaccion): String {
         val response = remote.deleteTransaction(userId, tranId)
+        return response
+    }
+
+    suspend fun deleteCategorie(userId: String, catId: String): SuccessfulModel? {
+        val response = remote.deleteCategorie(userId, catId)
+        return response
+    }
+
+    suspend fun editCategorie(userId : String, categoriaReq: CategoriaModel): SuccessfulModel? {
+            val response = remote.editCategorie(userId, categoriaReq)
         return response
     }
 

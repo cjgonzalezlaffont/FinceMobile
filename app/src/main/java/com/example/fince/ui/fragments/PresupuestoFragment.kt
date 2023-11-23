@@ -13,9 +13,7 @@ import androidx.navigation.findNavController
 import com.example.fince.adapters.TransaccionAdapter
 import com.example.fince.data.model.Transaccion
 import com.example.fince.databinding.FragmentPresupuestoBinding
-import com.example.fince.listeners.OnTransactionDeletedListener
 import com.example.fince.listeners.OnViewItemClickedListenerTran
-import com.example.fince.ui.viewmodel.DialogTranViewModel
 import com.example.fince.ui.viewmodel.TransaccionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

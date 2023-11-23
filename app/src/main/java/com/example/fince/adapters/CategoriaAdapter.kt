@@ -12,7 +12,7 @@ import com.example.fince.listeners.OnViewItemClickedListenerCat
 class CategoriaAdapter (
 
     private val categoriaList: MutableList<CategoriaModel>,
-    private val onItemClick: OnViewItemClickedListenerCat ,
+    private val onItemClick: OnViewItemClickedListenerCat
 
     ) : RecyclerView.Adapter<CategoriaHolder>() {
 
@@ -41,6 +41,11 @@ class CategoriaAdapter (
         holder.setNombre(categoria.nombre)
         holder.setMontoMax(categoria.montoMax)
         holder.setTipo(categoria.tipo)
+        holder.getFrameLayout().setOnClickListener {
+            if (categoria != null) {
+                onItemClick.onViewItemDetail(categoria)
+            }
+        }
     }
 
 
