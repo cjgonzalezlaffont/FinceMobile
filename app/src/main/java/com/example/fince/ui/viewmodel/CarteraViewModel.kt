@@ -16,6 +16,7 @@ class CarteraViewModel @Inject constructor(
     private val repository: FinceRepository
 ) : ViewModel() {
 
+
     private val _carteraList = MutableLiveData<List<ActivoModel>>()
     val carteraList: LiveData<List<ActivoModel>> = _carteraList
 
@@ -23,8 +24,16 @@ class CarteraViewModel @Inject constructor(
         _carteraList.value = carteraList
     }
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    fun setIsLoading (isLoading: Boolean) {
+        _isLoading.value = isLoading
+    }
+
     fun onCreate(userId : String){
         viewModelScope.launch {
+            setIsLoading(true)
             try {
                 val carteraList =  repository.getPortfolio(userId).portfolio
 
@@ -34,8 +43,10 @@ class CarteraViewModel @Inject constructor(
             } catch (e: Exception) {
                 Log.e("CarteraViewModel", "Error: ${e.message}")
             }
+            setIsLoading(false)
         }
     }
+
     suspend fun getUpdatedCarteraList(userId: String): List<ActivoModel> {
         return repository.getPortfolio(userId).portfolio
     }

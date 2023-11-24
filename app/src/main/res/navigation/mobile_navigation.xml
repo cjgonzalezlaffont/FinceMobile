@@ -10,14 +10,13 @@
         android:name="com.example.fince.ui.fragments.PrincipalFragment"
         android:label="Home"
         tools:layout="@layout/fragment_principal" />
+
     <fragment
         android:id="@+id/panelGeneral"
         android:name="com.example.fince.ui.fragments.PanelGeneralFragment"
         android:label="fragment_panel_general"
         tools:layout="@layout/fragment_panel_general" >
-        <action
-            android:id="@+id/action_panelGeneral_to_simboloFragment"
-            app:destination="@id/simboloFragment" />
+
     </fragment>
 
     <fragment
@@ -60,21 +59,7 @@
         android:name="com.example.fince.ui.fragments.CarteraFragment"
         android:label="Cartera"
         tools:layout="@layout/fragment_cartera" >
-       <action
-            android:id="@+id/actionCarteraToSimboloFragment"
-            app:destination="@id/simboloFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/simboloFragment"
-        android:name="com.example.fince.ui.fragments.SimboloFragment"
-        android:label="SimboloFragment" >
-        <argument
-            android:name="activo"
-            app:argType="com.example.fince.data.model.ActivoModel" />
-        <action
-            android:id="@+id/actionSimboloFragmentToCartera"
-            app:destination="@id/cartera"
-            app:popUpTo="@id/cartera" />
+
     </fragment>
     <fragment
         android:id="@+id/categoriaFragment"

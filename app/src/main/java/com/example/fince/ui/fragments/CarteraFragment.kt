@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fince.data.model.ActivoModel
@@ -56,11 +55,17 @@ class CarteraFragment : Fragment(), OnViewItemClickedListenerCartera {
             carteraListAdapter.setCarteraList(it)
         }
 
-    }
-        override fun onViewItemDetail(activo : ActivoModel){
-            val action = CarteraFragmentDirections.actionCarteraToSimboloFragment(activo) //activo
-            this.findNavController().navigate(action)
+        carteraViewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.fragCarteraIsLoading.visibility = if (it) View.VISIBLE else View.GONE
         }
+
+    }
+    override fun onViewItemDetail(activo : ActivoModel){
+        //val action = CarteraFragmentDirections.actionCarteraToSimboloFragment(activo) //activo
+        //this.findNavController().navigate(action)
+        val dialogFragment = SimboloDialogFragment.newInstance(activo)
+        dialogFragment.show(childFragmentManager, "detalle_dialog")
+    }
 
     override fun onResume() {
         super.onResume()
@@ -74,6 +79,6 @@ class CarteraFragment : Fragment(), OnViewItemClickedListenerCartera {
             }
         }
     }
-    }
+}
 
 
