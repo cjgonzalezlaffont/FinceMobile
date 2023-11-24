@@ -92,32 +92,15 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
             response.body() ?: PortfolioModel(emptyList<ActivoModel>(),0.toFloat())
         }
     }
-    suspend fun buyAsset(userId: String, activo: ActivoModel): Int {
-        return withContext(Dispatchers.IO) {
-            val response = service.buyAsset(userId, activo)
-            response.code()
-        }
+    suspend fun buyAsset(userId: String, activo: ActivoModel): String {
+        return handleAPICall { service.buyAsset(userId, activo) }
     }
 
-    suspend fun sellAsset(userId: String, venta : Venta): Int {
-        return withContext(Dispatchers.IO) {
-            val response = service.buyAsset(userId, venta)
-            response.code()
-        }
+    suspend fun sellAsset(userId: String, venta : Venta): String {
+        return handleAPICall { service.buyAsset(userId, venta) }
     }
-    /*
-    const assetId = req.body.activoId;
-    const quantity = req.body.cantidad;
-    const salePrice = req.body.precioDeVenta;
-    const userId = req.params.userId;
-    */
-
 
     suspend fun getUserById(userId: String): UserResponse {
-        /*return withContext(Dispatchers.IO){
-            val response = service.getUserById(userId)
-            response.body() ?: UserModel("", "", "", "", "", 0,0,0)        return handleAPICall { service.createTransaction(userId, transaccion) }
-        }*/
         return handleAPICall { service.getUserById(userId) }
     }
 
@@ -143,7 +126,7 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         return handleAPICall { service.createCategorie(userId, categoria) }
     }
 
-    suspend fun deleteTransaction(userId: String, tranId: Transaccion): String {
+    suspend fun deleteTransaction(userId: String, tranId: Transaccion): SuccessfulModel? {
         return handleAPICall { service.deleteTransaction(userId, tranId) }
     }
 
@@ -169,7 +152,7 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
 
                 Log.e("API Error", "Error code: ${response.code()}, Message: ${errorResponse.error}")
 
-                throw IOException("${errorResponse.error ?: "Unknown error"}")
+                throw IOException(errorResponse.error ?: "Unknown error")
             }
         } catch (e: Exception) {
             throw IOException("${e.message}")

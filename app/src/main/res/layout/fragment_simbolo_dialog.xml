@@ -12,7 +12,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:background="@android:color/transparent"     >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,19 +60,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre:  "
-            android:layout_gravity="center"
-            />
-        <TextView
-            android:id="@+id/simboloFragmentTxtViewNombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre:  "
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:id="@+id/simboloFragmentTxtViewNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
 
-            />
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -77,27 +80,27 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="5dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Valor de Compra:"
-                    android:layout_weight="2"
-                    android:layout_gravity="start"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Valor Actual:"
-                    android:layout_weight="2"
-                    android:layout_gravity="start"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Variación:"
-                    android:layout_weight="1"
-                    android:layout_gravity="start"
-                    />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Valor de Compra:"
+                android:layout_weight="2"
+                android:layout_gravity="start"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Valor Actual:"
+                android:layout_weight="2"
+                android:layout_gravity="start"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Variación:"
+                android:layout_weight="1"
+                android:layout_gravity="start"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -168,7 +171,7 @@
             android:layout_gravity="center"
             android:layout_margin="25dp"
             android:layout_weight="1"
-            android:background="@color/black"
+            android:background="@color/blueFince"
             android:text="   OPERACIONES   "
             android:textColor="@color/white"
             android:textSize="30sp"
@@ -180,14 +183,14 @@
             android:orientation="horizontal"
             android:layout_margin="5dp"
             >
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/simboloFragmentBtnDecrementarCantidadCompra"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:backgroundTint="@color/black"
-                android:layout_margin="0dp"
+                android:layout_width="45dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/blueFince"
                 app:icon="@drawable/ic_frag_simbolo_decremento"
-                />
+                app:iconGravity="textStart"/>
 
             <TextView
                 android:id="@+id/simboloFragmentTextViewCantidadCompra"
@@ -204,24 +207,22 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/simboloFragmentBtnIncrementarCantidadCompra"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:backgroundTint="@color/black"
-                android:layout_margin="0dp"
+                android:layout_width="45dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/blueFince"
                 app:icon="@drawable/ic_frag_simbolo_incremento"
-                />
+                app:iconGravity="textStart"/>
         </LinearLayout>
 
         <Button
             android:id="@+id/simboloFragmentBtnComprar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_columnSpan="3"
-            android:backgroundTint="@color/black"
-            android:textSize="25sp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/blueFince"
             android:text="Comprar"
-            />
+            android:textSize="25sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -232,12 +233,11 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/simboloFragmentBtnDecrementarCantidadVenta"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:backgroundTint="@color/black"
-                android:layout_margin="0dp"
-                app:icon="@drawable/ic_frag_simbolo_decremento"
-                />
+                android:layout_width="45dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/blueFince"
+                app:icon="@drawable/ic_frag_simbolo_incremento"
+                app:iconGravity="textStart" />
 
             <TextView
                 android:id="@+id/simboloFragmentTextViewCantidadVenta"
@@ -254,11 +254,11 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/simboloFragmentBtnIncrementarCantidadVenta"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:backgroundTint="@color/black"
+                android:layout_width="45dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/blueFince"
                 app:icon="@drawable/ic_frag_simbolo_incremento"
-                />
+                app:iconGravity="textStart"/>
 
         </LinearLayout>
 
@@ -277,13 +277,12 @@
             android:id="@+id/simboloFragmentBtnVender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vender"
-            android:layout_margin="20dp"
-            android:backgroundTint="@color/black"
-            android:layout_gravity="center"
             android:layout_columnSpan="3"
-            android:textSize="25sp"
-            />
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/blueFince"
+            android:text="Vender"
+            android:textSize="25sp" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -1,6 +1,7 @@
 package com.example.fince.ui.fragments
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +46,8 @@ class CategoriaDialogFragment : DialogFragment(){
     ): View? {
         _binding = FragmentCategoriaDialogBinding.inflate(inflater, container, false)
         view = binding.root
+        var activity = requireActivity()
+        var viewActivity = activity.findViewById<View>(android.R.id.content)
 
         val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
         val usuarioId = sharedPreferences.getString("userId", "")!!
@@ -71,14 +74,16 @@ class CategoriaDialogFragment : DialogFragment(){
         }
 
         categoriaViewModel.errorLiveData.observe(viewLifecycleOwner) { error ->
-            if (categoriaViewModel.errorLiveData.value != "") {
+            if (error != "") {
                 Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
             }
         }
 
         categoriaViewModel.responseLiveData.observe(viewLifecycleOwner) { response ->
-            Snackbar.make(view, categoriaViewModel.responseLiveData.value.toString(), Snackbar.LENGTH_SHORT).show()
-            dismiss()
+            if (response != ""){
+                Snackbar.make(viewActivity, "Categoria eliminada con exito!", Snackbar.LENGTH_SHORT).show()
+                dismiss()
+            }
         }
 
         return view
@@ -96,9 +101,11 @@ class CategoriaDialogFragment : DialogFragment(){
     override fun onDestroyView() {
         super.onDestroyView()
         categoriaViewModel.clearError()
+        categoriaViewModel.clearResponse()
         categoriaViewModel.errorLiveData.removeObservers(viewLifecycleOwner)
         categoriaViewModel.responseLiveData.removeObservers(viewLifecycleOwner)
         _binding = null
     }
+
 
 }

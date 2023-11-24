@@ -38,6 +38,8 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
     private val activoModel = ActivoModel
     private var tipoFiltroActual: String? = null
     private var textoFiltroActual: String = ""
+    private var isFirstCreation = true
+    private var filterByText : MutableList<StockModel> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +49,11 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
         _binding = FragmentPanelGeneralBinding.inflate(inflater, container, false)
         view = binding.root
         recStocks = binding.panelGeneralRecycleViewStocks
+
+        if (savedInstanceState != null) {
+            isFirstCreation = false
+        }
+
         return view
     }
 
@@ -55,8 +62,19 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
         requireActivity()
         recStocks.setHasFixedSize(true)
 
-        stockViewModel.onCreate()
+        if (isFirstCreation) {
+            stockViewModel.onCreate()
+            stockListAdapter = StockListAdapter(stockList, this)
+            isFirstCreation = false
+        } else {
+            textoFiltroActual = stockViewModel.filtroTexto
+            tipoFiltroActual = stockViewModel.filtroTipo
+            stockListAdapter = StockListAdapter(filterByText, this)
+        }
+
         linearLayoutManager = LinearLayoutManager(context)
+        recStocks.layoutManager = linearLayoutManager
+        recStocks.adapter = stockListAdapter
 
         binding.fragPanGralFiltAccion.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -110,13 +128,9 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
 
         stockViewModel.response.observe(viewLifecycleOwner){
             stockListAdapter.setStockList(it)
+            stockList.clear()
             stockList.addAll(it)
         }
-
-        stockListAdapter = StockListAdapter(stockList, this)
-
-        recStocks.layoutManager = linearLayoutManager
-        recStocks.adapter = stockListAdapter
 
         stockViewModel.isLoading.observe(viewLifecycleOwner) {
             binding.isLoading.visibility = if (it) View.VISIBLE else View.GONE
@@ -125,16 +139,25 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
     }
 
     private fun aplicarFiltros() {
-        val filterByText = stockList.filter { stockModel ->
+        filterByText = stockList.filter { stockModel ->
             stockModel.simbolo.contains(textoFiltroActual, ignoreCase = true) &&
                     (tipoFiltroActual == null || stockModel.tipo_instrumento.uppercase() == tipoFiltroActual!!.uppercase())
-        }
+        }.toMutableList()
+
+        stockViewModel.filtroTexto = textoFiltroActual
+        stockViewModel.filtroTipo = tipoFiltroActual
+
         stockListAdapter.updateStockList(filterByText)
     }
 
     override fun onViewItemDetail(stock: StockModel) {
-        val action = PanelGeneralFragmentDirections.actionPanelGeneralToSimboloFragment(stock.transformStockToActivo(stock))
-        this.findNavController().navigate(action)
+        val dialogFragment = SimboloDialogFragment.newInstance(stock.transformStockToActivo(stock))
+        dialogFragment.show(childFragmentManager, "detalle_dialog")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        aplicarFiltros()
     }
 
 }

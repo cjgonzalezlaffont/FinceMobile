@@ -21,6 +21,7 @@ class StockListAdapter (
     }
 
     fun setStockList(stockList: List<StockModel>) {
+        this.stockList.clear()
         this.stockList = stockList.toMutableList()
         notifyDataSetChanged()
     }
