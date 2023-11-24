@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fince.data.FinceRepository
+import com.example.fince.data.model.SuccessfulModel
 import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -60,7 +61,7 @@ class TransaccionViewModel @Inject constructor(
     fun deleteTransaction(userId : String, tran : Transaccion) {
         viewModelScope.launch {
             try {
-                _responseLiveData.value = repository.deleteTransaction(userId, tran)
+                _responseLiveData.value = repository.deleteTransaction(userId, tran)?.message
                 onCreate(userId)
                 val currentList = _transaccionList.value.orEmpty().toMutableList()
                 currentList.remove(tran)
@@ -69,5 +70,13 @@ class TransaccionViewModel @Inject constructor(
                 _errorLiveData.value = "Error: ${e.message}"
             }
         }
+    }
+
+    fun clearError() {
+        _errorLiveData.value = ""
+    }
+
+    fun clearResponse() {
+        _responseLiveData.value = ""
     }
 }

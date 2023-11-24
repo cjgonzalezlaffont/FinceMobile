@@ -17,6 +17,9 @@ class StockViewModel @Inject constructor(
     private val repository: FinceRepository
 ) : ViewModel() {
 
+    var filtroTexto : String = ""
+    var filtroTipo : String? = ""
+
     private var _response = MutableLiveData<List<StockModel>>()
     val response: LiveData<List<StockModel>> = _response
 

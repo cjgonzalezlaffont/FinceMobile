@@ -69,11 +69,11 @@ class FinceRepository @Inject constructor(
         return remote.getPortfolio(userId)
     }
 
-    suspend fun buyAsset(userId: String, activo: ActivoModel): Int {
+    suspend fun buyAsset(userId: String, activo: ActivoModel): String {
         return remote.buyAsset(userId, activo)
     }
 
-    suspend fun sellAsset(userId: String, venta : Venta) : Int {
+    suspend fun sellAsset(userId: String, venta : Venta) : String {
         return remote.sellAsset(userId, venta)
     }
 
@@ -102,7 +102,7 @@ class FinceRepository @Inject constructor(
         return response
     }
 
-    suspend fun deleteTransaction(userId: String, tranId: Transaccion): String {
+    suspend fun deleteTransaction(userId: String, tranId: Transaccion): SuccessfulModel? {
         val response = remote.deleteTransaction(userId, tranId)
         return response
     }

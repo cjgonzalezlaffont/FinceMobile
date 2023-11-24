@@ -67,6 +67,8 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
             stockListAdapter = StockListAdapter(stockList, this)
             isFirstCreation = false
         } else {
+            textoFiltroActual = stockViewModel.filtroTexto
+            tipoFiltroActual = stockViewModel.filtroTipo
             stockListAdapter = StockListAdapter(filterByText, this)
         }
 
@@ -141,6 +143,10 @@ class PanelGeneralFragment : Fragment(), OnViewItemClickedListener {
             stockModel.simbolo.contains(textoFiltroActual, ignoreCase = true) &&
                     (tipoFiltroActual == null || stockModel.tipo_instrumento.uppercase() == tipoFiltroActual!!.uppercase())
         }.toMutableList()
+
+        stockViewModel.filtroTexto = textoFiltroActual
+        stockViewModel.filtroTipo = tipoFiltroActual
+
         stockListAdapter.updateStockList(filterByText)
     }
 

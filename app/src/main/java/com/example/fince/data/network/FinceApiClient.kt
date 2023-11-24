@@ -52,10 +52,10 @@ interface FinceApiClient {
     suspend fun getPortfolio(@Path("userId") userId: String) : Response<PortfolioModel>
 
     @POST("api/portfolio/buyAsset/{userId}")
-    suspend fun buyAsset(@Path("userId") userId : String, @Body activo : ActivoModel) : Response<Void>
+    suspend fun buyAsset(@Path("userId") userId : String, @Body activo : ActivoModel) : Response<String>
 
     @PUT("api/portfolio/sellAsset/{userId}")
-    suspend fun buyAsset(@Path("userId") userId : String, @Body venta : Venta) : Response<Void>
+    suspend fun buyAsset(@Path("userId") userId : String, @Body venta : Venta) : Response<String>
 
     @GET("/api/users/{userId}")
     suspend fun getUserById(@Path("userId") userId : String) : Response<UserResponse>
@@ -76,7 +76,7 @@ interface FinceApiClient {
     suspend fun createCategorie(@Path("userId") userId: String, @Body categoria : CategoriaModel): Response<SuccessfulModel>
 
     @POST("/api/transactions/deleteTransaction/{userId}")
-    suspend fun deleteTransaction( @Path("userId") userId: String, @Body transaccion: Transaccion) : Response<String>
+    suspend fun deleteTransaction( @Path("userId") userId: String, @Body transaccion: Transaccion) : Response<SuccessfulModel>
 
     @DELETE("/api/categories/delete/{userId}/{categoryId}")
     suspend fun deleteCategorie(@Path("userId") userId : String, @Path("categoryId") categoryId : String): Response<SuccessfulModel>

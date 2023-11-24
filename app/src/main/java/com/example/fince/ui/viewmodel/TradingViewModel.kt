@@ -2,6 +2,7 @@ package com.example.fince.ui.viewmodel
 
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,72 +27,44 @@ class TradingViewModel @Inject constructor(
     var activo: MutableLiveData<ActivoModel> = MutableLiveData()
     var userId: String = ""
 
+    private val _errorLiveData = MutableLiveData<String>()
+    val errorLiveData: LiveData<String> = _errorLiveData
+
+    private val _responseLiveData = MutableLiveData<String>()
+    val responseLiveData: LiveData<String> = _responseLiveData
+
     fun setActivo(activoModel: ActivoModel) {
         activo.value = activoModel
     }
 
-    // Función para realizar la compra
     fun comprarActivo() {
-
-        /* Lo que recibe el endpoint
-        {
-          "simbolo": "AAPL",
-          "nombre": "Compra de activos",
-          "tipo": "cedears",
-          "valorDeCompra": "1000",
-          "fechaDeCompra": "8/11/2023",
-          "categoriaId" : "",
-          "cantidad": 100,
-          "activoId": ""
-           }
-        */
 
         viewModelScope.launch {
             try {
-                // Hacer la llamada al repositorio para la compra
-                val response = if (activo.value != null) {
-
-                    //actualizo los datos activo para realizar la compra
+                if (activo.value != null) {
 
                     var activoActual : ActivoModel = activo.value!!
                     activoActual.cantidad = cantidadDeCompra.value!!
                     activoActual.fechaDeCompra = obtenerFechaActualEnFormato()
                     activoActual.valorDeCompra = activoActual.valorActual!!
-                    repository.buyAsset(userId, activoActual!!)
+                    _responseLiveData.value = repository.buyAsset(userId, activoActual!!)
 
                 } else {
-                    // Manejar el caso cuando activo.value es nulo
-                    throw error("no existe el activo?")
-                }
-                // Manejar la respuesta del repositorio según tu lógica
-                if (response == 200) {
-                    // Compra exitosa: ir a cartera
-                } else {
-                    // Ver que hacer
+                    throw error("no existe el activo")
                 }
             } catch (e: Exception) {
-                // Manejar errores de red u otros errores
+                _errorLiveData.value = "Error: ${e.message}"
             }
         }
     }
 
-    /*
-    const assetId = req.body.activoId;
-    const quantity = req.body.cantidad;
-    const salePrice = req.body.precioDeVenta;
-    const userId = req.params.userId;
-    */
-
-// Función para realizar la venta
     fun venderActivo() {
         viewModelScope.launch {
             try {
-
-                val response = if (
+                if (
                     activo.value != null &&
                     cantidadDeVenta.value!!.toInt()>0 &&
                     precioDeVenta.value!!.toFloat()>0)
-
                 {
                     var activoActual = activo.value!!
                     val venta = Venta(
@@ -99,21 +72,12 @@ class TradingViewModel @Inject constructor(
                         cantidad = cantidadDeVenta.value ?: 0,
                         precioDeVenta = precioDeVenta.value.toString() ?: ""
                     )
-
-                   repository.sellAsset(userId, venta!!)
+                    _responseLiveData.value = repository.sellAsset(userId, venta!!)
                 } else {
-                    400
-                }
-
-                // Manejar la respuesta del repositorio según tu lógica
-                if (response == 200) {
-                    // Éxito en la venta
-                } else {
-                    // Manejar el error del repositorio
-
+                    throw error("No se puede vender activo")
                 }
             } catch (e: Exception) {
-                // Manejar errores de red u otros errores
+                _errorLiveData.value = "Error: ${e.message}"
             }
         }
     }

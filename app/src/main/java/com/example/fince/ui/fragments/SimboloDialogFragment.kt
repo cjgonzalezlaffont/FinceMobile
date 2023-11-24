@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.fince.R
@@ -14,6 +15,7 @@ import com.example.fince.data.model.ActivoModel
 import com.example.fince.databinding.FragmentSimboloDialogBinding
 import com.example.fince.ui.viewmodel.TradingViewModel
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +26,7 @@ class SimboloDialogFragment : DialogFragment() {
     private val binding get() = _binding!!
     private lateinit var view : View
     private var precioVentaFlag = false
-    private val tradingviewModel: TradingViewModel by viewModels({ requireParentFragment() })
+    private val tradingviewModel: TradingViewModel by viewModels()
 
     companion object {
         private lateinit var activo : ActivoModel
@@ -44,6 +46,8 @@ class SimboloDialogFragment : DialogFragment() {
         _binding = FragmentSimboloDialogBinding.inflate(inflater, container, false)
         view = binding.root
 
+        var activity = requireActivity()
+        var viewActivity = activity.findViewById<View>(android.R.id.content)
 
         val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
         val usuarioId = sharedPreferences.getString("userId", "")!!
@@ -60,22 +64,23 @@ class SimboloDialogFragment : DialogFragment() {
         binding.simboloFragmentTxtViewValorDeCompra.text = activo.valorDeCompra.toString()
         binding.simboloFragmentTxtViewVariacion.text = activo.variacion.toString()
 
-
-
         binding.simboloFragmentBtnComprar.setOnClickListener {
             tradingviewModel.cantidadDeCompra.value = binding.simboloFragmentTextViewCantidadCompra.text.toString().toIntOrNull() ?: 0
             tradingviewModel.comprarActivo()
-            //val action = SimboloFragmentDirections.actionSimboloFragmentToCartera()
-            //findNavController().navigate(R.id.cartera)
-            val navigationView = requireActivity().findViewById<NavigationView>(R.id.nav_view)
-            navigationView.setCheckedItem(R.id.cartera)
         }
 
         binding.simboloFragmentBtnVender.setOnClickListener {
             tradingviewModel.cantidadDeVenta.value = binding.simboloFragmentTextViewCantidadVenta.text.toString().toIntOrNull() ?: 0
             tradingviewModel.venderActivo()
-            //val action = SimboloFragmentDirections.actionSimboloFragmentToCartera()
-            //this.findNavController().navigate(action)
+        }
+
+        tradingviewModel.errorLiveData.observe(viewLifecycleOwner) { error ->
+            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+        }
+
+        tradingviewModel.responseLiveData.observe(viewLifecycleOwner) { response ->
+            Snackbar.make(viewActivity, "Operacion realizada con exito!", Snackbar.LENGTH_SHORT).show()
+            dismiss()
         }
 
         binding.simboloFragmentBtnIncrementarCantidadCompra.setOnClickListener {

@@ -41,6 +41,10 @@ class TransaccionDialogFragment : DialogFragment() {
     ): View? {
         _binding = FragmentTransaccionDialogBinding.inflate(inflater, container, false)
         view = binding.root
+
+        var activity = requireActivity()
+        var viewActivity = activity.findViewById<View>(android.R.id.content)
+
         val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
         val usuarioId = sharedPreferences.getString("userId", "")!!
 
@@ -75,12 +79,16 @@ class TransaccionDialogFragment : DialogFragment() {
         }
 
         transaccionViewModel.errorLiveData.observe(viewLifecycleOwner) { error ->
-            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+            if (error != "") {
+                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+            }
         }
 
         transaccionViewModel.responseLiveData.observe(viewLifecycleOwner) { response ->
-            Snackbar.make(view, transaccionViewModel.responseLiveData.toString(), Snackbar.LENGTH_SHORT).show()
-            dismiss()
+            if (response != "") {
+                Snackbar.make(viewActivity, "Transaccion eliminada con exito!", Snackbar.LENGTH_SHORT).show()
+                dismiss()
+            }
         }
 
         return view
@@ -89,6 +97,15 @@ class TransaccionDialogFragment : DialogFragment() {
         super.onResume()
         // Definir el ancho y alto fijo del diálogo
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT) // Ajusta el alto como desees
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        transaccionViewModel.clearError()
+        transaccionViewModel.clearResponse()
+        transaccionViewModel.errorLiveData.removeObservers(viewLifecycleOwner)
+        transaccionViewModel.responseLiveData.removeObservers(viewLifecycleOwner)
+        _binding = null
     }
 
 }

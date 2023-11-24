@@ -61,13 +61,13 @@ class CategoriaViewModel @Inject constructor(
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> = _errorLiveData
 
-    private val _responseLiveData = MutableLiveData<SuccessfulModel>()
-    val responseLiveData: LiveData<SuccessfulModel> = _responseLiveData
+    private val _responseLiveData = MutableLiveData<String>()
+    val responseLiveData: LiveData<String> = _responseLiveData
 
     fun deleteCategorie(userId : String, categoria : CategoriaModel) {
         viewModelScope.launch {
             try {
-                _responseLiveData.value = repository.deleteCategorie(userId, categoria.id)
+                _responseLiveData.value = repository.deleteCategorie(userId, categoria.id)?.message
                 onCreate(userId)
                 val currentList = _categoriaList.value.orEmpty().toMutableList()
                 currentList.remove(categoria)
@@ -79,5 +79,9 @@ class CategoriaViewModel @Inject constructor(
     }
     fun clearError() {
         _errorLiveData.value = ""
+    }
+
+    fun clearResponse() {
+        _responseLiveData.value = ""
     }
 }
