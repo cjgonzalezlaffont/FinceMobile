@@ -4,6 +4,7 @@ package com.example.fince.data
 import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.DataEntry
+import com.example.fince.data.model.ObjetivoModel
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.SuccessfulModel
@@ -77,7 +78,7 @@ class FinceRepository @Inject constructor(
         return remote.sellAsset(userId, venta)
     }
 
-    suspend fun getUserById(userId: String): UserResponse {
+    suspend fun getUserById(userId: String): UserModel {
         val response = remote.getUserById(userId)
         return response
     }
@@ -113,7 +114,12 @@ class FinceRepository @Inject constructor(
     }
 
     suspend fun editCategorie(userId : String, categoriaReq: CategoriaModel): SuccessfulModel? {
-            val response = remote.editCategorie(userId, categoriaReq)
+        val response = remote.editCategorie(userId, categoriaReq)
+        return response
+    }
+
+    suspend fun getAllObjetives(userId: String): List<ObjetivoModel> {
+        val response = remote.getAllObjetives(userId)
         return response
     }
 

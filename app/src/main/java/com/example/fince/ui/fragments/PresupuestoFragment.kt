@@ -28,7 +28,8 @@ class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
     var listaTransacciones : MutableList<Transaccion> = ArrayList()
     private val transaccionViewModel: TransaccionViewModel by viewModels()
     private lateinit var transaccionAdapter: TransaccionAdapter
-
+    private var incomeAmount : Float = 0.toFloat()
+    private var expenseAmount : Float = 0.toFloat()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +63,9 @@ class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
 
         transaccionViewModel.transaccionList.observe(viewLifecycleOwner) {
             transaccionAdapter.setTransactionList(it)
+            incomeAmount = transaccionViewModel.incomeAmount
+            expenseAmount = transaccionViewModel.expenseAmount
+            setMontos()
         }
 
         transaccionViewModel.isLoading.observe(viewLifecycleOwner) {
@@ -77,6 +81,12 @@ class PresupuestoFragment : Fragment(), OnViewItemClickedListenerTran {
             val accion = PresupuestoFragmentDirections.actionPresupuestoToAgregarTranFragment()
             view.findNavController().navigate(accion)
         }
+    }
+
+    private fun setMontos(){
+        binding.fragTranTvIncome.setText("$" + incomeAmount.toString())
+        binding.fragTranTvExpense.setText("$" + expenseAmount.toString())
+        binding.fragTranTvTotal.setText("$" + (incomeAmount - expenseAmount))
     }
 
     override fun onDestroyView() {

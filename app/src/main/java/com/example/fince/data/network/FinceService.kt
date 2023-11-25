@@ -6,6 +6,7 @@ import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.ErrorResponse
 import com.example.fince.data.model.DataEntry
+import com.example.fince.data.model.ObjetivoModel
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.SuccessfulModel
@@ -26,19 +27,11 @@ import javax.inject.Inject
 class FinceService @Inject constructor(private val service: FinceApiClient) {
 
     suspend fun userRegister(user: UserRegisterModel): UserModel {
-        return withContext(Dispatchers.IO) {
-            val response = service.userRegister(user)
-
-            response.body() ?: UserModel("","", "", "", "", 0,0,0)
-        }
+        return handleAPICall { service.userRegister(user) }
     }
 
     suspend fun userLogin(user: userLoginModel): UserModel {
-        return withContext(Dispatchers.IO) {
-            val response = service.userLogin(user)
-
-            response.body() ?: UserModel("","", "", "", "", 0,0,0)
-        }
+        return handleAPICall { service.userLogin(user) }
     }
 
     suspend fun  getAllInstruments(): List<StockModel> {
@@ -100,7 +93,7 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         return handleAPICall { service.buyAsset(userId, venta) }
     }
 
-    suspend fun getUserById(userId: String): UserResponse {
+    suspend fun getUserById(userId: String): UserModel {
         return handleAPICall { service.getUserById(userId) }
     }
 
@@ -138,6 +131,10 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         return handleAPICall { service.editCategorie(userId, categoriaReq.id, categoriaReq) }
     }
 
+    suspend fun getAllObjetives(userId: String): List<ObjetivoModel> {
+        return handleAPICall { service.getAllObjetives(userId) }
+    }
+
     suspend fun <T> handleAPICall(call: suspend () -> Response<T>): T {
         return try {
             val response = call.invoke()
@@ -158,5 +155,6 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
             throw IOException("${e.message}")
         }
     }
+
 
 }

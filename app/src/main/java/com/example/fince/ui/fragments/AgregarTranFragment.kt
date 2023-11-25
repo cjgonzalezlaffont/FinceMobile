@@ -1,8 +1,11 @@
 package com.example.fince.ui.fragments
 
 import android.R
+import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +22,7 @@ import com.example.fince.ui.viewmodel.AgregarTranViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Response
+import java.util.Calendar
 
 @AndroidEntryPoint
 class AgregarTranFragment : Fragment() {
@@ -58,7 +62,9 @@ class AgregarTranFragment : Fragment() {
             populateSpinner(spCategorias,(it),requireContext())
         }
 
-        //spCategorias.setSelection(0, false) // evita la primer falsa entrada si existe validación
+        binding.fragAddTranBtnCalendar.setOnClickListener {
+            mostrarSelectorDeFecha()
+        }
 
         spCategorias.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -96,11 +102,47 @@ class AgregarTranFragment : Fragment() {
             Snackbar.make(view, "Transaccion agregada con exito", Snackbar.LENGTH_SHORT).show()
             requireActivity().onBackPressed()
         }
+
+        binding.fragAddTranEditTextFecha.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                val inputText = s.toString()
+                val regex = """\d{2}/\d{2}/\d{4}""".toRegex() // Define tu regex para el formato de fecha
+
+                if (!inputText.matches(regex)) {
+                    // El texto no coincide con el formato de fecha, puedes borrarlo o mostrar un mensaje de error
+                    binding.fragAddTranEditTextFecha.error = "Formato de fecha incorrecto"
+                } else {
+                    // El texto coincide con el formato de fecha, no hagas nada
+                    binding.fragAddTranEditTextFecha.error = null
+                }
+            }
+        })
+
+
+    }
+
+    private fun mostrarSelectorDeFecha() {
+        val calendario = Calendar.getInstance()
+        val ano = calendario.get(Calendar.YEAR)
+        val mes = calendario.get(Calendar.MONTH)
+        val dia = calendario.get(Calendar.DAY_OF_MONTH)
+
+        val datePicker = DatePickerDialog(requireContext(), { _, year, month, day ->
+            // El usuario ha seleccionado una fecha
+            val fechaSeleccionada = "$day/${month + 1}/$year" // Formatea la fecha según tu necesidad
+            binding.fragAddTranEditTextFecha.setText(fechaSeleccionada) // Actualiza el TextView con la fecha seleccionada
+        }, ano, mes, dia)
+        datePicker.datePicker.maxDate = System.currentTimeMillis()
+        datePicker.show()
     }
 
     fun populateSpinner (spinner: Spinner, list : List<CategoriaModel>, context : Context)
     {
-        val aa = ArrayAdapter<CategoriaModel>(context, R.layout.simple_spinner_dropdown_item, list)
+        val aa = ArrayAdapter(context, R.layout.simple_spinner_dropdown_item, list)
 
         // Set layout to use when the list of choices appear
         aa.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)

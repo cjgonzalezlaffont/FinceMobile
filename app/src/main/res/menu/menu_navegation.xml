@@ -17,9 +17,9 @@
                 android:icon="@drawable/presupuesto_icon"
                 android:title="Presupuesto" />
         <item
-            android:id="@+id/reportes"
-            android:icon="@drawable/documentos_icon"
-            android:title="Reportes" />
+            android:id="@+id/objetivos"
+            android:icon="@drawable/objetivo_item"
+            android:title="Objetivos" />
         <item
             android:id="@+id/opciones"
             android:icon="@drawable/opciones_icon"

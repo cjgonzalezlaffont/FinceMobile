@@ -7,15 +7,14 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation.findNavController
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.fince.R
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import com.example.fince.*
+import com.example.fince.ui.viewmodel.SharedViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -23,21 +22,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
 
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
 
         val sharedPreferences = getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
-        var user = sharedPreferences.getString("nombre", "")
-
-        if(user.equals("null") || user.equals("")){
-            user="Usuario prueba"
-        }
+        var userId = sharedPreferences.getString("userId", "")!!
 
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -61,7 +58,14 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(navigationView, navController)
 
         val headerUsernameTextView: TextView = navigationView.getHeaderView(0).findViewById(R.id.lblUsuario)
+        val headerUserIdTextView: TextView = navigationView.getHeaderView(0).findViewById(R.id.lblId)
 
-        headerUsernameTextView.text = user
+        sharedViewModel.getUser(userId)
+
+        sharedViewModel.response.observe(this) { user ->
+            headerUsernameTextView.text = (user.nombre + " " + user.apellido)
+            headerUserIdTextView.text = user.userId
+        }
+
     }
 }

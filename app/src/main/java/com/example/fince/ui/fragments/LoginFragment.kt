@@ -28,7 +28,6 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var view : View
     private val loginViewModel: LoginViewModel by viewModels()
-    private var userResponse = UserModel("", "", "", "", "", 0,0,0)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,34 +41,12 @@ class LoginFragment : Fragment() {
 
             val correo = binding.txtCorreo.text.toString()
             val pass = binding.txtPass.text.toString()
-            val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
 
             if(correo != "" && pass != "") {
 
                 val user = userLoginModel(correo, pass)
 
-                viewLifecycleOwner.lifecycleScope.launch {
-                    try {
-                        val userResponse = loginViewModel.login(user)
-                        if (!userResponse.token.isEmpty()) {
-                            Log.i("Log", "Antes de modificar apikey" + Config.apiKey)
-                            editor.putString("token", userResponse.token)
-                            Config.apiKey = "Bearer " + userResponse.token
-                            Log.i("Log", "Despues de modificar apikey" + Config.apiKey)
-                            editor.putString("userId", userResponse.userId)
-                            editor.apply()
-                            val intent = Intent(activity, MainActivity::class.java)
-                            startActivity(intent)
-                        } else {
-                            Toast.makeText(requireContext(), "Error al iniciar sesion", Toast.LENGTH_SHORT).show()
-                        }
-
-                    } catch (e: Exception) {
-                        // Manejar el error (por ejemplo, mostrar un mensaje de error)
-                        Log.e("TAG", "Error al iniciar sesión", e)
-                    }
-                }
+                loginViewModel.login(user)
 
             } else {
                 Toast.makeText(
@@ -78,12 +55,40 @@ class LoginFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        };
+        }
+
+        loginViewModel.responseLiveData.observe(viewLifecycleOwner) { response ->
+            val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("token", "Bearer " + response.token)
+            Config.apiKey = ("Bearer " + response.token)
+            editor.putString("userId", response.userId)
+            editor.apply()
+            val intent = Intent(activity, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        loginViewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.fragLogIsLoading.visibility = if (it) View.VISIBLE else View.GONE
+            binding.fragLogCarga.visibility = if (it) View.VISIBLE else View.GONE
+            binding.btnLogin.isEnabled = false
+        }
+
+        loginViewModel.errorLiveData.observe(viewLifecycleOwner){ error ->
+            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+        }
+
         binding.btnRegistro.setOnClickListener {
             val accion = LoginFragmentDirections.actionLoginFragmentToRegistroFragment()
             view.findNavController().navigate(accion)
         };
+
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.btnLogin.isEnabled = true
     }
 
     override fun onDestroyView() {

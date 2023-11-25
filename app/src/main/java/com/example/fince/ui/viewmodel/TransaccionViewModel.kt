@@ -18,6 +18,9 @@ class TransaccionViewModel @Inject constructor(
     private val repository: FinceRepository
 ) : ViewModel() {
 
+    var incomeAmount : Float = 0.toFloat()
+    var expenseAmount : Float = 0.toFloat()
+
     private val _transaccionList = MutableLiveData<List<Transaccion>>()
     val transaccionList: LiveData<List<Transaccion>> = _transaccionList
 
@@ -37,7 +40,10 @@ class TransaccionViewModel @Inject constructor(
         viewModelScope.launch {
             setIsLoading(true)
             try {
-                val transaccionList = repository.getAllTransactions(userId).transacciones
+                val transaccion = repository.getAllTransactions(userId)
+                val transaccionList = transaccion.transacciones
+                incomeAmount = transaccion.incomeAmount
+                expenseAmount = transaccion.expenseAmount
 
                 if (!transaccionList.isEmpty()) {
                     setTransaccionList(transaccionList)

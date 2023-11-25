@@ -38,4 +38,23 @@
     <string name="bottom_nav_bar_corporate_bonds">ON</string>
     <string name="bottom_nav_bar_fci">FCI</string>
 
+    <!--fragment registrar-->
+    <string name="frag_reg_titulo">Registro de Usuario</string>
+    <string name="frag_reg_nombre">Nombre</string>
+    <string name="frag_reg_apellido">Apellido</string>
+    <string name="frag_reg_mail">Mail</string>
+    <string name="frag_reg_contrasena">Contraseña</string>
+    <string name="frag_reg_rep_contrasena">Repetir Contraseña</string>
+    <string name="frag_reg_btn_registrarse">Registrarse</string>
+    <string name="frag_reg_btn_cancelar">Cancelar</string>
+
+    <!--fragment objetivos-->
+    <string name="frag_obj_alta_obj">Alta de objetivo</string>
+    <string name="frag_obj_titulo">Nombre</string>
+    <string name="frag_obj_monto">Monto de meta</string>
+    <string name="frag_obj_fecha">Fecha limite</string>
+    <string name="frag_obj_desc">Descripcion</string>
+    <string name="frag_obj_btn_confirmar">Crear objetivo</string>
+
+
 </resources>

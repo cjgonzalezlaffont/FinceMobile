@@ -3,6 +3,9 @@ package com.example.fince.ui.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +28,6 @@ class RegistroFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var view : View
     private val registerViewModel: RegisterViewModel by viewModels()
-    private var userResponse = UserModel("", "", "", "", "", 0,0,0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,31 +48,60 @@ class RegistroFragment : Fragment() {
             val mail = binding.txtMail.text.toString()
             val password = binding.txtPassword.text.toString()
             val confirmPassword = binding.txtConfirmPassword.text.toString()
-            val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
 
             if(!nombre.equals("") && !mail.equals("") && !password.equals("") && !confirmPassword.equals("")){
 
-                val user = UserRegisterModel(nombre, apellido, mail, password)
+                if (Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
+                    val user = UserRegisterModel(nombre, apellido, mail, password)
 
-                userResponse = registerViewModel.registrar(user)
-                if (!userResponse.token.isEmpty()) {
-                    editor.putString("token", userResponse.token)
-                    Config.apiKey = userResponse.token
-                    editor.putString("userId", userResponse.userId)
-                    editor.apply()
-                    val intent = Intent(activity, MainActivity::class.java)
-                    startActivity(intent)
+                    registerViewModel.registrar(user)
                 } else {
-                    Toast.makeText(requireContext(), "Error al crear usuario", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Debe ingresar un email valido", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(requireContext(), "Complete todos los campos!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Complete todos los campos", Toast.LENGTH_SHORT).show()
             }
-        };
+        }
+
+        registerViewModel.responseLiveData.observe(viewLifecycleOwner) { response ->
+            val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("token", "Bearer " + response.token)
+            Config.apiKey = ("Bearer " + response.token)
+            editor.putString("userId", response.userId)
+            editor.apply()
+            val intent = Intent(activity, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        registerViewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.fragRegIsLoading.visibility = if (it) View.VISIBLE else View.GONE
+            binding.fragRegCarga.visibility = if (it) View.VISIBLE else View.GONE
+        }
+
+        registerViewModel.errorLiveData.observe(viewLifecycleOwner){ error ->
+            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+        }
+
+        binding.txtMail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+            override fun afterTextChanged(editable: Editable?) {
+                val email = binding.txtMail.text.toString().trim()
+
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    binding.txtMail.error = "Email no válido"
+                } else {
+                    binding.txtMail.error = null
+                }
+            }
+        })
+
         binding.btnCancelar.setOnClickListener {
             requireActivity().onBackPressed()
         }
+
         return view
     }
 }
