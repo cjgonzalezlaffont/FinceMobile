@@ -41,7 +41,7 @@ object NetworkModule {
         apiKey.observeForever {
             client = clientBuilder.addNetworkInterceptor(Interceptor { chain ->
                 val request = chain.request().newBuilder()
-                    .addHeader("Authorization", it)
+                    .addHeader("Authorization", Config.apiKey)
                     .build()
                 chain.proceed(request)
             }).build()

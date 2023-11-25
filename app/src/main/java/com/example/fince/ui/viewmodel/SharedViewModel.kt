@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fince.data.FinceRepository
-import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,27 +13,27 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class UserViewModel @Inject constructor(
+class SharedViewModel @Inject constructor(
     private val repository: FinceRepository
-) : ViewModel() {
+)  : ViewModel() {
 
     private val _response = MutableLiveData<UserModel>()
     val response: LiveData<UserModel> = _response
 
-    fun setUser(user:UserModel){
-        _response.value=user
-    }
-
-    fun onCreate(userId:String){
+    fun getUser(userId:String){
         viewModelScope.launch {
             try {
-                val response=repository.getUserById(userId)
-                if(!(response==null)){
-                    setUser(response);
-                }
+                _response.value = repository.getUserById(userId)
             } catch (e:Exception){
-                Log.e("UserViewModel",e.message.toString())
+                Log.e("SharedViewModel",e.message.toString())
             }
         }
+    }
+
+    private val _isDarkMode = MutableLiveData<Boolean>()
+    var isDarkMode: LiveData<Boolean> = _isDarkMode
+
+    fun setDarkMode(isDarkMode: Boolean) {
+        _isDarkMode.value = isDarkMode
     }
 }

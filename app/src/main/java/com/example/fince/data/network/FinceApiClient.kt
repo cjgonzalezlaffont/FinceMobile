@@ -5,6 +5,7 @@ import android.net.wifi.rtt.ResponderConfig
 import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.DataEntry
+import com.example.fince.data.model.ObjetivoModel
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.SuccessfulModel
@@ -58,7 +59,7 @@ interface FinceApiClient {
     suspend fun buyAsset(@Path("userId") userId : String, @Body venta : Venta) : Response<String>
 
     @GET("/api/users/{userId}")
-    suspend fun getUserById(@Path("userId") userId : String) : Response<UserResponse>
+    suspend fun getUserById(@Path("userId") userId : String) : Response<UserModel>
 
     @PUT("")
     suspend fun modifUser(): Response<Void>
@@ -83,4 +84,7 @@ interface FinceApiClient {
 
     @PUT("/api/categories/update/{userId}/{categoryId}")
     suspend fun editCategorie(@Path("userId") userId : String, @Path("categoryId") categoryId : String, @Body categoria : CategoriaModel) : Response<SuccessfulModel>
+
+    @GET("/api/objectives/{userId}")
+    suspend fun getAllObjetives(@Path("userId") userId : String) : Response<List<ObjetivoModel>>
 }
