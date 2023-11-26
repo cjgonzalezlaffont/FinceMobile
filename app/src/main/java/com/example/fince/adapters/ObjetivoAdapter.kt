@@ -22,7 +22,7 @@ class ObjetivoAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ObjetivoHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemObjetivoBinding.inflate(inflater, parent, false)
-        return ObjetivoHolder(binding)
+        return ObjetivoHolder(binding, parent.context)
     }
 
     private var objetivoCount : Int = 0
@@ -34,8 +34,9 @@ class ObjetivoAdapter(
     override fun onBindViewHolder(holder: ObjetivoHolder, position: Int) {
         val objetivo = objetivoList.get(position)
         holder.setNombre(objetivo.nombre)
-        holder.setMonto(objetivo.monto)
+        holder.setMonto(String.format("%.0f", objetivo.monto.toDouble()))
         holder.setFecha(objetivo.fecha)
+        holder.setProgreso((objetivo.progreso * 100).toInt())
         holder.getFrameLayout().setOnClickListener {
             if (objetivo != null) {
                 onItemClick.onViewItemDetail(objetivo)

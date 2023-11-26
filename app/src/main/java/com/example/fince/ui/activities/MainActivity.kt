@@ -67,5 +67,17 @@ class MainActivity : AppCompatActivity() {
             headerUserIdTextView.text = user.userId
         }
 
+        var darkMode = sharedPreferences.getBoolean("darkMode", false)
+
+        sharedViewModel.setDarkMode(darkMode)
+
+        sharedViewModel.isDarkMode.observe(this) { isDarkMode ->
+            if (isDarkMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
     }
 }

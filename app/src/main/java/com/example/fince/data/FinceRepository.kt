@@ -5,19 +5,17 @@ import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.DataEntry
 import com.example.fince.data.model.ObjetivoModel
+import com.example.fince.data.model.ObjetivoResponse
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.SuccessfulModel
 import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
-import com.example.fince.data.model.User
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
-import com.example.fince.data.model.UserResponse
 import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
 import com.example.fince.data.network.FinceService
-import retrofit2.Response
 import javax.inject.Inject
 
 class FinceRepository @Inject constructor(
@@ -118,8 +116,23 @@ class FinceRepository @Inject constructor(
         return response
     }
 
-    suspend fun getAllObjetives(userId: String): List<ObjetivoModel> {
+    suspend fun getAllObjetives(userId: String): ObjetivoResponse {
         val response = remote.getAllObjetives(userId)
+        return response
+    }
+
+    suspend fun createObjetive(userId: String, objetive : ObjetivoModel): String {
+        val response = remote.createObjetive(userId, objetive)
+        return response
+    }
+
+    suspend fun editObjeetive(usuarioId: String, objetivo: ObjetivoModel): String? {
+        val response = remote.editObjetive(usuarioId, objetivo)
+        return response
+    }
+
+    suspend fun deleteObjective(userId: String, objetivoId: String?): SuccessfulModel? {
+        val response = remote.deleteObjective(userId, objetivoId)
         return response
     }
 

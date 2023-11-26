@@ -6,6 +6,7 @@ import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.DataEntry
 import com.example.fince.data.model.ObjetivoModel
+import com.example.fince.data.model.ObjetivoResponse
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.SuccessfulModel
@@ -86,5 +87,14 @@ interface FinceApiClient {
     suspend fun editCategorie(@Path("userId") userId : String, @Path("categoryId") categoryId : String, @Body categoria : CategoriaModel) : Response<SuccessfulModel>
 
     @GET("/api/objectives/{userId}")
-    suspend fun getAllObjetives(@Path("userId") userId : String) : Response<List<ObjetivoModel>>
+    suspend fun getAllObjetives(@Path("userId") userId : String) : Response<ObjetivoResponse>
+
+    @POST("/api/objectives/newObjective/{userId}")
+    suspend fun createObjetive(@Path("userId") userId : String, @Body objetive : ObjetivoModel) : Response<String>
+
+    @PUT("/api/objectives/updateObjective/{userId}")
+    suspend fun editObjetive(@Path("userId") userId : String, @Body objetive : ObjetivoModel) : Response<String>
+
+    @DELETE("/api/objectives/deleteObjective/{userId}/{objectiveId}")
+    suspend fun deleteObjective(@Path("userId") userId : String, @Path("objectiveId") objectiveId : String?) : Response<SuccessfulModel>
 }
