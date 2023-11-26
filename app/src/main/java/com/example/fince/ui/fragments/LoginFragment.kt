@@ -46,6 +46,7 @@ class LoginFragment : Fragment() {
 
                 val user = userLoginModel(correo, pass)
 
+                binding.btnLogin.isEnabled = false
                 loginViewModel.login(user)
 
             } else {
@@ -71,11 +72,11 @@ class LoginFragment : Fragment() {
         loginViewModel.isLoading.observe(viewLifecycleOwner) {
             binding.fragLogIsLoading.visibility = if (it) View.VISIBLE else View.GONE
             binding.fragLogCarga.visibility = if (it) View.VISIBLE else View.GONE
-            binding.btnLogin.isEnabled = false
         }
 
         loginViewModel.errorLiveData.observe(viewLifecycleOwner){ error ->
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+            binding.btnLogin.isEnabled = true
         }
 
         binding.btnRegistro.setOnClickListener {

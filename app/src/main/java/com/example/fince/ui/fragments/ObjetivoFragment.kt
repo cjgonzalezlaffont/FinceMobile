@@ -15,12 +15,13 @@ import com.example.fince.adapters.ObjetivoAdapter
 import com.example.fince.adapters.TransaccionAdapter
 import com.example.fince.data.model.ObjetivoModel
 import com.example.fince.databinding.FragmentObjetivoBinding
+import com.example.fince.listeners.OnEditObjetiveListener
 import com.example.fince.listeners.OnViewItemClickedListenerObj
 import com.example.fince.ui.viewmodel.ObjetivoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ObjetivoFragment : Fragment(), OnViewItemClickedListenerObj {
+class ObjetivoFragment : Fragment(), OnViewItemClickedListenerObj, OnEditObjetiveListener {
 
     private var _binding: FragmentObjetivoBinding? = null
     private val binding get() = _binding!!
@@ -61,16 +62,16 @@ class ObjetivoFragment : Fragment(), OnViewItemClickedListenerObj {
 
         objetivoViewModel.onCreate(usuarioId)
 
-        objetivoViewModel.responseData.observe(viewLifecycleOwner){ response ->
+        objetivoViewModel.listaObjetivos.observe(viewLifecycleOwner){ response ->
             objetivoAdapter.setObjetivoList(response)
         }
 
-        objetivoViewModel.errorData.observe(viewLifecycleOwner){ error ->
-            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT)
+        objetivoViewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.fragObjIsLoading.visibility = if (it) View.VISIBLE else View.GONE
         }
 
         binding.fragObjBtnAdd.setOnClickListener {
-            val action = ObjetivoFragmentDirections.actionObjetivosToAgregarObjetivoFragment()
+            val action = ObjetivoFragmentDirections.actionObjetivosToAgregarObjetivoFragment(null)
             findNavController().navigate(action)
         }
 
@@ -82,6 +83,13 @@ class ObjetivoFragment : Fragment(), OnViewItemClickedListenerObj {
     }
 
     override fun onViewItemDetail(objetivo: ObjetivoModel) {
+        val dialogFragment = ObjetivoDialogFragment.newInstance(objetivo)
+        dialogFragment.setListener(this)
+        dialogFragment.show(childFragmentManager, "detalle_dialog")
+    }
 
+    override fun onEditObjetive(objetivo: ObjetivoModel) {
+        val action = ObjetivoFragmentDirections.actionObjetivosToAgregarObjetivoFragment(objetivo)
+        findNavController().navigate(action)
     }
 }

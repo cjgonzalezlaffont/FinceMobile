@@ -22,7 +22,10 @@ import com.example.fince.ui.viewmodel.AgregarTranViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 @AndroidEntryPoint
 class AgregarTranFragment : Fragment() {
@@ -80,18 +83,32 @@ class AgregarTranFragment : Fragment() {
         binding.fragAddTranBtnConfirm.setOnClickListener {
 
             val titulo = binding.fragAddTranEditTextTitulo.text.toString()
-            val monto = binding.fragAddTranEditTextMonto.text.toString().toFloat()
+
+            val monto = if (binding.fragAddTranEditTextMonto.text.isNotEmpty()) {
+                binding.fragAddTranEditTextMonto.text.toString().toFloat()
+            } else {
+                0F
+            }
+
             val fecha = binding.fragAddTranEditTextFecha.text.toString()
             val categoria  = listaCategorias[posicion]
 
-            val tipo = categoria.tipo
-            val nombreCategoria = categoria.nombre
-            val categoriaId = categoria.id
+            if (compararFechas(fecha, obtenerFechaActualEnFormato()) == 1) {
 
-            val nuevaTransaccion = Transaccion("", fecha, monto, tipo, nombreCategoria, titulo, false, categoriaId)
+                binding.fragAddTranEditTextFecha.error = "La fecha debe ser menor o igual a la de hoy"
+            } else {
+                if (titulo != "" && fecha != "" && monto != 0F) {
+                    val tipo = categoria.tipo
+                    val nombreCategoria = categoria.nombre
+                    val categoriaId = categoria.id
 
-            agregarTranViewModel.nuevaTransaccion(usuarioId, nuevaTransaccion)
+                    val nuevaTransaccion = Transaccion("", fecha, monto, tipo, nombreCategoria, titulo, false, categoriaId)
 
+                    agregarTranViewModel.nuevaTransaccion(usuarioId, nuevaTransaccion)
+                } else {
+                    Toast.makeText(requireContext(), "Debe completar todos los campos", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         agregarTranViewModel.errorLiveData.observe(viewLifecycleOwner) { error ->
@@ -110,19 +127,37 @@ class AgregarTranFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 val inputText = s.toString()
-                val regex = """\d{2}/\d{2}/\d{4}""".toRegex() // Define tu regex para el formato de fecha
+                val regex = """\d{2}/\d{2}/\d{4}""".toRegex()
 
                 if (!inputText.matches(regex)) {
-                    // El texto no coincide con el formato de fecha, puedes borrarlo o mostrar un mensaje de error
                     binding.fragAddTranEditTextFecha.error = "Formato de fecha incorrecto"
                 } else {
-                    // El texto coincide con el formato de fecha, no hagas nada
                     binding.fragAddTranEditTextFecha.error = null
                 }
             }
         })
+    }
 
+    private fun compararFechas(fecha1: String, fecha2: String): Int {
+        val formato = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
+        try {
+            val date1: Date = formato.parse(fecha1)!!
+            val date2: Date = formato.parse(fecha2)!!
+
+            // Comparación de fechas
+            return date1.compareTo(date2)
+            // Retorna 0 si son iguales, -1 si date1 es menor que date2, 1 si date1 es mayor que date2
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return 0
+    }
+
+    private fun obtenerFechaActualEnFormato(): String {
+        val formato = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val fechaActual = Date()
+        return formato.format(fechaActual)
     }
 
     private fun mostrarSelectorDeFecha() {
@@ -132,9 +167,10 @@ class AgregarTranFragment : Fragment() {
         val dia = calendario.get(Calendar.DAY_OF_MONTH)
 
         val datePicker = DatePickerDialog(requireContext(), { _, year, month, day ->
-            // El usuario ha seleccionado una fecha
-            val fechaSeleccionada = "$day/${month + 1}/$year" // Formatea la fecha según tu necesidad
-            binding.fragAddTranEditTextFecha.setText(fechaSeleccionada) // Actualiza el TextView con la fecha seleccionada
+            val formattedDay = String.format("%02d", day)
+            val formattedMonth = String.format("%02d", month + 1)
+            val fechaSeleccionada = "$formattedDay/${formattedMonth}/$year"
+            binding.fragAddTranEditTextFecha.setText(fechaSeleccionada)
         }, ano, mes, dia)
         datePicker.datePicker.maxDate = System.currentTimeMillis()
         datePicker.show()
@@ -143,10 +179,7 @@ class AgregarTranFragment : Fragment() {
     fun populateSpinner (spinner: Spinner, list : List<CategoriaModel>, context : Context)
     {
         val aa = ArrayAdapter(context, R.layout.simple_spinner_dropdown_item, list)
-
-        // Set layout to use when the list of choices appear
         aa.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-        // Set Adapter to Spinner
         spinner.adapter = aa
     }
 

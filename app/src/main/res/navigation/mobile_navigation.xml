@@ -90,6 +90,11 @@
         android:id="@+id/agregarObjetivoFragment"
         android:name="com.example.fince.ui.fragments.AgregarObjetivoFragment"
         android:label="fragment_agregar_objetivo"
-        tools:layout="@layout/fragment_agregar_objetivo" />
+        tools:layout="@layout/fragment_agregar_objetivo" >
+        <argument
+            android:name="objetivo"
+            app:argType="com.example.fince.data.model.ObjetivoModel"
+            app:nullable="true" />
+    </fragment>
 
 </navigation>

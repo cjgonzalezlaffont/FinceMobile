@@ -7,6 +7,7 @@ import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.ErrorResponse
 import com.example.fince.data.model.DataEntry
 import com.example.fince.data.model.ObjetivoModel
+import com.example.fince.data.model.ObjetivoResponse
 import com.example.fince.data.model.PortfolioModel
 import com.example.fince.data.model.StockModel
 import com.example.fince.data.model.SuccessfulModel
@@ -14,7 +15,6 @@ import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
-import com.example.fince.data.model.UserResponse
 import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
 import com.google.gson.Gson
@@ -131,8 +131,20 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         return handleAPICall { service.editCategorie(userId, categoriaReq.id, categoriaReq) }
     }
 
-    suspend fun getAllObjetives(userId: String): List<ObjetivoModel> {
+    suspend fun getAllObjetives(userId: String): ObjetivoResponse {
         return handleAPICall { service.getAllObjetives(userId) }
+    }
+
+    suspend fun createObjetive(userId: String, objetive: ObjetivoModel): String {
+        return handleAPICall { service.createObjetive(userId, objetive) }
+    }
+
+    suspend fun editObjetive(userId: String, objetive: ObjetivoModel): String? {
+        return handleAPICall { service.editObjetive(userId, objetive) }
+    }
+
+    suspend fun deleteObjective(userId: String, objetivoId: String?): SuccessfulModel? {
+        return handleAPICall { service.deleteObjective(userId, objetivoId) }
     }
 
     suspend fun <T> handleAPICall(call: suspend () -> Response<T>): T {
@@ -152,9 +164,9 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
                 throw IOException(errorResponse.error ?: "Unknown error")
             }
         } catch (e: Exception) {
+            Log.e("API Error", "Message: ${e.message}")
             throw IOException("${e.message}")
         }
     }
-
 
 }

@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/fragAddObjTituloLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/frag_obj_alta_obj"
@@ -38,7 +39,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/fragAddTranEditTextTitulo"
+            android:id="@+id/fragAddObjEditTextTitulo"
             style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,7 +59,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/fragAddTranEditTextMonto"
+            android:id="@+id/fragAddObjEditTextMonto"
             style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,13 +78,29 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/fragAddTranEditTextFecha"
-            style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingrese una fecha"
-            android:inputType="datetime" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/fragAddObjEditTextFecha"
+                style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:inputType="datetime"
+                android:hint="dd/MM/yyyy" />
+
+            <ImageButton
+                android:id="@+id/fragAddObjBtnCalendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_calendar"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/imageView2"
@@ -113,7 +130,7 @@
 
 
         <Button
-            android:id="@+id/fragAddTranBtnConfirm"
+            android:id="@+id/fragAddObjBtnConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/blueFince"
