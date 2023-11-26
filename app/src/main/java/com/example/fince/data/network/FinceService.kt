@@ -90,7 +90,7 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
     }
 
     suspend fun sellAsset(userId: String, venta : Venta): String {
-        return handleAPICall { service.buyAsset(userId, venta) }
+        return handleAPICall { service.sellAsset(userId, venta) }
     }
 
     suspend fun getUserById(userId: String): UserModel {

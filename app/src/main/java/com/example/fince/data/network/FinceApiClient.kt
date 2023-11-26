@@ -57,7 +57,7 @@ interface FinceApiClient {
     suspend fun buyAsset(@Path("userId") userId : String, @Body activo : ActivoModel) : Response<String>
 
     @PUT("api/portfolio/sellAsset/{userId}")
-    suspend fun buyAsset(@Path("userId") userId : String, @Body venta : Venta) : Response<String>
+    suspend fun sellAsset(@Path("userId") userId : String, @Body venta : Venta) : Response<String>
 
     @GET("/api/users/{userId}")
     suspend fun getUserById(@Path("userId") userId : String) : Response<UserModel>
