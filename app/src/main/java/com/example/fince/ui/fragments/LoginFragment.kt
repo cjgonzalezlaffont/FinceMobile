@@ -66,7 +66,9 @@ class LoginFragment : Fragment() {
             editor.putString("userId", response.userId)
             editor.apply()
             val intent = Intent(activity, MainActivity::class.java)
-            startActivity(intent)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            requireActivity().startActivity(intent)
+            requireActivity().finish()
         }
 
         loginViewModel.isLoading.observe(viewLifecycleOwner) {
@@ -82,7 +84,12 @@ class LoginFragment : Fragment() {
         binding.btnRegistro.setOnClickListener {
             val accion = LoginFragmentDirections.actionLoginFragmentToRegistroFragment()
             view.findNavController().navigate(accion)
-        };
+        }
+
+        binding.fragLogTextViewLostPwd.setOnClickListener {
+            val accion = LoginFragmentDirections.actionLoginFragmentToOlvideContrasenaFragment()
+            view.findNavController().navigate(accion)
+        }
 
         return view
     }

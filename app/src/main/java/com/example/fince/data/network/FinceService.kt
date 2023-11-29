@@ -26,12 +26,28 @@ import javax.inject.Inject
 
 class FinceService @Inject constructor(private val service: FinceApiClient) {
 
-    suspend fun userRegister(user: UserRegisterModel): UserModel {
+    suspend fun userRegister(user: UserModel): UserModel {
         return handleAPICall { service.userRegister(user) }
     }
 
     suspend fun userLogin(user: userLoginModel): UserModel {
         return handleAPICall { service.userLogin(user) }
+    }
+
+    suspend fun updateUser(user : UserModel): UserModel {
+        return handleAPICall { service.updateUser(user.userId, user) }
+    }
+
+    suspend fun validateMail(mail: String): String {
+        return handleAPICall { service.validateMail(mail) }
+    }
+
+    suspend fun sendAuthCode(mail: String): SuccessfulModel {
+        return handleAPICall { service.sendAuthCode(mail) }
+    }
+
+    suspend fun findUserByMail(mail: String): UserModel {
+        return handleAPICall { service.findUserByMail(mail) }
     }
 
     suspend fun  getAllInstruments(): List<StockModel> {
@@ -168,5 +184,6 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
             throw IOException("${e.message}")
         }
     }
+
 
 }

@@ -25,14 +25,10 @@ class LoginActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
         var darkMode = sharedPreferences.getBoolean("darkMode", false)
 
-        sharedViewModel.setDarkMode(darkMode)
-
-        sharedViewModel.isDarkMode.observe(this) { isDarkMode ->
-            if (isDarkMode) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
+        if (darkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 }

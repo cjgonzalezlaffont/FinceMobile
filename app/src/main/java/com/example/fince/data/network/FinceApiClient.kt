@@ -1,7 +1,6 @@
 package com.example.fince.data.network
 
 
-import android.net.wifi.rtt.ResponderConfig
 import com.example.fince.data.model.CategoriaModel
 import com.example.fince.data.model.ActivoModel
 import com.example.fince.data.model.DataEntry
@@ -14,7 +13,6 @@ import com.example.fince.data.model.Transaccion
 import com.example.fince.data.model.TransaccionModel
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.UserRegisterModel
-import com.example.fince.data.model.UserResponse
 import com.example.fince.data.model.Venta
 import com.example.fince.data.model.userLoginModel
 import retrofit2.Response
@@ -28,10 +26,22 @@ import retrofit2.http.Path
 interface FinceApiClient {
 
     @POST("/api/users")
-    suspend fun userRegister(@Body user : UserRegisterModel): Response<UserModel>
+    suspend fun userRegister(@Body user : UserModel): Response<UserModel>
 
     @POST("/api/users/login")
     suspend fun userLogin(@Body user : userLoginModel): Response<UserModel>
+
+    @PUT("/api/users/{userId}")
+    suspend fun updateUser(@Path("userId") userId : String?, @Body user : UserModel): Response<UserModel>
+
+    @GET("/api/users/verifyEmail/{email}")
+    suspend fun validateMail(@Path("email") email : String) : Response<String>
+
+    @POST("/api/users/sendAuthCode/{email}")
+    suspend fun sendAuthCode(@Path("email") email : String) : Response<SuccessfulModel>
+
+    @GET("/api/users/findUserByMail/{email}")
+    suspend fun findUserByMail(@Path("email") email : String) : Response<UserModel>
 
     //Stocks
     @POST("/api/instruments/TODOS")
@@ -61,9 +71,6 @@ interface FinceApiClient {
 
     @GET("/api/users/{userId}")
     suspend fun getUserById(@Path("userId") userId : String) : Response<UserModel>
-
-    @PUT("")
-    suspend fun modifUser(): Response<Void>
 
     @GET("/api/transactions/getDataGraph/{userId}")
     suspend fun getDataGraph(@Path("userId") userId : String) : Response<List<DataEntry>>

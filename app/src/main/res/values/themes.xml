@@ -3,6 +3,9 @@
     <style name="Base.Theme.FINCE" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/blueFince</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/black</item>
     </style>
 
     <style name="Theme.FINCE" parent="Base.Theme.FINCE" />
@@ -11,8 +14,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
-    <style name="Theme.FINCE.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.FINCE.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

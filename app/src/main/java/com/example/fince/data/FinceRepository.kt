@@ -21,13 +21,18 @@ import javax.inject.Inject
 class FinceRepository @Inject constructor(
     private val remote: FinceService
 ) {
-    suspend fun userRegister(user : UserRegisterModel) : UserModel {
+    suspend fun userRegister(user : UserModel) : UserModel {
         val response = remote.userRegister(user)
         return response
     }
 
     suspend fun userLogin(user : userLoginModel) : UserModel {
         val response = remote.userLogin(user)
+        return response
+    }
+
+    suspend fun updateUser(user : UserModel) : UserModel {
+        val response = remote.updateUser(user)
         return response
     }
 
@@ -133,6 +138,21 @@ class FinceRepository @Inject constructor(
 
     suspend fun deleteObjective(userId: String, objetivoId: String?): SuccessfulModel? {
         val response = remote.deleteObjective(userId, objetivoId)
+        return response
+    }
+
+    suspend fun validateMail(mail: String): String {
+        val response = remote.validateMail(mail)
+        return response
+    }
+
+    suspend fun sendAuthCode(mail : String) : SuccessfulModel? {
+        val response = remote.sendAuthCode(mail)
+        return response
+    }
+
+    suspend fun findUserByMail(mail: String): UserModel {
+        val response = remote.findUserByMail(mail)
         return response
     }
 

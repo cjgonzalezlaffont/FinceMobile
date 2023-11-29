@@ -60,6 +60,14 @@
             android:hint="Contraseña"
             android:inputType="textPassword" />
 
+        <TextView
+            android:id="@+id/fragLogTextViewLostPwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="¿Olvidaste tu contraseña?"
+            android:layout_marginTop="16dp"
+            android:linksClickable="true"/>
+
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="227dp"

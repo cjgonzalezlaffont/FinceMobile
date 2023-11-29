@@ -24,7 +24,7 @@ class OpcionesFragment : Fragment() {
     private lateinit var view: View
     private val userViewModel: UserViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    private var userResp= UserModel("","","","","",0,0, 0)
+    private var userResp= UserModel("","","","","","",0,0, 0)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

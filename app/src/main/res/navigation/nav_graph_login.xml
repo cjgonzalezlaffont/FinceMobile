@@ -13,10 +13,59 @@
         <action
             android:id="@+id/action_loginFragment_to_registroFragment"
             app:destination="@id/registroFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_olvideContrasenaFragment"
+            app:destination="@id/olvideContrasenaFragment" />
     </fragment>
     <fragment
         android:id="@+id/registroFragment"
         android:name="com.example.fince.ui.fragments.RegistroFragment"
         android:label="fragment_registro"
-        tools:layout="@layout/fragment_registro" />
+        tools:layout="@layout/fragment_registro" >
+        <action
+            android:id="@+id/action_registroFragment_to_codigoVerificacionFragment"
+            app:destination="@id/codigoVerificacionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/codigoVerificacionFragment"
+        android:name="com.example.fince.ui.fragments.CodigoVerificacionFragment"
+        android:label="fragment_codigo_verificacion"
+        tools:layout="@layout/fragment_codigo_verificacion" >
+        <argument
+            android:name="user"
+            app:argType="com.example.fince.data.model.UserModel"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/olvideContrasenaFragment"
+        android:name="com.example.fince.ui.fragments.OlvideContrasenaFragment"
+        android:label="fragment_olvide_contrasena"
+        tools:layout="@layout/fragment_olvide_contrasena" >
+        <action
+            android:id="@+id/action_olvideContrasenaFragment_to_codigoVerifCambioPassFragment"
+            app:destination="@id/codigoVerifCambioPassFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/codigoVerifCambioPassFragment"
+        android:name="com.example.fince.ui.fragments.CodigoVerifCambioPassFragment"
+        android:label="fragment_codigo_verif_cambio_pass"
+        tools:layout="@layout/fragment_codigo_verif_cambio_pass" >
+        <argument
+            android:name="user"
+            app:argType="com.example.fince.data.model.UserModel"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_codigoVerifCambioPassFragment_to_cambiarContrasenaFragment"
+            app:destination="@id/cambiarContrasenaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cambiarContrasenaFragment"
+        android:name="com.example.fince.ui.fragments.CambiarContrasenaFragment"
+        android:label="fragment_cambiar_contrasena"
+        tools:layout="@layout/fragment_cambiar_contrasena" >
+        <argument
+            android:name="user"
+            app:argType="com.example.fince.data.model.UserModel"
+            app:nullable="true" />
+    </fragment>
 </navigation>

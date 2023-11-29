@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.fince.R
 import com.example.fince.core.Config
 import com.example.fince.data.model.UserModel
@@ -28,6 +29,7 @@ class RegistroFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var view : View
     private val registerViewModel: RegisterViewModel by viewModels()
+    private var user : UserModel = UserModel("", "", "", "", "","", 0, 0,0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,9 +54,9 @@ class RegistroFragment : Fragment() {
             if(!nombre.equals("") && !mail.equals("") && !password.equals("") && !confirmPassword.equals("")){
 
                 if (Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
-                    val user = UserRegisterModel(nombre, apellido, mail, password)
+                    user = UserModel("", "", nombre, apellido, mail, password, 0,0,0)
 
-                    registerViewModel.registrar(user)
+                    registerViewModel.verificar(mail)
                 } else {
                     Toast.makeText(requireContext(), "Debe ingresar un email valido", Toast.LENGTH_SHORT).show()
                 }
@@ -64,14 +66,8 @@ class RegistroFragment : Fragment() {
         }
 
         registerViewModel.responseLiveData.observe(viewLifecycleOwner) { response ->
-            val sharedPreferences = requireContext().getSharedPreferences("MiPreferencia", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putString("token", "Bearer " + response.token)
-            Config.apiKey = ("Bearer " + response.token)
-            editor.putString("userId", response.userId)
-            editor.apply()
-            val intent = Intent(activity, MainActivity::class.java)
-            startActivity(intent)
+            val action = RegistroFragmentDirections.actionRegistroFragmentToCodigoVerificacionFragment(user)
+            findNavController().navigate(action)
         }
 
         registerViewModel.isLoading.observe(viewLifecycleOwner) {
@@ -101,6 +97,21 @@ class RegistroFragment : Fragment() {
         binding.btnCancelar.setOnClickListener {
             requireActivity().onBackPressed()
         }
+
+        binding.txtPassword.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val password = s.toString()
+                if (password.length < 6) {
+                    binding.txtPassword.error = "La contraseña debe tener al menos 6 caracteres"
+                } else {
+                    binding.txtPassword.error = null
+                }
+            }
+        })
 
         return view
     }
