@@ -41,26 +41,11 @@ class OpcionesFragment : Fragment() {
 
         userViewModel.onCreate(user.toString());
 
-        userViewModel.response.observe(viewLifecycleOwner){
-            userResp=it
-            binding.editTextNombre.setText(userResp.nombre)
-            binding.editTextApellido.setText(userResp.apellido)
-        }
-
         binding.switchModoOscuro.setOnCheckedChangeListener { _, isChecked ->
             sharedViewModel.setDarkMode(isChecked)
             val editor = sharedPreferences.edit()
             editor.putBoolean("darkMode", isChecked)
             editor.apply()
-        }
-
-        binding.btnGuardar.setOnClickListener {
-
-            Toast.makeText(
-                requireContext(),
-                "Datos modifcados con exito!",
-                Toast.LENGTH_SHORT
-            ).show()
         }
 
         return view
