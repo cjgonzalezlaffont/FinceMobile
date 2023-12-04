@@ -156,4 +156,8 @@ class FinceRepository @Inject constructor(
         return response
     }
 
+    suspend fun getPrediction(userId: String): List<DataEntry>{
+        return remote.getPrediction(userId)
+    }
+
 }

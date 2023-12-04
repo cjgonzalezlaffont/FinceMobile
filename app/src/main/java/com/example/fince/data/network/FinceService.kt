@@ -185,5 +185,12 @@ class FinceService @Inject constructor(private val service: FinceApiClient) {
         }
     }
 
+    suspend fun getPrediction(userId: String): List<DataEntry>{
+        return withContext(Dispatchers.IO){
+            val response = service.getPrediction(userId)
+            response.body() ?: emptyList<DataEntry>()
+        }
+    }
+
 
 }

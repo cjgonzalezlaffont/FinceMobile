@@ -34,33 +34,47 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.9" />
 
-    <LinearLayout
-        android:layout_width="323dp"
-        android:layout_height="621dp"
-        android:orientation="vertical"
-        android:padding="10dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@+id/fragPrincipalguidelineh2"
         app:layout_constraintEnd_toStartOf="@+id/fragPrincipalguidelinev2"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/fragPrincipalguidelinev1"
-        app:layout_constraintTop_toTopOf="@+id/fragPrincipalguidelineh1">
+        app:layout_constraintTop_toTopOf="@+id/fragPrincipalguidelineh1"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        >
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/bar_chart"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
             android:layout_marginBottom="8dp"
             android:layout_weight="1" />
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pie_chart"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/Line_chart"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1" />
 
 
     </LinearLayout>
 
+</ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

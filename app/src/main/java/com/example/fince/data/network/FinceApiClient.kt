@@ -104,4 +104,7 @@ interface FinceApiClient {
 
     @DELETE("/api/objectives/deleteObjective/{userId}/{objectiveId}")
     suspend fun deleteObjective(@Path("userId") userId : String, @Path("objectiveId") objectiveId : String?) : Response<SuccessfulModel>
+
+    @GET("/api/transactions/getPrediction/{userId}")
+    suspend fun getPrediction(@Path("userId") userId : String) : Response<List<DataEntry>>
 }
