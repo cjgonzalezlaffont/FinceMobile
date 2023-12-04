@@ -67,5 +67,10 @@
             android:name="user"
             app:argType="com.example.fince.data.model.UserModel"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_cambiarContrasenaFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

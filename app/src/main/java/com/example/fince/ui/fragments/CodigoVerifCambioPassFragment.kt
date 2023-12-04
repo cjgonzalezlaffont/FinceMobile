@@ -1,11 +1,14 @@
 package com.example.fince.ui.fragments
 
+import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -25,6 +28,7 @@ class CodigoVerifCambioPassFragment : Fragment() {
     private val codigoVerificacionViewModel: CodigoVerificacionViewModel by viewModels()
     private var user : UserModel = UserModel("", "", "", "", "","", 0, 0, 0)
     private var codigoBack : Int = 0
+    private var isButtonClickable = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +50,12 @@ class CodigoVerifCambioPassFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        user.correo?.let { codigoVerificacionViewModel.codigoVerificacion(it) }
+        binding.fragCodVerifBtnEnviarCod.setOnClickListener {
+            if (isButtonClickable) {
+                user.correo?.let { codigoVerificacionViewModel.codigoVerificacion(it) }
+                startCountdown()
+            }
+        }
 
         codigoVerificacionViewModel.codeLiveData.observe(viewLifecycleOwner){ code ->
             codigoBack = code
@@ -75,6 +84,29 @@ class CodigoVerifCambioPassFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun startCountdown() {
+        object : CountDownTimer(60000, 1000) { // 60000 milliseconds = 60 seconds
+            override fun onTick(millisUntilFinished: Long) {
+                isButtonClickable = false
+                val secondsLeft = millisUntilFinished / 1000
+                binding.fragCodVerifBtnEnviarCod.apply {
+                    isEnabled = false
+                    setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey))
+                    text = "Espere ($secondsLeft segundos)"
+                }
+            }
+
+            override fun onFinish() {
+                isButtonClickable = true
+                binding.fragCodVerifBtnEnviarCod.apply {
+                    isEnabled = true
+                    setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blueFince))
+                    text = "Presionar"
+                }
+            }
+        }.start()
     }
 
 }

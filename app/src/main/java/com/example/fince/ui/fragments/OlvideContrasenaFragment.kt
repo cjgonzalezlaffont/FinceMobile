@@ -37,6 +37,8 @@ class OlvideContrasenaFragment : Fragment() {
 
             if (correo != "") {
                 olvideContrasenaViewModel.buscarDatos(correo)
+            } else {
+                Toast.makeText(requireContext(), "Debe ingresar un correo!", Toast.LENGTH_SHORT).show()
             }
         }
 

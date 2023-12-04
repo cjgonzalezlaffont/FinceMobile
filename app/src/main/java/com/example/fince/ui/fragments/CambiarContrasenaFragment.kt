@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.fince.R
 import com.example.fince.data.model.UserModel
@@ -57,10 +58,8 @@ class CambiarContrasenaFragment : Fragment() {
         }
 
         cambioContrasenaViewModel.responseLiveData.observe(viewLifecycleOwner){
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragmentContainerView, LoginFragment())
-            transaction.addToBackStack("fragment_login") // Agregar al back stack con una etiqueta
-            transaction.commit()
+            val accion = CambiarContrasenaFragmentDirections.actionCambiarContrasenaFragmentToLoginFragment()
+            view.findNavController().navigate(accion)
         }
 
         cambioContrasenaViewModel.errorLiveData.observe(viewLifecycleOwner){ error ->

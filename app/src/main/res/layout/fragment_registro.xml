@@ -58,6 +58,8 @@
             app:layout_constraintTop_toBottomOf="@+id/fragRegIsLoading" />
 
         <EditText
+            style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
+            android:hint="Ingrese su nombre"
             android:id="@+id/txtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,10 +69,13 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/frag_reg_apellido" />
+            android:text="@string/frag_reg_apellido"
+            android:layout_marginTop="10dp"/>
 
         <EditText
+            style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
             android:id="@+id/txtApellido"
+            android:hint="Ingrese su apellido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
@@ -79,39 +84,84 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/frag_reg_mail" />
+            android:text="@string/frag_reg_mail"
+            android:layout_marginTop="10dp"/>
 
 
         <EditText
+            style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
             android:id="@+id/txtMail"
+            android:hint="Ingrese su correo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#7D7A7A"
             android:inputType="textEmailAddress"/>
 
         <TextView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contraseña" />
+            android:text="Contraseña"
+            android:layout_marginTop="10dp"/>
 
-        <EditText
-            android:id="@+id/txtPassword"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:orientation="horizontal">
+
+            <EditText
+                style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
+                android:id="@+id/txtPassword"
+                android:hint="Ingrese una contraseña"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textPassword" />
+
+            <ImageButton
+                android:id="@+id/fragRegVisible"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_visible"
+                android:layout_gravity="center"
+                android:background="@null"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/frag_reg_rep_contrasena" />
+            android:text="@string/frag_reg_rep_contrasena"
+            android:layout_marginTop="10dp"
+            />
 
-        <EditText
-            android:id="@+id/txtConfirmPassword"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:orientation="horizontal">
+
+            <EditText
+                style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
+                android:id="@+id/txtConfirmPassword"
+                android:hint="Confirme su contraseña"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textPassword" />
+
+            <ImageButton
+                android:id="@+id/fragRegVisibleConfirm"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_visible"
+                android:layout_gravity="center"
+                android:background="@null"/>
+
+        </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
