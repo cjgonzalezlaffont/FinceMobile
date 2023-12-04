@@ -3,6 +3,7 @@ package com.example.fince.ui.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import com.example.fince.R
 import com.example.fince.core.Config
 import com.example.fince.data.model.UserModel
 import com.example.fince.data.model.userLoginModel
@@ -28,6 +30,7 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var view : View
     private val loginViewModel: LoginViewModel by viewModels()
+    private var isPasswordVisible = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,6 +92,14 @@ class LoginFragment : Fragment() {
         binding.fragLogTextViewLostPwd.setOnClickListener {
             val accion = LoginFragmentDirections.actionLoginFragmentToOlvideContrasenaFragment()
             view.findNavController().navigate(accion)
+        }
+
+        binding.fragLogVisible.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            val icon = if (isPasswordVisible) R.drawable.ic_no_visible else R.drawable.ic_visible
+            binding.fragLogVisible.setImageResource(icon)
+
+            binding.txtPass.transformationMethod = if (isPasswordVisible) null else PasswordTransformationMethod.getInstance()
         }
 
         return view

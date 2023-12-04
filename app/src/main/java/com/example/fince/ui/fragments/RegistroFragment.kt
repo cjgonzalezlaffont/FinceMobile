@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.PasswordTransformationMethod
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -30,6 +31,8 @@ class RegistroFragment : Fragment() {
     private lateinit var view : View
     private val registerViewModel: RegisterViewModel by viewModels()
     private var user : UserModel = UserModel("", "", "", "", "","", 0, 0,0)
+    private var isPasswordVisible = false
+    private var isPasswordConfirmVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +66,22 @@ class RegistroFragment : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Complete todos los campos", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.fragRegVisible.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            val icon = if (isPasswordVisible) R.drawable.ic_no_visible else R.drawable.ic_visible
+            binding.fragRegVisible.setImageResource(icon)
+
+            binding.txtPassword.transformationMethod = if (isPasswordVisible) null else PasswordTransformationMethod.getInstance()
+        }
+
+        binding.fragRegVisibleConfirm.setOnClickListener {
+            isPasswordConfirmVisible = !isPasswordConfirmVisible
+            val icon = if (isPasswordConfirmVisible) R.drawable.ic_no_visible else R.drawable.ic_visible
+            binding.fragRegVisible.setImageResource(icon)
+
+            binding.txtConfirmPassword.transformationMethod = if (isPasswordConfirmVisible) null else PasswordTransformationMethod.getInstance()
         }
 
         registerViewModel.responseLiveData.observe(viewLifecycleOwner) { response ->

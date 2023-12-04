@@ -51,6 +51,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Confirmar" />
+
+        <Button
+            android:id="@+id/fragCodVerifBtnEnviarCod"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Enviar codigo" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
