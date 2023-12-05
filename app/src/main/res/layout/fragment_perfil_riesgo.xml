@@ -5,9 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.PerfilRiesgoFragment">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -23,28 +21,78 @@
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"/>
 
-        <Button
-            android:id="@+id/btn_conservador"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Conservador"
-            android:textSize="24sp"
-            android:layout_marginBottom="16dp"/>
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/btn_moderado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Moderado"
-            android:textSize="24sp"
-            android:layout_marginBottom="16dp"/>
+            <Button
+                android:id="@+id/fragRiegBtnConservador"
+                android:layout_width="250dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Conservador"
+                android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/btn_agresivo"
-            android:layout_width="wrap_content"
+            <ImageButton
+                android:id="@+id/fragRiegBtnInfoConservador"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_info"
+                android:background="@null"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Agresivo"
-            android:textSize="24sp"/>
+
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/fragRiegBtnModerado"
+                android:layout_width="250dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Moderado"
+                android:textSize="24sp"/>
+
+            <ImageButton
+                android:id="@+id/fragRiegBtnInfoModerado"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_info"
+                android:background="@null"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/fragRiegBtnAgresivo"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Agresivo"
+                android:textSize="24sp"/>
+
+            <ImageButton
+                android:id="@+id/fragRiegBtnInfoAgresivo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_info"
+                android:background="@null"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -3,12 +3,12 @@ package com.example.fince.ui.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -26,12 +26,15 @@ class CambiarContrasenaFragment : Fragment() {
     private lateinit var view: View
     private val cambioContrasenaViewModel: CambioContrasenaViewModel by viewModels()
     private var user : UserModel = UserModel("", "", "", "", "","", 0, 0, 0)
+    private var fromMainGraph : Boolean = false
+    private var isPasswordVisible = false
+    private var isPasswordConfirmVisible = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         _binding = FragmentCambiarContrasenaBinding.inflate(inflater, container, false)
         view = binding.root
 
@@ -40,6 +43,9 @@ class CambiarContrasenaFragment : Fragment() {
         if (args.user != null) {
             user = args.user!!
         }
+
+        fromMainGraph = args.fromMainGraph!!
+
 
         return view
     }
@@ -58,8 +64,16 @@ class CambiarContrasenaFragment : Fragment() {
         }
 
         cambioContrasenaViewModel.responseLiveData.observe(viewLifecycleOwner){
-            val accion = CambiarContrasenaFragmentDirections.actionCambiarContrasenaFragmentToLoginFragment()
-            view.findNavController().navigate(accion)
+            val navController = view.findNavController()
+
+            Toast.makeText(requireActivity(), "Contraseña cambiada correctamente!", Toast.LENGTH_SHORT).show()
+
+            if (fromMainGraph) {
+                navController.navigate(R.id.action_cambiarContrasenaFragment_to_perfil)
+            } else {
+                navController.navigate(R.id.action_cambiarContrasenaFragment_to_loginFragment)
+            }
+
         }
 
         cambioContrasenaViewModel.errorLiveData.observe(viewLifecycleOwner){ error ->
@@ -80,6 +94,22 @@ class CambiarContrasenaFragment : Fragment() {
                 }
             }
         })
+
+        binding.fragPassNewVisible.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            val icon = if (isPasswordVisible) R.drawable.ic_no_visible else R.drawable.ic_visible
+            binding.fragPassNewVisible.setImageResource(icon)
+
+            binding.fragPassNewPwd.transformationMethod = if (isPasswordVisible) null else PasswordTransformationMethod.getInstance()
+        }
+
+        binding.fragPassNewVisibleConfirm.setOnClickListener {
+            isPasswordConfirmVisible = !isPasswordConfirmVisible
+            val icon = if (isPasswordConfirmVisible) R.drawable.ic_no_visible else R.drawable.ic_visible
+            binding.fragPassNewVisibleConfirm.setImageResource(icon)
+
+            binding.fragPassNewPwdConfirm.transformationMethod = if (isPasswordConfirmVisible) null else PasswordTransformationMethod.getInstance()
+        }
     }
 
     fun arePasswordsMatching(): Boolean {

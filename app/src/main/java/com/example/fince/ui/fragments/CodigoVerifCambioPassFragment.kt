@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.fince.R
 import com.example.fince.data.model.UserModel
@@ -29,6 +30,7 @@ class CodigoVerifCambioPassFragment : Fragment() {
     private var user : UserModel = UserModel("", "", "", "", "","", 0, 0, 0)
     private var codigoBack : Int = 0
     private var isButtonClickable = true
+    private var fromMainGraph : Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,8 +76,18 @@ class CodigoVerifCambioPassFragment : Fragment() {
 
             if (code != 0) {
                 if (code == codigoBack) {
-                    val accion = CodigoVerifCambioPassFragmentDirections.actionCodigoVerifCambioPassFragmentToCambiarContrasenaFragment(user)
+
+                    val navController = findNavController()
+
+                    val currentGraphId = navController.graph.id
+
+                    if (currentGraphId == R.id.mobile_navigation) {
+                        fromMainGraph = true
+                    }
+
+                    val accion = CodigoVerifCambioPassFragmentDirections.actionCodigoVerifCambioPassFragmentToCambiarContrasenaFragment(user, fromMainGraph)
                     view.findNavController().navigate(accion)
+
                 } else {
                     Toast.makeText(requireContext(), "El codigo no coincide!", Toast.LENGTH_SHORT).show()
                 }
