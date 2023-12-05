@@ -19,37 +19,37 @@ import javax.inject.Inject
 class PrincipalViewModel @Inject constructor(
     private val repository: FinceRepository
 ) : ViewModel() {
-    var ingresosList: MutableList<BarEntry> = mutableListOf()
-    var egresosList: MutableList<BarEntry> = mutableListOf()
+    var ingresosList: MutableList<BarEntryWithLabel> = mutableListOf()
+    var egresosList: MutableList<BarEntryWithLabel> = mutableListOf()
     var pieList: MutableList<PieEntry> = mutableListOf()
-    var lineListIngresos: MutableList<Entry> = mutableListOf()
-    var lineListEgresos: MutableList<Entry> = mutableListOf()
-    var lineListIngresosMediaMovil: MutableList<Entry> = mutableListOf()
-    var lineListEgresosMediaMovil: MutableList<Entry> = mutableListOf()
+    var lineListIngresos: MutableList<EntryWithLabel> = mutableListOf()
+    var lineListEgresos: MutableList<EntryWithLabel> = mutableListOf()
+    var lineListIngresosMediaMovil: MutableList<EntryWithLabel> = mutableListOf()
+    var lineListEgresosMediaMovil: MutableList<EntryWithLabel> = mutableListOf()
     var responseToBarChart: MutableList<DataEntry> = mutableListOf()
     var responseToPieChart: MutableList<CategoriaModel> = mutableListOf()
     var responseToLineChart: MutableList<DataEntry> = mutableListOf()
 
-    private val _ingresosListLiveData = MutableLiveData<List<BarEntry>>()
-    val ingresosListLiveData: LiveData<List<BarEntry>> get() = _ingresosListLiveData
+    private val _ingresosListLiveData = MutableLiveData<List<BarEntryWithLabel>>()
+    val ingresosListLiveData: LiveData<List<BarEntryWithLabel>> get() = _ingresosListLiveData
 
-    private val _egresosListLiveData = MutableLiveData<List<BarEntry>>()
-    val egresosListLiveData: LiveData<List<BarEntry>> get() = _egresosListLiveData
+    private val _egresosListLiveData = MutableLiveData<List<BarEntryWithLabel>>()
+    val egresosListLiveData: LiveData<List<BarEntryWithLabel>> get() = _egresosListLiveData
 
     private val _pieListLiveData = MutableLiveData<List<PieEntry>>()
     val pieListLiveData: LiveData<List<PieEntry>> get() = _pieListLiveData
 
-    private val _lineListIngresosLiveData = MutableLiveData<List<Entry>>()
-    val lineListIngresosLiveData: LiveData<List<Entry>> get() = _lineListIngresosLiveData
+    private val _lineListIngresosLiveData = MutableLiveData<List<EntryWithLabel>>()
+    val lineListIngresosLiveData: LiveData<List<EntryWithLabel>> get() = _lineListIngresosLiveData
 
-    private val _lineListEgresosLiveData = MutableLiveData<List<Entry>>()
-    val lineListEgresosLiveData: LiveData<List<Entry>> get() = _lineListEgresosLiveData
+    private val _lineListEgresosLiveData = MutableLiveData<List<EntryWithLabel>>()
+    val lineListEgresosLiveData: LiveData<List<EntryWithLabel>> get() = _lineListEgresosLiveData
 
-    private val _lineListMediaMovilEgresosLiveData = MutableLiveData<List<Entry>>()
-    val lineListMediaMovilEgresosLiveData: LiveData<List<Entry>> get() = _lineListMediaMovilEgresosLiveData
+    private val _lineListMediaMovilEgresosLiveData = MutableLiveData<List<EntryWithLabel>>()
+    val lineListMediaMovilEgresosLiveData: LiveData<List<EntryWithLabel>> get() = _lineListMediaMovilEgresosLiveData
 
-    private val _lineListMediaMovilIngresosLiveData = MutableLiveData<List<Entry>>()
-    val lineListMediaMovilIngresosLiveData: LiveData<List<Entry>> get() = _lineListMediaMovilIngresosLiveData
+    private val _lineListMediaMovilIngresosLiveData = MutableLiveData<List<EntryWithLabel>>()
+    val lineListMediaMovilIngresosLiveData: LiveData<List<EntryWithLabel>> get() = _lineListMediaMovilIngresosLiveData
 
     private fun setResponseAPI(_response: List<DataEntry>) {
         responseToBarChart.clear()
@@ -82,7 +82,7 @@ class PrincipalViewModel @Inject constructor(
             try {
                 val responseDataPieChart = repository.getAllCategories(userId)
                 if (responseDataPieChart.isNotEmpty()) {
-                    Log.i("RESPONSE",responseDataPieChart.toString())
+                    //Log.i("RESPONSE",responseDataPieChart.toString())
                     setResponseAPIPieChart(responseDataPieChart)
                     updatePieChartList()
                 }
@@ -93,7 +93,7 @@ class PrincipalViewModel @Inject constructor(
             try {
                 val responseDataLineChart = repository.getPrediction(userId)
                 if (responseDataLineChart.isNotEmpty()) {
-                    Log.i("RESPONSE",responseDataLineChart.toString())
+                    //Log.i("RESPONSE",responseDataLineChart.toString())
                     setResponseApiLineChart(responseDataLineChart)
                     updateLineChartList()
                 }
@@ -114,26 +114,29 @@ class PrincipalViewModel @Inject constructor(
             }
         }
         _pieListLiveData.postValue(pieList)
-        Log.i("VIEW MODEL UPDATELISTS: INGRESOS LIST", pieList.toString())
+        //Log.i("VIEW MODEL UPDATELISTS: INGRESOS LIST", pieList.toString())
     }
+
+    data class BarEntryWithLabel( @JvmField val x: Float, @JvmField val y: Float, val label: String) : BarEntry(x, y)
 
     private fun updateBarChartLists() {
         egresosList.clear()
         ingresosList.clear()
-        var i = 1.0f
+        var i = 0.0f
         for (data in responseToBarChart) {
-            val barEntryIngresos = BarEntry(i, data.ingresos)
+            val monthYearLabel = "${data.month}-${data.year.substring(2)}"
+
+            val barEntryIngresos = BarEntryWithLabel(i, data.ingresos, monthYearLabel)
+            val barEntryEgresos = BarEntryWithLabel(i, data.egresos, monthYearLabel)
+
             ingresosList.add(barEntryIngresos)
-            val barEntryEgresos = BarEntry(i, data.egresos)
             egresosList.add(barEntryEgresos)
+
             i++
         }
 
         _ingresosListLiveData.postValue(ingresosList)
         _egresosListLiveData.postValue(egresosList)
-
-        //Log.i("VIEW MODEL UPDATELISTS: INGRESOS LIST", ingresosList.toString())
-        //Log.i("VIEW MODEL UPDATELISTS: EGRESOS LIST", egresosList.toString())
     }
     private fun calcularMediaMovil(data: List<DataEntry>, ventanaMediaMovil: Int): Pair<List<Float>, List<Float>> {
         val mediaMovilIngresos = mutableListOf<Float>()
@@ -141,10 +144,11 @@ class PrincipalViewModel @Inject constructor(
 
         for (index in data.indices) {
             if (index < ventanaMediaMovil - 1) {
-                mediaMovilIngresos.add(0f)
-                mediaMovilEgresos.add(0f)
+                mediaMovilIngresos.add(data[index].ingresos)
+                mediaMovilEgresos.add(data[index].egresos)
                 continue
             }
+
             val sumIngresos = data.subList(index - ventanaMediaMovil + 1, index + 1)
                 .sumOf { it.ingresos.toDouble() }
             val mediaMovilIngreso = sumIngresos / ventanaMediaMovil
@@ -158,28 +162,33 @@ class PrincipalViewModel @Inject constructor(
 
         return Pair(mediaMovilIngresos, mediaMovilEgresos)
     }
+
+    data class EntryWithLabel(@JvmField val x: Float, @JvmField val y: Float, val label: String) : Entry(x, y)
+
     private fun updateLineChartList() {
         lineListIngresos.clear()
         lineListEgresos.clear()
         lineListIngresosMediaMovil.clear()
         lineListEgresosMediaMovil.clear()
 
-        val ventanaMediaMovil = 3  // refierea cuantos puntos toma para la media, +ptos + suave la curva
+        val ventanaMediaMovil = 3
         val (mediaMovilIngresos, mediaMovilEgresos) = calcularMediaMovil(responseToLineChart, ventanaMediaMovil)
-        var i = 1.0f
+        var i = 0.0f
 
-        for (index in responseToLineChart.indices) {
+        for (entryData in responseToLineChart) {
 
-            val entryIngresos = Entry(i, responseToLineChart[index].ingresos)
+            val etiquetaGrafico = "${entryData.month}-${entryData.year.substring(2)}"
+
+            val entryIngresos = EntryWithLabel(i, entryData.ingresos, etiquetaGrafico)
             lineListIngresos.add(entryIngresos)
 
-            val entryEgresos = Entry(i, responseToLineChart[index].egresos)
+            val entryEgresos = EntryWithLabel(i, entryData.egresos, etiquetaGrafico)
             lineListEgresos.add(entryEgresos)
 
-            val entryMediaMovilIngresos = Entry(i, mediaMovilIngresos[index])
+            val entryMediaMovilIngresos = EntryWithLabel(i, mediaMovilIngresos[i.toInt()], etiquetaGrafico)
             lineListIngresosMediaMovil.add(entryMediaMovilIngresos)
 
-            val entryMediaMovilEgresos = Entry(i, mediaMovilEgresos[index])
+            val entryMediaMovilEgresos = EntryWithLabel(i, mediaMovilEgresos[i.toInt()], etiquetaGrafico)
             lineListEgresosMediaMovil.add(entryMediaMovilEgresos)
 
             i++
