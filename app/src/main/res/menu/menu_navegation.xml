@@ -27,5 +27,5 @@
         <item
             android:id="@+id/perfil"
             android:icon="@drawable/perfil_icon"
-            android:title="Perfil (pasar al header)" />
+            android:title="Perfil" />
 </menu>

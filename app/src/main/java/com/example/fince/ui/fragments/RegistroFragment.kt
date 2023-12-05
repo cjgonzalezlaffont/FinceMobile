@@ -79,7 +79,7 @@ class RegistroFragment : Fragment() {
         binding.fragRegVisibleConfirm.setOnClickListener {
             isPasswordConfirmVisible = !isPasswordConfirmVisible
             val icon = if (isPasswordConfirmVisible) R.drawable.ic_no_visible else R.drawable.ic_visible
-            binding.fragRegVisible.setImageResource(icon)
+            binding.fragRegVisibleConfirm.setImageResource(icon)
 
             binding.txtConfirmPassword.transformationMethod = if (isPasswordConfirmVisible) null else PasswordTransformationMethod.getInstance()
         }

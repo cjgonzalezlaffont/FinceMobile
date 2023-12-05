@@ -1,83 +1,99 @@
 package com.example.fince.ui.fragments
 
-import android.content.Intent
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
-import com.example.fince.R
-import com.example.fince.ui.activities.MainActivity
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
+import com.example.fince.data.model.UserModel
+import com.example.fince.databinding.FragmentPerfilRiesgoBinding
+import com.example.fince.ui.viewmodel.PerfilRiesgoViewModdel
+import dagger.hilt.android.AndroidEntryPoint
 
-enum class PerfilRiesgo {
-    CONSERVADOR,MODERADO,AGRESIVO
-}
-
-fun definirPerfil(perfil: PerfilRiesgo): Boolean{
-    /*
-        ACA SE DEBE LLAMAR A LA API PARA COLOCAR EL PERFIL DE RIESGO QUE SELECCIONO EL USUARIO
-        Si salio bien: hace */ return true /*
-        si no: return false
-     */
-}
-
+@AndroidEntryPoint
 class PerfilRiesgoFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
 
-        }
-    }
+    private var _binding: FragmentPerfilRiesgoBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var view: View
+    private var user : UserModel = UserModel("", "", "", "", "","", 0, 0, 0)
+    private val perfilRiesgoViewModdel: PerfilRiesgoViewModdel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater!!.inflate(R.layout.fragment_perfil_riesgo, container, false)
-        val intent = Intent(context, MainActivity::class.java)
-        val btn_conservador: Button=view.findViewById(R.id.btn_conservador);
-        val btn_moderado: Button=view.findViewById(R.id.btn_moderado);
-        val btn_agresivo: Button=view.findViewById(R.id.btn_agresivo);
+        _binding = FragmentPerfilRiesgoBinding.inflate(inflater, container, false)
+        view = binding.root
 
-        btn_conservador.setOnClickListener {
-            if(definirPerfil(PerfilRiesgo.CONSERVADOR)){
-                startActivity(intent)
-                requireActivity().finish();
-            }else {
-                Toast.makeText(
-                    requireContext(),
-                    "Error al seleccionar el perfil de riesgo",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-        btn_moderado.setOnClickListener {
-            if(definirPerfil(PerfilRiesgo.MODERADO)){
-                startActivity(intent)
-                requireActivity().finish();
-            }else {
-                Toast.makeText(
-                    requireContext(),
-                    "Error al seleccionar el perfil de riesgo",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-        btn_agresivo.setOnClickListener {
-            if(definirPerfil(PerfilRiesgo.AGRESIVO)){
-                startActivity(intent)
-                requireActivity().finish();
-            }else {
-                Toast.makeText(
-                    requireContext(),
-                    "Error al seleccionar el perfil de riesgo",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+        val args: PerfilRiesgoFragmentArgs by navArgs()
+
+        if (args.user != null) {
+            user = args.user!!
         }
 
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        binding.fragRiegBtnInfoConservador.setOnClickListener {
+            // Crear y mostrar el diálogo de información
+            val dialog = AlertDialog.Builder(requireContext())
+                .setTitle("Perfil Conservador")
+                .setMessage("Este perfil es adecuado para inversionistas que desean minimizar el riesgo y buscan un crecimiento estable a lo largo del tiempo.")
+                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                .create()
+
+            dialog.show()
+        }
+
+        binding.fragRiegBtnInfoModerado.setOnClickListener {
+            // Crear y mostrar el diálogo de información
+            val dialog = AlertDialog.Builder(requireContext())
+                .setTitle("Perfil Moderado")
+                .setMessage("El perfil moderado ofrece un equilibrio entre riesgo y recompensa, adecuado para inversionistas que buscan un crecimiento moderado con cierto nivel de riesgo.")
+                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                .create()
+
+            dialog.show()
+        }
+
+        binding.fragRiegBtnInfoAgresivo.setOnClickListener {
+            // Crear y mostrar el diálogo de información
+            val dialog = AlertDialog.Builder(requireContext())
+                .setTitle("Perfil Agresivo")
+                .setMessage("Los inversionistas arriesgados buscan altas recompensas y están dispuestos a asumir un riesgo significativo. Este perfil es adecuado para aquellos que pueden tolerar la volatilidad en sus inversiones.")
+                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                .create()
+
+            dialog.show()
+        }
+
+        binding.fragRiegBtnConservador.setOnClickListener {
+            user.perfil = 0
+            perfilRiesgoViewModdel.actualizar(user)
+        }
+
+        binding.fragRiegBtnModerado.setOnClickListener {
+            user.perfil = 1
+            perfilRiesgoViewModdel.actualizar(user)
+        }
+
+        binding.fragRiegBtnAgresivo.setOnClickListener {
+            user.perfil = 2
+            perfilRiesgoViewModdel.actualizar(user)
+        }
+
+        perfilRiesgoViewModdel.responseLiveData.observe(viewLifecycleOwner) {
+            Toast.makeText(requireActivity(), "Perfil actualizado con exito!", Toast.LENGTH_SHORT).show()
+            requireActivity().onBackPressed()
+        }
+
     }
 }
